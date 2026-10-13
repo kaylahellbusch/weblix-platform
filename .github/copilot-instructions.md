@@ -1,54 +1,26 @@
-# Project Instructions
+# Copilot Instructions
 
-Weblix is a full-stack application for generating and serving customizable business websites.
+Weblix Platform is a full-stack application for managing business data and generating customizable business websites.
 
-## Repository Structure
+## Architecture
+- Use **TypeScript** throughout. Start with **Next.js** in `apps/web` for UI, server-side APIs, and AI content generation; use **Supabase** for persistence.
+- Do not introduce a separate `apps/api` service, worker, or shared package without a concrete need.
+- Support manual business entry and CSV imports; do not add automated business discovery or scraping.
+- Prefer React Server Components unless client-side interactivity is needed. Keep data access and business logic separate from presentation.
 
-- `apps/web` contains the frontend application.
-- `apps/api` contains backend services, APIs, content generation, and persistence logic.
+## Development Standards
+- Make small, focused changes; follow existing conventions and avoid unnecessary dependencies or abstractions.
+- Use strict types; avoid `any`. Validate user input, CSV data, and AI output at system boundaries (prefer Zod).
+- Build responsive, accessible interfaces with useful loading, empty, error, and success states.
+- Handle failures explicitly. Add meaningful tests for business logic, edge cases, and security boundaries.
+- Run applicable lint, type, test, and build checks; report what was actually run and any failures.
+- Keep secrets and privileged Supabase operations server-side; enforce appropriate access controls.
 
-Additional shared packages may be introduced when there is a clear need.
+## Collaboration
+- Before substantial changes, briefly propose the approach and important tradeoffs.
+- Explain new patterns or dependencies rather than adding them silently.
+- After changes, summarize what changed, why, and how it was verified.
+- Favor understandable code the project owner can maintain over clever or overly elaborate solutions.
 
-## Development Rules
-
-- Make small, focused, reviewable changes.
-- Keep each change independently testable when practical.
-- Do not make unrelated changes.
-- Prefer simple implementations over unnecessary abstractions.
-- Preserve strong TypeScript typing where applicable.
-- Avoid `any` unless there is a clear reason for it.
-- Follow existing project conventions before introducing new patterns or dependencies.
-- Do not add dependencies unless they provide clear value.
-- Add tests for meaningful business logic and important behavior.
-- Run relevant tests, linting, formatting, and type checking after changes.
-- Fix issues introduced by the current change, but do not opportunistically refactor unrelated code.
-
-## Security and Public Repository Rules
-
-Assume everything committed to this repository will be publicly visible.
-
-Never add:
-- Credentials
-- API keys
-- Tokens
-- `.env` files
-- Production data
-- Real customer or business data
-- Private URLs or internal identifiers
-
-Use environment-variable placeholders and synthetic/demo data where needed.
-
-## Code Quality
-
-Code should be understandable to another experienced engineer reviewing the repository.
-
-Prioritize:
-- Clear naming
-- Straightforward architecture
-- Useful tests
-- Good error handling
-- Strong typing
-- Maintainability
-- Documentation for non-obvious architectural decisions
-
-Do not add complexity solely to make the project appear more sophisticated.
+## Public Repository
+Everything committed here is public. Never commit credentials, `.env` files, private URLs, real customer/business data, or private project history. Use synthetic examples and environment-variable placeholders. Document architecture decisions concisely without including private migration notes.
