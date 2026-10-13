@@ -21,6 +21,7 @@ Weblix Platform is a full-stack application for managing business data and gener
 - Explain new patterns or dependencies rather than adding them silently.
 - After changes, summarize what changed, why, and how it was verified.
 - Favor understandable code the project owner can maintain over clever or overly elaborate solutions.
+- Update the root README only when a change affects documented functionality, architecture, setup instructions, or configuration. Keep it concise and accurate, and never describe planned features as already implemented. Don't rewrite it for unrelated changes.
 
 ## Public Repository
 Everything committed here is public. Never commit credentials, `.env` files, private URLs, real customer/business data, or private project history. Use synthetic examples and environment-variable placeholders. Document architecture decisions concisely without including private migration notes.
