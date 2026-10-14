@@ -34,7 +34,7 @@ Open http://localhost:3000 in a browser.
 1. Open your Supabase project dashboard in a browser.
 2. In the left navigation, open **SQL Editor**.
 3. Click **New query**.
-4. Open `/home/runner/work/weblix-platform/weblix-platform/supabase/migrations/20261014184500_create_businesses.sql` locally, copy its full contents, and paste into the SQL Editor query tab.
+4. Open `supabase/migrations/20261014184500_create_businesses.sql` locally, copy its full contents, and paste into the SQL Editor query tab.
 5. Click **Run**.
 6. Confirm success by checking:
    - SQL Editor reports completion without errors.
