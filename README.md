@@ -29,14 +29,24 @@ npm run dev
 
 Open http://localhost:3000 in a browser.
 
-## Apply Supabase migration
+## Apply Supabase migration in SQL Editor
 
-From the repository root, apply `supabase/migrations/20261014184500_create_businesses.sql` using your normal Supabase workflow (for example Supabase CLI migration commands or SQL editor execution in your Supabase project).
+1. Open your Supabase project dashboard in a browser.
+2. In the left navigation, open **SQL Editor**.
+3. Click **New query**.
+4. Open `/home/runner/work/weblix-platform/weblix-platform/supabase/migrations/20261014184500_create_businesses.sql` locally, copy its full contents, and paste into the SQL Editor query tab.
+5. Click **Run**.
+6. Confirm success by checking:
+   - SQL Editor reports completion without errors.
+   - In **Table Editor**, a `public.businesses` table exists.
+   - In **Authentication > Policies** (or table policy view), `public.businesses` has ownership policies for `SELECT/INSERT/UPDATE/DELETE`.
+   - The `authenticated` role has table privileges (`SELECT, INSERT, UPDATE, DELETE`) and schema usage as granted by the migration.
 
 The migration creates:
 
 - `public.businesses` table
 - ownership indexes
+- explicit grants for `authenticated`
 - `updated_at` trigger
 - Row Level Security policies enforcing `auth.uid() = owner_id` for select/insert/update/delete
 
@@ -55,10 +65,19 @@ After migration and env setup:
 Use two separate Supabase Auth accounts (User A and User B):
 
 1. Sign in as User A and create a business.
-2. Sign out and sign in as User B.
-3. Confirm User B cannot see User A's business in `/admin`.
-4. Attempt to open User A's detail URL (`/admin/businesses/<user-a-id>`); it should return not found.
-5. Confirm User B can create and view only their own businesses.
+2. Copy User A's business detail URL from `/admin` (it contains the business UUID).
+3. Sign out and sign in as User B.
+4. Confirm User B cannot see User A's business in `/admin`.
+5. Attempt to open User A's business detail URL directly; it should return not found.
+6. Confirm User B can create and view only their own businesses.
+
+### Optional reproducible SQL verification (while signed in as each user)
+
+In SQL Editor, run under each authenticated user context (or equivalent JWT-authenticated Data API request):
+
+- `select id, owner_id, name from public.businesses order by created_at desc;`
+
+Expected result: each user only receives rows where `owner_id` matches that user's auth id.
 
 ## Available scripts
 

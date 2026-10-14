@@ -12,8 +12,14 @@ export function BusinessCreateForm() {
     initialCreateBusinessFormState,
   );
 
+  const formKey = JSON.stringify(state.values ?? {});
+
   return (
-    <form action={action} className="space-y-4 rounded-xl border border-slate-200 bg-white p-6">
+    <form
+      key={formKey}
+      action={action}
+      className="space-y-4 rounded-xl border border-slate-200 bg-white p-6"
+    >
       <div>
         <label htmlFor="name" className="mb-1 block text-sm font-medium text-slate-700">
           Business name
@@ -23,10 +29,14 @@ export function BusinessCreateForm() {
           name="name"
           defaultValue={state.values?.name ?? ""}
           required
+          aria-invalid={Boolean(state.fieldErrors?.name)}
+          aria-describedby={state.fieldErrors?.name ? "name-error" : undefined}
           className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 shadow-sm outline-none ring-blue-500 focus:border-blue-500 focus:ring"
         />
         {state.fieldErrors?.name ? (
-          <p className="mt-1 text-sm text-red-700">{state.fieldErrors.name}</p>
+          <p id="name-error" className="mt-1 text-sm text-red-700">
+            {state.fieldErrors.name}
+          </p>
         ) : null}
       </div>
 
@@ -39,10 +49,14 @@ export function BusinessCreateForm() {
           name="industry"
           defaultValue={state.values?.industry ?? "roofing"}
           required
+          aria-invalid={Boolean(state.fieldErrors?.industry)}
+          aria-describedby={state.fieldErrors?.industry ? "industry-error" : undefined}
           className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 shadow-sm outline-none ring-blue-500 focus:border-blue-500 focus:ring"
         />
         {state.fieldErrors?.industry ? (
-          <p className="mt-1 text-sm text-red-700">{state.fieldErrors.industry}</p>
+          <p id="industry-error" className="mt-1 text-sm text-red-700">
+            {state.fieldErrors.industry}
+          </p>
         ) : null}
       </div>
 
@@ -55,10 +69,14 @@ export function BusinessCreateForm() {
             id="phone"
             name="phone"
             defaultValue={state.values?.phone ?? ""}
+            aria-invalid={Boolean(state.fieldErrors?.phone)}
+            aria-describedby={state.fieldErrors?.phone ? "phone-error" : undefined}
             className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 shadow-sm outline-none ring-blue-500 focus:border-blue-500 focus:ring"
           />
           {state.fieldErrors?.phone ? (
-            <p className="mt-1 text-sm text-red-700">{state.fieldErrors.phone}</p>
+            <p id="phone-error" className="mt-1 text-sm text-red-700">
+              {state.fieldErrors.phone}
+            </p>
           ) : null}
         </div>
 
@@ -71,10 +89,14 @@ export function BusinessCreateForm() {
             name="email"
             type="email"
             defaultValue={state.values?.email ?? ""}
+            aria-invalid={Boolean(state.fieldErrors?.email)}
+            aria-describedby={state.fieldErrors?.email ? "email-error" : undefined}
             className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 shadow-sm outline-none ring-blue-500 focus:border-blue-500 focus:ring"
           />
           {state.fieldErrors?.email ? (
-            <p className="mt-1 text-sm text-red-700">{state.fieldErrors.email}</p>
+            <p id="email-error" className="mt-1 text-sm text-red-700">
+              {state.fieldErrors.email}
+            </p>
           ) : null}
         </div>
       </div>
@@ -88,10 +110,14 @@ export function BusinessCreateForm() {
           name="website"
           type="url"
           defaultValue={state.values?.website ?? ""}
+          aria-invalid={Boolean(state.fieldErrors?.website)}
+          aria-describedby={state.fieldErrors?.website ? "website-error" : undefined}
           className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 shadow-sm outline-none ring-blue-500 focus:border-blue-500 focus:ring"
         />
         {state.fieldErrors?.website ? (
-          <p className="mt-1 text-sm text-red-700">{state.fieldErrors.website}</p>
+          <p id="website-error" className="mt-1 text-sm text-red-700">
+            {state.fieldErrors.website}
+          </p>
         ) : null}
       </div>
 
@@ -104,10 +130,14 @@ export function BusinessCreateForm() {
             id="city"
             name="city"
             defaultValue={state.values?.city ?? ""}
+            aria-invalid={Boolean(state.fieldErrors?.city)}
+            aria-describedby={state.fieldErrors?.city ? "city-error" : undefined}
             className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 shadow-sm outline-none ring-blue-500 focus:border-blue-500 focus:ring"
           />
           {state.fieldErrors?.city ? (
-            <p className="mt-1 text-sm text-red-700">{state.fieldErrors.city}</p>
+            <p id="city-error" className="mt-1 text-sm text-red-700">
+              {state.fieldErrors.city}
+            </p>
           ) : null}
         </div>
 
@@ -119,10 +149,14 @@ export function BusinessCreateForm() {
             id="state"
             name="state"
             defaultValue={state.values?.state ?? ""}
+            aria-invalid={Boolean(state.fieldErrors?.state)}
+            aria-describedby={state.fieldErrors?.state ? "state-error" : undefined}
             className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 shadow-sm outline-none ring-blue-500 focus:border-blue-500 focus:ring"
           />
           {state.fieldErrors?.state ? (
-            <p className="mt-1 text-sm text-red-700">{state.fieldErrors.state}</p>
+            <p id="state-error" className="mt-1 text-sm text-red-700">
+              {state.fieldErrors.state}
+            </p>
           ) : null}
         </div>
       </div>

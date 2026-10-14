@@ -34,6 +34,9 @@ before update on public.businesses
 for each row
 execute function public.set_businesses_updated_at();
 
+grant usage on schema public to authenticated;
+grant select, insert, update, delete on table public.businesses to authenticated;
+
 alter table public.businesses enable row level security;
 alter table public.businesses force row level security;
 

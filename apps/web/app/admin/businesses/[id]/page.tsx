@@ -22,13 +22,7 @@ export default async function BusinessDetailPage({
     notFound();
   }
 
-  let business = null;
-
-  try {
-    business = await getBusinessByIdForOwner(supabase, parsed.data.id, user.id);
-  } catch {
-    notFound();
-  }
+  const business = await getBusinessByIdForOwner(supabase, parsed.data.id, user.id);
 
   if (!business) {
     notFound();

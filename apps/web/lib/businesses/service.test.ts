@@ -97,6 +97,15 @@ describe("business service auth and errors", () => {
     expect(listBusinessesByOwner).not.toHaveBeenCalled();
   });
 
+  it("uses authenticated user id when listing businesses", async () => {
+    const supabase = createSupabaseClientWithUser("owner-123");
+    vi.mocked(listBusinessesByOwner).mockResolvedValueOnce([]);
+
+    await listBusinessesForCurrentUser(supabase);
+
+    expect(listBusinessesByOwner).toHaveBeenCalledWith(supabase, "owner-123");
+  });
+
   it("returns null business for unauthenticated users", async () => {
     const supabase = createSupabaseClientWithUser(null);
 
@@ -104,5 +113,18 @@ describe("business service auth and errors", () => {
 
     expect(result).toBeNull();
     expect(getBusinessByIdForOwner).not.toHaveBeenCalled();
+  });
+
+  it("uses authenticated user id when loading a business", async () => {
+    const supabase = createSupabaseClientWithUser("owner-987");
+    vi.mocked(getBusinessByIdForOwner).mockResolvedValueOnce(null);
+
+    await getBusinessForCurrentUser(supabase, "business-1");
+
+    expect(getBusinessByIdForOwner).toHaveBeenCalledWith(
+      supabase,
+      "business-1",
+      "owner-987",
+    );
   });
 });
