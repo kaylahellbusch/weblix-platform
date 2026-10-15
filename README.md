@@ -57,6 +57,7 @@ npm run build
 - Vercel project Root Directory must stay `apps/web`.
 - Keep production disabled in GitHub Actions (this workflow never passes `--prod`).
 - Vercel's ignored Git build setting does not block this workflow because deployment is CLI-driven (`vercel pull/build/deploy`) from Actions, not Vercel Git auto-builds.
+- The workflow preserves the GitHub runner toolchain `PATH` during `vercel build` if a pulled preview environment variable also defines `PATH`, preventing local CLI dependency-install failures (`spawn npm ENOENT`).
 - The deploy job uses the protected `vercel-preview` GitHub Environment. Configure **required reviewers** on that environment so approval is required before any deployment secrets are exposed to the job.
 - If you currently store Vercel secrets only at repository scope, move them to `vercel-preview` environment secrets (or duplicate there and remove repo-level copies) to enforce the approval boundary.
 - Vercel CLI is pinned in workflow (`VERCEL_CLI_VERSION`) for reproducibility.
