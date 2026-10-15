@@ -1,0 +1,28 @@
+name: Workflow syntax check
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/*.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/*.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-workflows:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Validate workflow YAML syntax
+        run: |
+          set -euo pipefail
+          for file in .github/workflows/*.yml; do
+            ruby -e 'require "yaml"; YAML.load_file(ARGV[0]); puts "OK: #{ARGV[0]}"' "$file"
+          done
