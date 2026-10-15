@@ -16,13 +16,24 @@ permissions:
 jobs:
   validate-workflows:
     runs-on: ubuntu-latest
+    env:
+      ACTIONLINT_VERSION: 1.7.7
     steps:
       - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Validate workflow YAML syntax
+      - name: Install pinned actionlint
         run: |
           set -euo pipefail
-          for file in .github/workflows/*.yml; do
-            ruby -e 'require "yaml"; YAML.load_file(ARGV[0]); puts "OK: #{ARGV[0]}"' "$file"
-          done
+          archive="actionlint_${ACTIONLINT_VERSION}_linux_amd64.tar.gz"
+          checksums="actionlint_${ACTIONLINT_VERSION}_checksums.txt"
+          release_url="https://github.com/rhysd/actionlint/releases/download/v${ACTIONLINT_VERSION}"
+
+          curl --fail --location --silent --show-error --output "${archive}" "${release_url}/${archive}"
+          curl --fail --location --silent --show-error --output "${checksums}" "${release_url}/${checksums}"
+          grep " ${archive}\$" "${checksums}" | sha256sum --check
+          tar -xzf "${archive}" actionlint
+          install -m 0755 actionlint /usr/local/bin/actionlint
+
+      - name: Lint GitHub Actions workflows
+        run: actionlint -shellcheck= -pyflakes= .github/workflows/*.yml
