@@ -1,0 +1,127 @@
+name: Vercel PR Preview
+
+on:
+  pull_request:
+    types:
+      - ready_for_review
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Open same-repository PR number to redeploy"
+        required: true
+        type: number
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: vercel-pr-preview-${{ github.event.pull_request.number || inputs.pr_number }}
+  cancel-in-progress: true
+
+jobs:
+  deploy-preview:
+    name: Deploy Vercel preview
+    runs-on: ubuntu-latest
+    if: >-
+      (github.event_name == 'pull_request' &&
+      github.event.pull_request.state == 'open' &&
+      github.event.pull_request.draft == false &&
+      github.event.pull_request.head.repo.full_name == github.repository)
+      || github.event_name == 'workflow_dispatch'
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+    steps:
+      - name: Resolve PR metadata and enforce safety checks
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER_INPUT: ${{ inputs.pr_number }}
+        run: |
+          set -euo pipefail
+
+          if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+            pr_number="${{ github.event.pull_request.number }}"
+            pr_state="${{ github.event.pull_request.state }}"
+            pr_draft="${{ github.event.pull_request.draft }}"
+            pr_head_repo="${{ github.event.pull_request.head.repo.full_name }}"
+            pr_head_sha="${{ github.event.pull_request.head.sha }}"
+          else
+            if [[ -z "${PR_NUMBER_INPUT}" ]]; then
+              echo "workflow_dispatch requires pr_number input" >&2
+              exit 1
+            fi
+
+            pr_json="$(gh api "/repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER_INPUT}")"
+
+            pr_number="$(jq -r '.number' <<<"${pr_json}")"
+            pr_state="$(jq -r '.state' <<<"${pr_json}")"
+            pr_draft="$(jq -r '.draft' <<<"${pr_json}")"
+            pr_head_repo="$(jq -r '.head.repo.full_name' <<<"${pr_json}")"
+            pr_head_sha="$(jq -r '.head.sha' <<<"${pr_json}")"
+          fi
+
+          if [[ "${pr_state}" != "open" ]]; then
+            echo "PR #${pr_number} is not open." >&2
+            exit 1
+          fi
+
+          if [[ "${pr_draft}" != "false" ]]; then
+            echo "PR #${pr_number} is still draft; preview deploys only run when ready for review." >&2
+            exit 1
+          fi
+
+          if [[ "${pr_head_repo}" != "${GITHUB_REPOSITORY}" ]]; then
+            echo "PR #${pr_number} head repository (${pr_head_repo}) is not ${GITHUB_REPOSITORY}." >&2
+            exit 1
+          fi
+
+          echo "pr_number=${pr_number}" >> "${GITHUB_OUTPUT}"
+          echo "head_sha=${pr_head_sha}" >> "${GITHUB_OUTPUT}"
+
+      - name: Check out PR head commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.pr.outputs.head_sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+
+      - name: Install dependencies
+        working-directory: apps/web
+        run: npm ci
+
+      - name: Build preview artifacts with Vercel CLI
+        working-directory: apps/web
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -euo pipefail
+          npx --yes vercel@latest pull --yes --environment=preview --token "${VERCEL_TOKEN}"
+          npx --yes vercel@latest build --token "${VERCEL_TOKEN}"
+
+      - name: Deploy preview artifacts
+        id: deploy
+        working-directory: apps/web
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -euo pipefail
+          preview_url="$(npx --yes vercel@latest deploy --prebuilt --token "${VERCEL_TOKEN}")"
+          echo "preview_url=${preview_url}" >> "${GITHUB_OUTPUT}"
+
+      - name: Publish deployment summary
+        run: |
+          {
+            echo "## Vercel preview deployed"
+            echo ""
+            echo "- PR: #${{ steps.pr.outputs.pr_number }}"
+            echo "- Commit: ${{ steps.pr.outputs.head_sha }}"
+            echo "- Preview URL: ${{ steps.deploy.outputs.preview_url }}"
+          } >> "${GITHUB_STEP_SUMMARY}"
