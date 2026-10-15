@@ -117,12 +117,37 @@ jobs:
           set -euo pipefail
           npx --yes "vercel@${VERCEL_CLI_VERSION}" pull --yes --environment=preview --token "${VERCEL_TOKEN}"
           env_file=".vercel/.env.preview.local"
-          if [[ -f "${env_file}" ]] && grep -q '^PATH=' "${env_file}"; then
-            echo "Detected PATH in pulled preview environment; restoring runner PATH for local Vercel build compatibility."
-            {
-              echo ""
-              echo "PATH=${PATH}"
-            } >> "${env_file}"
+          if [[ -f "${env_file}" ]]; then
+            has_path_entry=false
+            if grep -q '^PATH=' "${env_file}"; then
+              has_path_entry=true
+            fi
+            echo "Pulled preview env defines PATH: ${has_path_entry}"
+            if [[ "${has_path_entry}" == "true" ]]; then
+              tmp_env_file="$(mktemp)"
+              awk '!/^PATH=/' "${env_file}" > "${tmp_env_file}"
+              {
+                echo ""
+                echo "PATH=${PATH}"
+              } >> "${tmp_env_file}"
+              mv "${tmp_env_file}" "${env_file}"
+
+              path_entry_count="$(grep -c '^PATH=' "${env_file}" || true)"
+              if [[ "${path_entry_count}" -ne 1 ]]; then
+                echo "PATH normalization failed: expected one PATH entry after normalization." >&2
+                exit 1
+              fi
+
+              normalized_path_matches_runner=false
+              if grep -Fxq "PATH=${PATH}" "${env_file}"; then
+                normalized_path_matches_runner=true
+              fi
+              echo "Normalized PATH entry matches runner PATH: ${normalized_path_matches_runner}"
+              if [[ "${normalized_path_matches_runner}" != "true" ]]; then
+                echo "PATH normalization failed: PATH entry does not match runner PATH." >&2
+                exit 1
+              fi
+            fi
           fi
           npx --yes "vercel@${VERCEL_CLI_VERSION}" build --token "${VERCEL_TOKEN}"
 
