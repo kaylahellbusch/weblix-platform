@@ -112,10 +112,39 @@ jobs:
         run: npm ci
 
       - name: Build preview artifacts with Vercel CLI
-        working-directory: apps/web
+        working-directory: .
         run: |
           set -euo pipefail
           npx --yes "vercel@${VERCEL_CLI_VERSION}" pull --yes --environment=preview --token "${VERCEL_TOKEN}"
+          project_settings_file=".vercel/project.json"
+          project_root_directory="unknown"
+          if [[ -f "${project_settings_file}" ]]; then
+            project_root_directory="$(jq -r '.settings.rootDirectory // .rootDirectory // "."' "${project_settings_file}")"
+          fi
+          echo "Build step cwd is repository root: $([[ "$(pwd -P)" == "${GITHUB_WORKSPACE}" ]] && echo true || echo false)"
+          echo "Pulled project rootDirectory is set: $([[ "${project_root_directory}" != "." && "${project_root_directory}" != "null" && -n "${project_root_directory}" ]] && echo true || echo false)"
+          if [[ "${project_root_directory}" != "." && "${project_root_directory}" != "null" && -n "${project_root_directory}" ]]; then
+            build_cwd_equals_project_root=false
+            if [[ "$(pwd -P)" == "$(realpath -m "${project_root_directory}")" ]]; then
+              build_cwd_equals_project_root=true
+            fi
+            echo "Build cwd equals configured rootDirectory: ${build_cwd_equals_project_root}"
+            if [[ "${build_cwd_equals_project_root}" == "true" ]]; then
+              echo "Refusing to run vercel build from inside configured rootDirectory; run from repository root." >&2
+              exit 1
+            fi
+          fi
+
+          runner_resolves_npm_before_build=false
+          if command -v npm >/dev/null 2>&1; then
+            runner_resolves_npm_before_build=true
+          fi
+          echo "Runner resolves npm before vercel build: ${runner_resolves_npm_before_build}"
+          if [[ "${runner_resolves_npm_before_build}" != "true" ]]; then
+            echo "npm was not resolvable before invoking vercel build." >&2
+            exit 1
+          fi
+
           env_file=".vercel/.env.preview.local"
           if [[ -f "${env_file}" ]]; then
             has_path_entry=false
@@ -153,7 +182,7 @@ jobs:
 
       - name: Deploy preview artifacts
         id: deploy
-        working-directory: apps/web
+        working-directory: .
         run: |
           set -euo pipefail
           preview_url="$(npx --yes "vercel@${VERCEL_CLI_VERSION}" deploy --prebuilt --token "${VERCEL_TOKEN}")"
