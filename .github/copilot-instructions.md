@@ -17,6 +17,7 @@ Weblix Platform is a full-stack application for managing business data and gener
 - Keep secrets and privileged Supabase operations server-side; enforce appropriate access controls.
 
 ## Collaboration
+- Follow the implementation workflow in the root `AGENTS.md` for already-defined work.
 - Before substantial changes, briefly propose the approach and important tradeoffs.
 - Explain new patterns or dependencies rather than adding them silently.
 - After changes, summarize what changed, why, and how it was verified.
