@@ -63,6 +63,8 @@ export async function createBusinessForOwner(
     .single();
 
   if (error) {
+    // Keep database details and submitted values out of the client response/logs.
+    console.error("Business creation failed", { code: error.code });
     throw new Error("Unable to create business.");
   }
 

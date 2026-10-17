@@ -3,8 +3,10 @@
 import { useActionState } from "react";
 import {
   createBusinessAction,
-  initialCreateBusinessFormState,
+  type CreateBusinessFormState,
 } from "@/app/admin/businesses/new/actions";
+
+const initialCreateBusinessFormState: CreateBusinessFormState = {};
 
 export function BusinessCreateForm() {
   const [state, action, pending] = useActionState(

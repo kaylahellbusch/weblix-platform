@@ -29,6 +29,20 @@ function buildFormData(fields: Record<string, string>) {
 }
 
 describe("createBusinessAction", () => {
+  it("redirects to the persisted business after a successful save", async () => {
+    vi.mocked(createSupabaseServerClient).mockResolvedValue({} as never);
+    vi.mocked(createBusinessForCurrentUser).mockResolvedValueOnce({
+      status: "success",
+      business: { id: "saved-business-id" } as never,
+    });
+
+    await expect(
+      createBusinessAction({}, buildFormData({ name: "Acme Roofing", industry: "roofing" })),
+    ).rejects.toThrow("NEXT_REDIRECT");
+
+    expect(redirectMock).toHaveBeenLastCalledWith("/admin/businesses/saved-business-id");
+  });
+
   it("redirects unauthenticated create attempts to login", async () => {
     vi.mocked(createSupabaseServerClient).mockResolvedValue({} as never);
     vi.mocked(createBusinessForCurrentUser).mockResolvedValueOnce({

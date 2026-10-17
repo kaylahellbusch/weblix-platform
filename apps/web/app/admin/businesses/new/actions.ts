@@ -14,8 +14,6 @@ export type CreateBusinessFormState = {
   values?: Partial<Record<(typeof CREATE_BUSINESS_FIELDS)[number], string>>;
 };
 
-export const initialCreateBusinessFormState: CreateBusinessFormState = {};
-
 export async function createBusinessAction(
   _prevState: CreateBusinessFormState,
   formData: FormData,
