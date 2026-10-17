@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { z } from "zod";
 import { requireAuthenticatedUser } from "@/lib/auth/user";
 import { getBusinessByIdForOwner } from "@/lib/businesses/repository";
@@ -43,5 +43,5 @@ export async function saveContentAction(businessId: string, _state: ContentFormS
     return { formError: "We could not save your content. Your edits are still here; please try again." };
   }
   revalidatePath(`/admin/businesses/${businessId}/content`);
-  redirect(`/admin/businesses/${businessId}/content?saved=1`);
+  return { saved: true };
 }

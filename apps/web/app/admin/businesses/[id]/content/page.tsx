@@ -7,9 +7,8 @@ import { readWebsiteContent } from "@/lib/website-content/repository";
 import { saveContentAction } from "./actions";
 import { ContentForm } from "./content-form";
 
-export default async function ContentPage({ params, searchParams }: {
+export default async function ContentPage({ params }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ saved?: string }>;
 }) {
   const user = await requireAuthenticatedUser();
   const { id } = await params;
@@ -20,8 +19,7 @@ export default async function ContentPage({ params, searchParams }: {
   const content = await readWebsiteContent(client, id);
   return <section className="space-y-4">
     <h2 className="text-2xl font-semibold">Website content for {business.name}</h2>
-    {(await searchParams).saved === "1" && <p role="status">Website content saved.</p>}
-    <ContentForm key={JSON.stringify(content)} initialContent={content ?? { services: [], serviceAreas: [] }}
+    <ContentForm key={id} initialContent={content ?? { services: [], serviceAreas: [] }}
       action={saveContentAction.bind(null, id)} cancelHref={`/admin/businesses/${id}`} />
   </section>;
 }

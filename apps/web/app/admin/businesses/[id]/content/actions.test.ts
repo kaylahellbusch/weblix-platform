@@ -51,14 +51,14 @@ describe("content action", () => {
     expect((await saveContentAction(id, {}, data)).formError).toMatch(/invalid/i);
     expect(saveWebsiteContent).not.toHaveBeenCalled();
   });
-  it("saves canonical content in submitted order and redirects only after success", async () => {
+  it("saves canonical content in submitted order and reports success only after saving", async () => {
     const content = { headline: " Headline ", services: [{ title: "Second", description: "Repair" }, { title: "First", description: "Replace" }], serviceAreas: ["B", "A"] };
-    await expect(saveContentAction(id, {}, form(content))).rejects.toThrow(`redirect:/admin/businesses/${id}/content?saved=1`);
+    expect(await saveContentAction(id, {}, form(content))).toEqual({ saved: true });
     expect(saveWebsiteContent).toHaveBeenCalledWith({}, id, { ...content, headline: "Headline" });
     expect(revalidatePath).toHaveBeenCalledWith(`/admin/businesses/${id}/content`);
   });
   it("clears optional content with a valid empty document", async () => {
-    await expect(saveContentAction(id, {}, form({}))).rejects.toThrow("redirect:");
+    expect(await saveContentAction(id, {}, form({}))).toEqual({ saved: true });
     expect(saveWebsiteContent).toHaveBeenCalledWith({}, id, { services: [], serviceAreas: [] });
   });
   it("provides a safe retry error when access lookup fails", async () => {

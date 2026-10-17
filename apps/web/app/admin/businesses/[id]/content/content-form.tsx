@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useState } from "react";
+import { useActionState, useState, type SetStateAction } from "react";
 import type { WebsiteContent } from "@/lib/website-content/schema";
 import type { ContentFormState } from "@/lib/website-content/form-state";
 
@@ -12,8 +12,17 @@ type Props = {
 };
 
 export function ContentForm({ initialContent, action: submitAction, cancelHref }: Props) {
-  const [values, setValues] = useState(initialContent);
-  const [state, action, pending] = useActionState(submitAction, {});
+  const [values, setDraftValues] = useState(initialContent);
+  const [edited, setEdited] = useState(false);
+  function setValues(next: SetStateAction<WebsiteContent>) {
+    setEdited(true);
+    setDraftValues(next);
+  }
+  const [state, action, pending] = useActionState(async (previous: ContentFormState, data: FormData) => {
+    const result = await submitAction(previous, data);
+    if (result.saved) setEdited(false);
+    return result;
+  }, {});
   const inputClass = "block w-full rounded border border-slate-300 p-2";
   const buttonClass = "rounded border border-slate-400 px-3 py-1 disabled:opacity-50";
   const errorFor = (path: string) => state.errors?.filter(error => error.path === path).map(error => error.message).join(" ");
@@ -32,6 +41,7 @@ export function ContentForm({ initialContent, action: submitAction, cancelHref }
   }
   // Controlled fields retain the exact entered values after server errors.
   return <form action={action} className="space-y-6 rounded-xl border border-slate-200 bg-white p-6">
+    {state.saved && !edited && !pending && !state.formError && <p role="status">Website content saved.</p>}
     <input type="hidden" name="content" value={JSON.stringify(values)} />
     <fieldset disabled={pending} className="space-y-6">
       <legend className="sr-only">Website content</legend>

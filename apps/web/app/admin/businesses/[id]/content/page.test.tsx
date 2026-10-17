@@ -11,7 +11,7 @@ vi.mock("@/lib/businesses/repository", () => ({ getBusinessByIdForOwner: vi.fn()
 vi.mock("@/lib/website-content/repository", () => ({ readWebsiteContent: vi.fn() }));
 vi.mock("./actions", () => ({ saveContentAction: vi.fn() }));
 const id = "29d25f3f-2a5c-4c43-bdd5-6b84b8687d21";
-const props = { params: Promise.resolve({ id }), searchParams: Promise.resolve({}) };
+const props = { params: Promise.resolve({ id }) };
 beforeEach(() => {
   vi.resetAllMocks();
   vi.mocked(requireAuthenticatedUser).mockResolvedValue({ id: "owner" } as never);
