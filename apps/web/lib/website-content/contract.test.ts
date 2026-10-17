@@ -56,3 +56,8 @@ it("fails clearly on invalid supplied content", () => {
   expect(() => toWebsitePreview(exampleBusiness, { headline: 4 })).toThrow();
   expect(() => toWebsitePreview(exampleBusiness, null)).toThrow();
 });
+
+it("selects only public business facts even when given a full stored record", () => {
+  const record = { ...exampleBusiness, id: "synthetic-id", owner_id: "synthetic-owner" };
+  expect(toWebsitePreview(record).business).toEqual(exampleBusiness);
+});

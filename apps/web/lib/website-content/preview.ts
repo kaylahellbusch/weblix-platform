@@ -36,7 +36,10 @@ export function toWebsitePreview(
     actions.website = website;
   }
   return {
-    business: { ...business },
+    business: {
+      name: business.name, industry: business.industry, phone: business.phone,
+      email: business.email, website: business.website, city: business.city, state: business.state,
+    },
     headline: parsed.headline ?? business.name,
     ...(parsed.introduction ? { introduction: parsed.introduction } : {}),
     ...(parsed.services.length ? { services: parsed.services } : {}),
