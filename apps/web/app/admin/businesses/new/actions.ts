@@ -1,26 +1,22 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { createBusinessForCurrentUser } from "@/lib/businesses/service";
 import {
-  CREATE_BUSINESS_FIELDS,
-  parseCreateBusinessInput,
-} from "@/lib/businesses/schema";
+  getBusinessFormValues,
+  getBusinessFieldErrors,
+  type BusinessFormState,
+} from "@/lib/businesses/form-state";
+import { createBusinessForCurrentUser } from "@/lib/businesses/service";
+import { parseCreateBusinessInput } from "@/lib/businesses/schema";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
-export type CreateBusinessFormState = {
-  formError?: string;
-  fieldErrors?: Partial<Record<(typeof CREATE_BUSINESS_FIELDS)[number], string>>;
-  values?: Partial<Record<(typeof CREATE_BUSINESS_FIELDS)[number], string>>;
-};
+export type CreateBusinessFormState = BusinessFormState;
 
 export async function createBusinessAction(
   _prevState: CreateBusinessFormState,
   formData: FormData,
 ): Promise<CreateBusinessFormState> {
-  const values = Object.fromEntries(
-    CREATE_BUSINESS_FIELDS.map((field) => [field, String(formData.get(field) ?? "")]),
-  ) as Record<(typeof CREATE_BUSINESS_FIELDS)[number], string>;
+  const values = getBusinessFormValues(formData);
 
   const parsed = parseCreateBusinessInput(formData);
 
@@ -29,15 +25,7 @@ export async function createBusinessAction(
 
     return {
       values,
-      fieldErrors: {
-        name: flattened.name?.[0],
-        industry: flattened.industry?.[0],
-        phone: flattened.phone?.[0],
-        email: flattened.email?.[0],
-        website: flattened.website?.[0],
-        city: flattened.city?.[0],
-        state: flattened.state?.[0],
-      },
+      fieldErrors: getBusinessFieldErrors(flattened),
       formError: "Please fix the highlighted fields and try again.",
     };
   }
