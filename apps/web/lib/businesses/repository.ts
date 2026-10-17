@@ -6,6 +6,49 @@ export type Business = Database["public"]["Tables"]["businesses"]["Row"];
 
 type AppSupabaseClient = SupabaseClient<Database>;
 
+export async function updateBusinessForOwner(
+  supabase: AppSupabaseClient,
+  businessId: string,
+  ownerId: string,
+  input: CreateBusinessInput,
+): Promise<Business | null> {
+  const { data, error } = await supabase
+    .from("businesses")
+    .update({
+      name: input.name,
+      industry: input.industry,
+      phone: input.phone ?? null,
+      email: input.email ?? null,
+      website: input.website ?? null,
+      city: input.city ?? null,
+      state: input.state ?? null,
+    })
+    .eq("owner_id", ownerId)
+    .eq("id", businessId)
+    .select("*")
+    .maybeSingle();
+
+  if (error) throw new Error("Unable to update business.");
+  return data;
+}
+
+export async function deleteBusinessForOwner(
+  supabase: AppSupabaseClient,
+  businessId: string,
+  ownerId: string,
+): Promise<{ id: string } | null> {
+  const { data, error } = await supabase
+    .from("businesses")
+    .delete()
+    .eq("owner_id", ownerId)
+    .eq("id", businessId)
+    .select("id")
+    .maybeSingle();
+
+  if (error) throw new Error("Unable to delete business.");
+  return data;
+}
+
 export async function listBusinessesByOwner(
   supabase: AppSupabaseClient,
   ownerId: string,

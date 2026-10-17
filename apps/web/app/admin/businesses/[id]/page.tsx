@@ -40,6 +40,15 @@ export default async function BusinessDetailPage({
         </Link>
       </div>
 
+      <div className="flex flex-wrap gap-4 text-sm font-medium">
+        <Link href={`/admin/businesses/${business.id}/edit`} className="text-blue-700 hover:underline">
+          Edit business
+        </Link>
+        <Link href={`/admin/businesses/${business.id}/delete`} className="text-red-700 hover:underline">
+          Delete business
+        </Link>
+      </div>
+
       <dl className="grid gap-4 text-sm text-slate-700 sm:grid-cols-2">
         <div>
           <dt className="font-medium text-slate-900">Phone</dt>
