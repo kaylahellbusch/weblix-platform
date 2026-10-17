@@ -2,6 +2,9 @@
 
 ## Scope
 
+- Planning and dispatch tasks follow `docs/planner.md`. Implementation tasks use
+  the workflow below.
+
 - Use this workflow for already-defined features and fixes. The planning agent owns
   feature definition and acceptance criteria; do not add a discovery phase.
 - Read `.github/copilot-instructions.md` and instructions in affected directories.
