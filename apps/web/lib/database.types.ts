@@ -9,6 +9,18 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      website_content: {
+        Row: { business_id: string; content: Json };
+        Insert: { business_id: string; content: Json };
+        Update: { business_id?: string; content?: Json };
+        Relationships: [{
+          foreignKeyName: "website_content_business_id_fkey";
+          columns: ["business_id"];
+          isOneToOne: true;
+          referencedRelation: "businesses";
+          referencedColumns: ["id"];
+        }];
+      };
       businesses: {
         Row: {
           id: string;

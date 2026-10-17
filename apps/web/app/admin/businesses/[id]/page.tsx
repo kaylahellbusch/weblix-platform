@@ -41,6 +41,9 @@ export default async function BusinessDetailPage({
       </div>
 
       <div className="flex flex-wrap gap-4 text-sm font-medium">
+        <Link href={`/admin/businesses/${business.id}/content`} className="text-blue-700 hover:underline">
+          Edit website content
+        </Link>
         <Link href={`/admin/businesses/${business.id}/edit`} className="text-blue-700 hover:underline">
           Edit business
         </Link>
