@@ -96,3 +96,20 @@ For application code, run from `apps/web`:
 Run `git diff --check` for all edits. For documentation-only changes, inspect the
 content and check links and runnable examples as applicable; no application build
 is required.
+
+## Local database migrations
+
+- Use `python3 scripts/local-db.py start` in the assigned worktree. It creates an
+  isolated local Supabase stack and synthetic test accounts. Never copy hosted
+  credentials into a worktree for migration tests or replace an unrelated env file.
+- Write migrations under tracked `supabase/migrations`, preserving applied migration
+  history. Run the helper's `up`, `check`, `reset`, and `check` commands to verify
+  upgrades and clean replay, plus tests for the changed schema/behavior. `reset`
+  erases only this worktree's local test data; do not run it against shared/remote DBs.
+- Use the generated local test account variables for browser/RLS verification.
+  Confirm app port/process and local API target before testing. Stop your owned
+  stack when it is no longer needed. Never stop another agent's containers.
+- Report migration and RLS results in the PR. Local success does not prove hosted
+  migrations have been applied. Production/hosted migration application remains
+  with the user unless separately authorized; do not link, push, or repair remote
+  migration history during this workflow. See README for commands and limitations.

@@ -57,3 +57,8 @@ dist/
 credentials.json
 .venv/
 venv/
+
+# Per-worktree Supabase runtime and CLI state
+.supabase-local/
+supabase/.temp/
+supabase/.branches/
