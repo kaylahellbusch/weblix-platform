@@ -20,6 +20,7 @@ export default async function AdminPage() {
     <section className="space-y-4">
       <div className="flex items-center justify-between gap-3">
         <h2 className="text-xl font-semibold">Your businesses</h2>
+        <Link href="/admin/businesses/import" className="text-sm font-medium text-blue-700 hover:underline">Review CSV</Link>
         <Link
           href="/admin/businesses/new"
           className="rounded-lg bg-slate-900 px-3 py-2 text-sm font-medium text-white hover:bg-slate-800"
