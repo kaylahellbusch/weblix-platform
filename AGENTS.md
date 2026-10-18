@@ -40,6 +40,13 @@
    example `gh pr create --draft --reviewer @copilot`. For an existing PR, use
    `gh pr edit <number> --add-reviewer @copilot`. Documentation-only work can skip
    Copilot review after its content checks pass.
+   For issue-backed work, use the chat-title tool to name the chat
+   `Issue #<issue number> - <issue title>` initially. Immediately after creating
+   or attaching the implementation PR, rename it to
+   `Issue #<issue number> - PR#<PR number> - <issue title>`. Read the actual numbers
+   from GitHub; never assume the issue and PR numbers match. Preserve this prefix
+   on subsequent title updates. If the title tool is unavailable, report that
+   limitation rather than claiming the chat was renamed.
 5. **Follow through.** Continue in the originating Codex chat: read Copilot's
    completed review, fix valid findings, rerun affected checks, push, and request
    re-review. Follow the completion and follow-up rules below. Once complete,

@@ -39,11 +39,17 @@ The user may ask to start a specific issue or dispatch eligible ready work.
   clear the reservation; if the result is uncertain, reconcile chat inventory
   before retrying. Never launch a duplicate merely because a run was interrupted.
 - Create a separate Codex project chat in its own worktree from latest main for
-  each selected issue. Do not use temporary subagents as durable issue owners.
+  each selected issue. Set its title to `Issue #<issue number> - <issue title>`
+  using the real GitHub issue number and title. Do not use temporary subagents as
+  durable issue owners.
   Give it the issue URL, scope, acceptance criteria, dependencies, and an explicit
   instruction to follow `AGENTS.md` through live verification, draft PR, Copilot
   review/fixes, scheduled follow-up, and readiness. It may request Copilot reviews
-  and manage its own follow-up. Do not authorize merging or production deployment.
+  and manage its own follow-up. Explicitly instruct it to rename its own chat
+  after opening or attaching its implementation PR to
+  `Issue #<issue number> - PR#<PR number> - <issue title>`, using the actual issue
+  and PR numbers (they may differ). Use the chat-title tool, not a message that
+  merely suggests a title. Do not authorize merging or production deployment.
 - Record the returned chat ID, branch/worktree when available, and later the PR URL
   in the issue's Planner status. Distinguish queued setup from a running chat.
   If dispatch tooling is unavailable, report that without marking work started.
