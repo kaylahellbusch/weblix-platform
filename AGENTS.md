@@ -29,10 +29,12 @@
    change. Exercise changed user flows in the running app, locally or on an
    available preview, including relevant error and permission cases. Confirm the
    app serves this task's revision. If access or setup blocks live testing, report
-   the unverified behavior and leave the PR in draft. Provide suitable evidence: test output, API responses, database checks,
-   reproducible examples, screenshots, or recordings. Images and videos are optional.
+   the unverified behavior and leave the PR in draft. Prefer screenshots of the
+   actual running app whenever practical, even when the change is not purely visual.
    Capture a baseline before editing when comparison helps; use comparable data and
-   conditions. Screenshots alone do not prove persistence or permissions.
+   conditions. Use other evidence when screenshots cannot demonstrate the change
+   or capture is unavailable, and briefly explain why. Screenshots alone do not
+   prove persistence or permissions; include relevant assertions or results too.
 4. **Open a draft PR.** When the task calls for delivery, push the task branch and
    open or update a draft PR using the repository template. Include verification,
    accessible evidence or artifact links, and a preview link when available.
@@ -86,7 +88,8 @@
   pending for 30 minutes since its request. Leave an open incomplete PR in draft
   and report the reason. If follow-ups or GitHub access are unavailable, explicitly
   report that automatic continuation is not configured; never claim it is running.
-- Record what was actually verified and the tested commit. Report failed or skipped
+- Record what was actually verified and the tested revision in linked artifacts or
+  follow-up state; routine PR descriptions need no commit hashes. Report failed or skipped
   checks, unverified criteria, unavailable review, and remaining findings. Keep
   secrets and real customer data out of evidence.
 - Leave merging and deployment for the user's approval unless already authorized.
@@ -103,3 +106,20 @@ For application code, run from `apps/web`:
 Run `git diff --check` for all edits. For documentation-only changes, inspect the
 content and check links and runnable examples as applicable; no application build
 is required.
+
+## PR presentation
+
+- Use the PR template: 1–3 short change bullets, a compact verification table,
+  visual evidence, and only actionable notes. Favor visuals over paragraphs.
+- Put lint, types, tests, production build, diff checks, live behavior, and review
+  results in individual table rows. Use ✅ only for observed passes; distinguish
+  ❌ failures, ⏳ pending checks, and — N/A with a brief reason. Do not repeat these
+  results in prose. Show a test count only when useful.
+- Embed 1–3 relevant app screenshots with short captions when practical; use a
+  Before/After table when helpful. Publish through an authorized destination and
+  use GitHub-accessible image URLs or artifact links, not local filesystem paths.
+  If capture/upload is unavailable, say so briefly and link other suitable proof.
+  Documentation-only changes need no app screenshot.
+- Omit routine commit hashes, file inventories, and command transcripts. Put
+  necessary technical detail/logs in linked artifacts or a collapsed details block.
+  Keep the visible description short; preserve honest caveats without long narration.
