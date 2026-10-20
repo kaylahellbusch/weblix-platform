@@ -59,36 +59,64 @@ history repair as part of local development.
 
 ## Hosted setup (manual, separate from local development)
 
-1. Open your Supabase project dashboard in a browser.
-2. In the left navigation, open **SQL Editor**.
-3. Click **New query**.
-4. Open `supabase/migrations/20261014184500_create_businesses.sql` locally, copy its full contents, and paste into the SQL Editor query tab.
-5. Click **Run**.
-6. Confirm success by checking:
-   - SQL Editor reports completion without errors.
-   - In **Table Editor**, a `public.businesses` table exists.
-   - In **Authentication > Policies** (or table policy view), `public.businesses` has ownership policies for `SELECT/INSERT/UPDATE/DELETE`.
-   - The `authenticated` role has table privileges (`SELECT, INSERT, UPDATE, DELETE`) and schema usage as granted by the migration.
+These are proposed steps for an authorized operator, not evidence that a hosted
+project has been migrated or deployed. Use the disposable local setup above for
+development and tests; hosted migration application and deployment require
+separate approval.
 
-The migration creates:
+1. Confirm the intended Supabase project and review **all** tracked files in
+   [supabase/migrations](supabase/migrations) against that project's applied
+   migration history and any recorded manual SQL applications. SQL Editor runs
+   may not be recorded in CLI migration history; reconcile those records with the
+   actual schema before deciding what is pending. If history is missing or
+   inconsistent, stop and reconcile it rather than guessing or replaying files.
+2. Apply only pending migrations in filename timestamp order. The current required
+   sequence is:
 
-- `public.businesses` table
-- ownership indexes
-- explicit grants for `authenticated`
-- `updated_at` trigger
-- Row Level Security policies enforcing `auth.uid() = owner_id` for select/insert/update/delete
+   | Order | Migration | Provides |
+   | --- | --- | --- |
+   | 1 | [20261014184500_create_businesses.sql](supabase/migrations/20261014184500_create_businesses.sql) | Businesses, ownership indexes, update trigger, authenticated grants and owner RLS policies |
+   | 2 | [20261017230000_create_website_content.sql](supabase/migrations/20261017230000_create_website_content.sql) | Website content, JSON validation, parent ownership RLS and cascade deletion |
+
+   Check for newly merged migrations before applying this sequence. For an approved
+   manual application, open **SQL Editor > New query**, paste the full contents of
+   one pending file, run it, and confirm completion before proceeding to the next.
+   Keep a record of each successful application. These migrations are not safely
+   replayable: policies, functions and tables include non-idempotent creation
+   statements. Do not rerun already applied files or repair hosted migration
+   history as part of local setup.
+3. Confirm `public.businesses` and `public.website_content` exist, have RLS enabled,
+   and have the grants/policies defined in their migrations. Schema inspection
+   alone does not verify owner isolation; use the authenticated checks below.
+4. Configure the app environment using [apps/web/.env.example](apps/web/.env.example):
+   `NEXT_PUBLIC_APP_NAME`, `NEXT_PUBLIC_APP_URL`, `NEXT_PUBLIC_SUPABASE_URL` and
+   `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. Use the intended app URL, project URL and
+   publishable key in the environment that runs the app; the example contains
+   placeholders. Keep environment files out of Git and never substitute a
+   privileged service-role key. Restart the local app after environment changes.
+
+See [website content persistence: setup and verification](docs/website-content/persistence.md#setup-and-verification)
+for the content-specific setup, save/reload/edit/clear/cancel checks and permission
+tests. Existing businesses need no content backfill.
 
 ## Authenticated business workflow
 
-After migration and env setup:
+After both migrations and environment setup, use synthetic data to verify:
 
 1. Sign in at `/login` with an existing Supabase Auth user.
 2. Access `/admin` to view only that user's businesses.
 3. Create a business at `/admin/businesses/new`.
 4. Confirm redirect to `/admin/businesses/[id]` and refresh persistence.
 5. Choose **Edit business** on the detail page to update any business field, then **Save changes**. **Cancel** returns without saving.
-6. Choose **Delete business** on the detail page, then confirm with **Permanently delete business**. **Cancel** leaves the business unchanged; successful deletion returns to `/admin`.
-7. Sign out from `/admin`.
+6. Choose **Edit website content** on the business detail page to open
+   `/admin/businesses/[id]/content`. Follow the linked
+   [content verification guide](docs/website-content/persistence.md#setup-and-verification).
+7. Choose **Review CSV** from `/admin` to open `/admin/businesses/import`. Download
+   the sample CSV there or upload a synthetic UTF-8 CSV to review valid, invalid
+   and duplicate records. Review runs in memory and creates no business records;
+   saving imports is not implemented yet (tracked in [#23](https://github.com/kaylahellbusch/weblix-platform/issues/23)).
+8. Return to the disposable business detail page, choose **Delete business**, then confirm with **Permanently delete business**. **Cancel** leaves the business unchanged; successful deletion returns to `/admin`.
+9. Sign out from `/admin`.
 
 ## Manual RLS verification with two users
 
@@ -103,13 +131,19 @@ Use two separate Supabase Auth accounts (User A and User B):
 7. Attempt to open User A's `/admin/businesses/[id]/edit` and `/delete` URLs as User B; both should return not found. Replayed update/delete requests must also leave User A's record unchanged.
 8. As User A, verify invalid edits preserve entered values without saving, valid edits persist after reload, canceling deletion leaves the record intact, and confirming deletion removes it from the list and makes its detail/edit/delete URLs return not found. Use a disposable test business for deletion.
 
-### Optional reproducible SQL verification (while signed in as each user)
+### Authenticated RLS verification context
 
-In SQL Editor, run under each authenticated user context (or equivalent JWT-authenticated Data API request):
+Signing into the app or Supabase dashboard does **not** give SQL Editor that app
+user's identity. SQL Editor commonly runs with a privileged database role, so its
+ordinary query results do not prove RLS isolation. Use the app's signed-in routes
+above or Data API requests carrying each test user's actual access token and the
+project's publishable key. Do not use a service-role key for these checks.
 
-- `select id, owner_id, name from public.businesses order by created_at desc;`
-
-Expected result: each user only receives rows where `owner_id` matches that user's auth id.
+For a deliberately configured SQL test session, verify that the effective role is
+`authenticated` and `auth.uid()` matches the intended synthetic user's UUID before
+querying `public.businesses`. Each user should receive only their own rows. The
+[content verification guide](docs/website-content/persistence.md#setup-and-verification)
+covers content isolation and denied mutations as well.
 
 ## Available scripts
 
@@ -163,4 +197,18 @@ npm run build
 
 ## Current status
 
-This repository is in the early bootstrap stage. It includes the project foundation, a minimal landing page, automated checks, and CI for pull requests and pushes to `main`.
+Implemented in the repository:
+
+- Existing-account Supabase sign-in/sign-out and owner-scoped business listing,
+  creation, detail, editing and deletion.
+- Per-business website content editing and persistence for headline, introduction,
+  ordered services and service areas, with validation and owner isolation.
+- Authenticated CSV upload, validation and review; no records are imported yet.
+- Automated application checks, pull-request/main CI, disposable local database
+  tooling and an approval-gated Vercel PR preview workflow.
+
+Self-service account registration, AI content generation and public website
+rendering/publishing are not implemented. Repository capabilities and the setup
+steps above do not confirm applied hosted migrations, a working deployed content
+editor or an available public preview. Confirm any deployment separately using its
+workflow evidence and tested revision.
