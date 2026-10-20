@@ -118,11 +118,8 @@ is required.
 - Embed 1–3 relevant app screenshots with short captions when practical; use a
   Before/After table when helpful. Publish through an authorized destination and
   use GitHub-accessible image URLs or artifact links, not local filesystem paths.
-  Save screenshots during live testing. Follow `docs/pr-image-evidence.md` to
-  upload through the GitHub connection's base64 blob/tree/commit tools on a separate
-  evidence branch and verify the image URL. Native PR attachments are not required.
-  If capture or an actual upload attempt fails, report the specific limitation and
-  retain local captures; do not assume image upload is unavailable.
+  Save screenshots during live testing; use `docs/pr-image-evidence.md` for the
+  verified GitHub upload route before reporting uploads unavailable.
   Documentation-only changes need no app screenshot.
 - Omit routine commit hashes, file inventories, and command transcripts. Put
   necessary technical detail/logs in linked artifacts or a collapsed details block.
