@@ -73,7 +73,12 @@ export interface Database {
       };
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      confirm_business_import: {
+        Args: { request_key: string; file_digest: string; accepted_rows: Json; invalid_count: number; duplicate_count: number };
+        Returns: number;
+      };
+    };
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;
   };

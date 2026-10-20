@@ -53,3 +53,6 @@ Run the focused fixtures and boundary checks from `apps/web`:
 ```sh
 npm run test -- lib/business-csv/parser.test.ts
 ```
+
+For explicit import confirmation, retry guarantees and server setup, see
+[Confirming CSV imports](confirmation.md).

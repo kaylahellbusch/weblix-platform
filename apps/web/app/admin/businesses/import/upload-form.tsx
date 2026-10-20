@@ -3,17 +3,24 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { CREATE_BUSINESS_FIELDS } from "@/lib/businesses/schema";
-import { reviewBusinessCsvAction, type UploadReview } from "./actions";
+import { confirmBusinessCsvAction, reviewBusinessCsvAction, type ImportOutcome, type UploadReview } from "./actions";
 
 export function CsvImportForm() {
   const [review, setReview] = useState<UploadReview>({});
   const [pending, setPending] = useState(false);
+  const [outcome, setOutcome] = useState<ImportOutcome>({});
+  const [confirming, setConfirming] = useState(false);
+  const reviewedData = useRef<FormData | null>(null);
+  const confirmingRef = useRef(false);
   const generation = useRef(0);
   const form = useRef<HTMLFormElement>(null);
-  function clear() { generation.current++; setReview({}); setPending(false); }
+  function clear() { if (confirmingRef.current || outcome.uncertain) return; generation.current++; reviewedData.current = null; setReview({}); setOutcome({}); setPending(false); }
   async function submit(data: FormData) {
+    if (locked || confirmingRef.current) return;
+    reviewedData.current = data;
     const request = ++generation.current;
     setReview({});
+    setOutcome({});
     setPending(true);
     try {
       const result = await reviewBusinessCsvAction(data);
@@ -24,19 +31,39 @@ export function CsvImportForm() {
       if (request === generation.current) setPending(false);
     }
   }
+  async function confirm() {
+    if (confirmingRef.current || !review.token || outcome.inserted !== undefined || !form.current) return;
+    confirmingRef.current = true;
+    setConfirming(true);
+    const data = reviewedData.current;
+    if (!data) { confirmingRef.current = false; setConfirming(false); return; }
+    data.set("reviewToken", review.token);
+    try { setOutcome(await confirmBusinessCsvAction(data)); }
+    catch { setOutcome({ uncertain: true, error: "The import outcome is unknown. Sign in again if needed, then retry this same request." }); }
+    finally { confirmingRef.current = false; setConfirming(false); }
+  }
+  const locked = confirming || Boolean(outcome.uncertain);
   const result = review.result;
   return <div className="space-y-4">
     <form ref={form} onSubmit={event => { event.preventDefault(); void submit(new FormData(event.currentTarget)); }} className="space-y-3 rounded-xl border border-slate-200 bg-white p-4">
       <label className="block font-medium" htmlFor="csv">Business CSV file</label>
-      <input id="csv" name="csv" type="file" accept=".csv,text/csv" required onChange={clear} aria-describedby="csv-help" className="block max-w-full" />
+      <input id="csv" name="csv" type="file" disabled={locked} accept=".csv,text/csv" required onChange={clear} aria-describedby="csv-help" className="block max-w-full" />
       <p id="csv-help" className="text-sm text-slate-600">Uploads are reviewed in memory only. Replacing the file clears the previous review.</p>
       <div className="flex flex-wrap gap-4">
-        <button disabled={pending} className="rounded-lg bg-slate-900 px-3 py-2 text-white disabled:opacity-50" type="submit">{pending ? "Reviewing…" : "Review CSV"}</button>
-        <button type="button" onClick={() => { clear(); form.current?.reset(); }} className="underline">Cancel review</button>
-        <Link href="/admin" onClick={clear} className="underline">Back to businesses</Link>
+        <button disabled={pending || locked} className="rounded-lg bg-slate-900 px-3 py-2 text-white disabled:opacity-50" type="submit">{pending ? "Reviewing…" : "Review CSV"}</button>
+        <button type="button" disabled={locked} onClick={() => { clear(); form.current?.reset(); }} className="underline">Cancel review</button>
+        <Link href="/admin" onClick={event => { if (locked) event.preventDefault(); else clear(); }} className="underline">Back to businesses</Link>
       </div>
     </form>
-    <div role="status" aria-live="polite">{pending ? "Reading and validating CSV…" : result ? `${result.counts.valid} valid, ${result.counts.invalid} invalid, ${result.counts.duplicate} duplicate records. Nothing has been imported.` : null}</div>
+    <div role="status" aria-live="polite">{pending ? "Reading and validating CSV…" : outcome.uncertain ? "Import outcome pending. Retry the same request to confirm the saved result." : outcome.inserted !== undefined ? `Imported ${outcome.inserted} businesses; skipped ${outcome.invalid} invalid and ${outcome.duplicate} duplicate records.` : result ? `${result.counts.valid} valid, ${result.counts.invalid} invalid, ${result.counts.duplicate} duplicate records. Nothing has been imported.` : null}</div>
+    {outcome.error && <p role="alert" className="rounded-lg bg-amber-50 p-3">{outcome.error}</p>}
+    {outcome.inserted !== undefined && <Link className="underline" href="/admin">View imported businesses</Link>}
+    {result && outcome.inserted === undefined && <div className="space-y-2 rounded-xl border p-4">
+      <p>Confirm saving {result.counts.valid} valid businesses and skipping {result.counts.invalid} invalid and {result.counts.duplicate} duplicate records.</p>
+      <p>Existing businesses are not deduplicated. A fresh review and import of this file can create additional records.</p>
+      {outcome.uncertain && <p>Keep this page open and retry the same request. Reviewing again creates a separate import.</p>}
+      <button type="button" disabled={confirming || !result.counts.valid || !review.token} onClick={() => void confirm()} className="rounded-lg bg-slate-900 px-3 py-2 text-white disabled:opacity-50">{confirming ? "Confirming…" : outcome.uncertain ? "Retry same import" : "Confirm import"}</button>
+    </div>}
     {review.error && <p role="alert" className="rounded-lg bg-red-50 p-3 text-red-700">{review.error}</p>}
     {result && <section aria-label="CSV review" className="space-y-4">
       <h3 className="text-lg font-semibold">Normalized valid records</h3>
