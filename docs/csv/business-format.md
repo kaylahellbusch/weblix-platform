@@ -1,5 +1,18 @@
 # Business CSV validation
 
+Signed-in users can open **Review CSV** from the business list, or visit
+`/admin/businesses/import`, to download this sample and review an upload. The
+server authenticates before reading file bytes, checks size and logical record
+limits before full parsing, and returns normalized valid rows, field errors,
+duplicate references and counts. Files are processed in memory; there is no
+upload storage or business write. Nothing is imported and saving is unavailable.
+Replacing a file, cancelling, leaving the page, or refreshing clears the review.
+File errors also clear previous results. CSV values are displayed as text.
+
+The action transport allows 2 MiB including multipart overhead so files at the
+1 MiB boundary reach application validation. Larger transport failures show a
+safe retry error; the application file limit remains 1 MiB.
+
 `parseBusinessCsv(bytes: Uint8Array)` in `apps/web/lib/business-csv/parser.ts`
 validates bytes only. It has no database, authentication, upload, or network operations.
 
