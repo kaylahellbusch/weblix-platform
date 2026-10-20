@@ -5,9 +5,17 @@ Signed-in users can open **Review CSV** from the business list, or visit
 server authenticates before reading file bytes, checks size and logical record
 limits before full parsing, and returns normalized valid rows, field errors,
 duplicate references and counts. Files are processed in memory; there is no
-upload storage or business write. Nothing is imported and saving is unavailable.
+upload storage. Review and cancel write no business records. Explicit confirmation
+saves only valid unique rows atomically, skipping invalid rows and within-file
+duplicates. The result reports inserted and skipped counts; open the business list
+and reload to verify persistence. Existing businesses are not matched or updated.
 Replacing a file, cancelling, leaving the page, or refreshing clears the review.
 File errors also clear previous results. CSV values are displayed as text.
+
+If confirmation reports an unknown outcome, keep the page open and retry the same
+request. A fresh review creates a new request and can create additional businesses
+from the same file. See [confirmation setup and retry guarantees](confirmation.md)
+for the required migration and stable server-only signing secret.
 
 The action transport allows 2 MiB including multipart overhead so files at the
 1 MiB boundary reach application validation. Larger transport failures show a
