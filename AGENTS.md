@@ -29,10 +29,12 @@
    change. Exercise changed user flows in the running app, locally or on an
    available preview, including relevant error and permission cases. Confirm the
    app serves this task's revision. If access or setup blocks live testing, report
-   the unverified behavior and leave the PR in draft. Provide suitable evidence: test output, API responses, database checks,
-   reproducible examples, screenshots, or recordings. Images and videos are optional.
+   the unverified behavior and leave the PR in draft. Prefer screenshots of the
+   actual running app whenever practical, even when the change is not purely visual.
    Capture a baseline before editing when comparison helps; use comparable data and
-   conditions. Screenshots alone do not prove persistence or permissions.
+   conditions. Use other evidence when screenshots cannot demonstrate the change
+   or capture is unavailable, and briefly explain why. Screenshots alone do not
+   prove persistence or permissions; include relevant assertions or results too.
 4. **Open a draft PR.** When the task calls for delivery, push the task branch and
    open or update a draft PR using the repository template. Include verification,
    accessible evidence or artifact links, and a preview link when available.
@@ -40,6 +42,13 @@
    example `gh pr create --draft --reviewer @copilot`. For an existing PR, use
    `gh pr edit <number> --add-reviewer @copilot`. Documentation-only work can skip
    Copilot review after its content checks pass.
+   For issue-backed work, use the chat-title tool to name the chat
+   `Issue #<issue number> - <issue title>` initially. Immediately after creating
+   or attaching the implementation PR, rename it to
+   `Issue #<issue number> - PR#<PR number> - <issue title>`. Read the actual numbers
+   from GitHub; never assume the issue and PR numbers match. Preserve this prefix
+   on subsequent title updates. If the title tool is unavailable, report that
+   limitation rather than claiming the chat was renamed.
 5. **Follow through.** Continue in the originating Codex chat: read Copilot's
    completed review, fix valid findings, rerun affected checks, push, and request
    re-review. Follow the completion and follow-up rules below. Once complete,
@@ -79,7 +88,8 @@
   pending for 30 minutes since its request. Leave an open incomplete PR in draft
   and report the reason. If follow-ups or GitHub access are unavailable, explicitly
   report that automatic continuation is not configured; never claim it is running.
-- Record what was actually verified and the tested commit. Report failed or skipped
+- Record what was actually verified and the tested revision in linked artifacts or
+  follow-up state; routine PR descriptions need no commit hashes. Report failed or skipped
   checks, unverified criteria, unavailable review, and remaining findings. Keep
   secrets and real customer data out of evidence.
 - Leave merging and deployment for the user's approval unless already authorized.
@@ -113,3 +123,21 @@ is required.
   migrations have been applied. Production/hosted migration application remains
   with the user unless separately authorized; do not link, push, or repair remote
   migration history during this workflow. See README for commands and limitations.
+
+## PR presentation
+
+- Use the PR template: 1–3 short change bullets, a compact verification table,
+  visual evidence, and only actionable notes. Favor visuals over paragraphs.
+- Put lint, types, tests, production build, diff checks, live behavior, and review
+  results in individual table rows. Use ✅ only for observed passes; distinguish
+  ❌ failures, ⏳ pending checks, and — N/A with a brief reason. Do not repeat these
+  results in prose. Show a test count only when useful.
+- Embed 1–3 relevant app screenshots with short captions when practical; use a
+  Before/After table when helpful. Publish through an authorized destination and
+  use GitHub-accessible image URLs or artifact links, not local filesystem paths.
+  Save screenshots during live testing; use `docs/pr-image-evidence.md` for the
+  verified GitHub upload route before reporting uploads unavailable.
+  Documentation-only changes need no app screenshot.
+- Omit routine commit hashes, file inventories, and command transcripts. Put
+  necessary technical detail/logs in linked artifacts or a collapsed details block.
+  Keep the visible description short; preserve honest caveats without long narration.
