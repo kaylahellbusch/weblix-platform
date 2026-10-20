@@ -21,16 +21,9 @@ rows. Don't mark a check passed merely because it was requested. -->
 
 ## Evidence
 
-<!-- For app changes, show a Before/After screenshot table: original behavior
-captured before editing, then the working result with matching data and viewport.
-Use direct PR attachments (docs/pr-image-evidence.md), not image-only branches.
-If the baseline cannot be reproduced, state that briefly; never invent it.
-Add a preview link when available. Use GitHub-accessible attachments or artifact links;
-local paths don't render on GitHub. Never upload private data to a public host.
-If screenshots aren't practical or don't show the change, use a concise output,
-recording, or artifact and give a one-line reason. Docs-only: "No app change."
-Keep logs, commands, and revision metadata in linked artifacts or a collapsed
-<details> block only when needed; do not repeat the checks table in prose. -->
+<!-- Follow docs/pr-image-evidence.md. Show the Before/After pair here;
+for nonvisual changes or unavailable captures, give suitable proof and a short
+reason. Documentation-only: "No app change." Add a preview link when available. -->
 
 ## Notes
 
