@@ -21,6 +21,21 @@ Run manually in the Weblix Planner chat or through its weekday follow-up.
   runs when nothing meaningful changes; report newly ready work or a blocker
   requiring the user. Do not implement code during planning.
 
+## Scope gate
+
+- Read approved active outcome briefs in the existing private roadmap before
+  creating work. Each issue names one outcome and the completion criterion or
+  demonstrated defect it addresses; supporting work explains what it protects.
+- Prepare work inside approved boundaries. Propose new capabilities, scope
+  expansions or significant architectural/priority changes before creating
+  implementation issues. Unclear authorization is proposed, never approved.
+- Use the existing inventory for linked implementation/verification gaps. Before
+  declaring an outcome complete, reconcile every criterion with delivered evidence,
+  report limits and recommend acceptance. Activate a replacement only after user
+  acceptance. Group digests by the few active outcomes.
+- Keep briefs short and edit current state rather than append run histories.
+  No additional roadmap, evidence ledger or recurring audit document.
+
 ## Explain purpose and progress
 
 - Start each issue with three short bullets: **Why needed**, **What changes**
