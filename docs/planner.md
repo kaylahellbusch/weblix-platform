@@ -35,7 +35,8 @@ Run manually in the Weblix Planner chat or through its weekday follow-up.
   **What moved** — at most three bullet items with purpose, actual change,
   status and issue/PR link;
   **What needs you** — bullets with the exact review/approval/decision,
-  recommendation and consequence, or “Nothing today”;
+  a labeled **Recommended action** with brief rationale/consequence, the main risk
+  to inspect and a rough review-time estimate when useful, or “Nothing today”;
   **Next** — one next useful outcome.
 - Distinguish visible product progress from supporting infrastructure. Link detailed
   evidence instead of repeating checks, file inventories or implementation history.
