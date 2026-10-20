@@ -11,7 +11,7 @@ Run manually in the Weblix Planner chat or through its weekday follow-up.
 - Create or update GitHub issues for concrete user-authorized goals. Check for
   duplicates and update existing issues instead of repeatedly recreating them.
   If product direction is missing, report that rather than inventing a roadmap.
-- Use `.github/ISSUE_TEMPLATE/defined-work.md`: outcome, scope and exclusions,
+- Use `.github/ISSUE_TEMPLATE/defined-work.md`: purpose, scope and exclusions,
   observable acceptance criteria, dependencies, verification, and likely areas of
   change. Flag uncertain scope; do not prescribe unnecessary implementation detail.
 - Mark issues Ready, Needs clarification, Blocked, In progress, or PR ready in a
@@ -20,6 +20,29 @@ Run manually in the Weblix Planner chat or through its weekday follow-up.
 - Prepare any number of useful issues, including none. Stay quiet on scheduled
   runs when nothing meaningful changes; report newly ready work or a blocker
   requiring the user. Do not implement code during planning.
+
+## Explain purpose and progress
+
+- Start each issue with three short bullets: **Why needed**, **What changes**
+  (before → intended after), and **What it enables** (milestone or next capability).
+  Describe the concrete problem and product value, including why supporting
+  infrastructure is necessary. Keep acceptance criteria and dependencies below.
+- Whenever reporting newly created issues, include those same three bullets per
+  linked issue, plus readiness/dependencies where relevant. The user should not
+  need to open GitHub to understand why each task exists.
+- Give a five-minute digest for meaningful planning updates:
+  **Where we are** — one milestone/progress sentence;
+  **What moved** — at most three bullet items with purpose, actual change,
+  status and issue/PR link;
+  **What needs you** — bullets with the exact review/approval/decision,
+  recommendation and consequence, or “Nothing today”;
+  **Next** — one next useful outcome.
+- Distinguish visible product progress from supporting infrastructure. Link detailed
+  evidence instead of repeating checks, file inventories or implementation history.
+  Stay quiet on unchanged/non-actionable scheduled runs.
+- Implementation PRs carry forward the issue's purpose using the PR template,
+  updated to what actually shipped if scope changed. Keep dispatch prompts short
+  by requiring `AGENTS.md` and the maintained templates.
 
 ## Dispatch only when requested
 
