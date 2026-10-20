@@ -1,6 +1,13 @@
-## Changes
+## Purpose
 
-<!-- 1–3 short bullets about the delivered behavior. Link the issue; omit file
+<!-- Link the issue. Carry its purpose forward, updating it to actual delivery
+and final scope; never copy promises that were not implemented. -->
+
+- **Why needed:** <!-- The problem or gap addressed. -->
+- **What changed:** <!-- Observable before → actual after. -->
+- **What it enables:** <!-- Contribution to the milestone or next capability. -->
+
+<!-- These three bullets replace a separate Changes list. Omit routine file
 inventories, commit hashes, implementation narration, and repeated test prose. -->
 
 ## Verification
