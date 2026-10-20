@@ -39,10 +39,14 @@ From the repository root:
 
 ```bash
 python3 scripts/local-db.py check   # Auth, persistence and cross-owner RLS checks
+python3 scripts/local-db.py test    # All tracked feature SQL suites (pgTAP)
 python3 scripts/local-db.py up      # Apply pending migrations to this local stack
 python3 scripts/local-db.py reset   # Erase/rebuild ONLY this local DB, then reseed
 python3 scripts/local-db.py stop    # Stop only this stack; retain its data
 ```
+
+See [local database feature tests](docs/local-database-tests.md) for prerequisites,
+suite discovery, failure diagnostics, and disposable fixture conventions.
 
 Create new migrations in tracked `supabase/migrations` (for example,
 `supabase migration new add_example` from the repository root). Do not create them

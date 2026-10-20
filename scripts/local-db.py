@@ -60,18 +60,63 @@ def prepare():
     shutil.copytree(ROOT / "supabase/migrations", target)
 
 
-def cli(*args):
-    result = subprocess.run(
-        ["supabase", "--workdir", str(RUNTIME), *args],
-        capture_output=True, text=True,
-    )
+def private_log(output):
+    # Keep runner diagnostics (which may contain credentials) out of public output.
+    log = RUNTIME / "last-error.log"
+    log.touch(mode=0o600, exist_ok=True)
+    log.chmod(0o600)
+    log.write_text(output)
+    return log
+
+
+def cli(*args, include_stderr=False):
+    try:
+        result = subprocess.run(
+            ["supabase", "--workdir", str(RUNTIME), *args],
+            capture_output=True, text=True,
+        )
+    except FileNotFoundError:
+        raise RuntimeError("Supabase CLI is required; install it before running this command.") from None
     if result.returncode:
         # CLI failures may contain connection credentials: retain diagnostics locally.
-        log = RUNTIME / "last-error.log"
-        log.write_text(result.stdout + result.stderr)
-        log.chmod(0o600)
+        log = private_log(result.stdout + result.stderr)
         raise RuntimeError(f"Supabase command failed; inspect {log} locally (do not publish raw logs).")
-    return result.stdout
+    return result.stdout + result.stderr if include_stderr else result.stdout
+
+
+def feature_tests():
+    """Refresh tracked suites and require a positive pg_prove summary."""
+    discovery = subprocess.run(
+        ["git", "-C", str(ROOT), "ls-files", "-z", "--", "supabase/tests"],
+        capture_output=True, text=True, check=True,
+    )
+    suites = sorted(Path(name) for name in discovery.stdout.split("\0")
+                    if name and name.endswith(".sql"))
+    if not suites:
+        raise RuntimeError("No tracked SQL suites found in supabase/tests; no feature tests ran.")
+    for suite in suites:
+        source = ROOT / suite
+        if not source.is_file() or source.is_symlink() or not source.resolve().is_relative_to(ROOT.resolve()):
+            raise RuntimeError("Tracked SQL suite is missing or outside this worktree; no feature tests ran.")
+    target = CONFIG.parent / "tests"
+    if target.exists():
+        shutil.rmtree(target)
+    for suite in suites:
+        destination = RUNTIME / suite
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT / suite, destination)
+    output = cli("test", "db", "--local", *(suite.as_posix() for suite in suites),
+                 include_stderr=True)
+    summary = re.search(r"Files=(\d+),\s*Tests=(\d+)", output)
+    if (not summary or int(summary[1]) != len(suites) or int(summary[2]) == 0
+            or not re.search(r"(?m)^Result:\s*PASS\s*$", output)
+            or "All tests successful." not in output
+            or re.search(r"(?im)^\s*(?:not ok\b|Bail out!)", output)):
+        log = private_log(output)
+        raise RuntimeError(f"Feature tests did not report a complete passing run; inspect {log} locally (do not publish raw logs).")
+    print(f"PASS: feature SQL suites: {summary[1]}; assertions: {summary[2]}.")
+    for suite in suites:
+        print(f"  {suite.as_posix()}")
 
 
 def status():
@@ -142,12 +187,12 @@ def check(info):
     request(info, "/rest/v1/businesses?id=eq." + ident, two, method="DELETE")
     after = request(info, "/rest/v1/businesses?select=name&id=eq." + ident, one)
     assert after == [{"name": before}], "Cross-owner write changed a record"
-    print("PASS: both users authenticate; fixtures persist; cross-owner read/update/delete are blocked.")
+    print("PASS: business smoke check: both users authenticate; fixtures persist; cross-owner read/update/delete are blocked. Feature SQL suites were not run.")
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["start", "reset", "up", "stop", "status", "check"])
+    parser.add_argument("command", choices=["start", "reset", "up", "stop", "status", "check", "test"])
     command = parser.parse_args().command
     if command != "start" and not CONFIG.exists():
         parser.error("No runtime for this worktree. Run start first.")
@@ -169,6 +214,8 @@ def main():
         environment(info)
     if command == "check":
         check(info)
+    elif command == "test":
+        feature_tests()
     else:
         print("Local API:", info["API_URL"])
         print("Runtime:", RUNTIME)
