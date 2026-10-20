@@ -1,13 +1,9 @@
-# PR image uploads
+# PR screenshot evidence
 
-The GitHub connection supports base64 image uploads through its Git data tools;
-no native PR attachment tool or new token is needed.
-
-- Upload with `create_blob` (`encoding: base64`), then `create_tree`,
-  `create_commit`, and `create_branch`. Store images on a unique
-  `codex/evidence/pr-<number>-<capture-id>` branch, separate from application work.
-- Embed `https://raw.githubusercontent.com/kaylahellbusch/weblix-platform/<evidence-commit>/<image-path>`
-  in the PR and verify it loads. Keep evidence branches; never merge them or move
-  application/main refs to an evidence-only tree.
-- Binary connector reads may fail UTF-8 decoding even after a successful upload.
-  Verify the raw image URL with a browser or HTTP client instead.
+- For app changes, capture original behavior before editing and the working result
+  afterward with matching data and viewport. Show a Before/After table; explain
+  unavailable baselines or nonvisual proof briefly. Documentation needs no screenshots.
+- Use direct GitHub attachments (`gh pr create/edit --attach` or the browser UI),
+  not image-only branches or screenshot commits. `--body-file` image paths matching
+  `--attach` files become uploaded URLs. If blocked, retain captures and report why.
+- Keep existing evidence branches until all their image links are migrated.

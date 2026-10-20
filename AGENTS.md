@@ -24,17 +24,10 @@
    presentation separate from business logic and data access, and extract reusable
    operations when there is a concrete benefit. Avoid speculative layers, unrelated
    refactors, and unnecessary dependencies.
-3. **Verify.** Check acceptance criteria and relevant error and permission cases.
-   Run the applicable checks below and use meaningful tests proportional to the
-   change. Exercise changed user flows in the running app, locally or on an
-   available preview, including relevant error and permission cases. Confirm the
-   app serves this task's revision. If access or setup blocks live testing, report
-   the unverified behavior and leave the PR in draft. Prefer screenshots of the
-   actual running app whenever practical, even when the change is not purely visual.
-   Capture a baseline before editing when comparison helps; use comparable data and
-   conditions. Use other evidence when screenshots cannot demonstrate the change
-   or capture is unavailable, and briefly explain why. Screenshots alone do not
-   prove persistence or permissions; include relevant assertions or results too.
+3. **Verify.** Run applicable checks and exercise changed behavior in this
+   worktree's running app, including error and permission cases. Before editing
+   app behavior, follow `docs/pr-image-evidence.md` for baseline capture.
+   Report blocked verification and leave incomplete work in draft.
 4. **Open a draft PR.** When the task calls for delivery, push the task branch and
    open or update a draft PR using the repository template. Include verification,
    accessible evidence or artifact links, and a preview link when available.
@@ -126,18 +119,5 @@ is required.
 
 ## PR presentation
 
-- Use the PR template: 1–3 short change bullets, a compact verification table,
-  visual evidence, and only actionable notes. Favor visuals over paragraphs.
-- Put lint, types, tests, production build, diff checks, live behavior, and review
-  results in individual table rows. Use ✅ only for observed passes; distinguish
-  ❌ failures, ⏳ pending checks, and — N/A with a brief reason. Do not repeat these
-  results in prose. Show a test count only when useful.
-- Embed 1–3 relevant app screenshots with short captions when practical; use a
-  Before/After table when helpful. Publish through an authorized destination and
-  use GitHub-accessible image URLs or artifact links, not local filesystem paths.
-  Save screenshots during live testing; use `docs/pr-image-evidence.md` for the
-  verified GitHub upload route before reporting uploads unavailable.
-  Documentation-only changes need no app screenshot.
-- Omit routine commit hashes, file inventories, and command transcripts. Put
-  necessary technical detail/logs in linked artifacts or a collapsed details block.
-  Keep the visible description short; preserve honest caveats without long narration.
+Use `.github/pull_request_template.md` for the concise format and
+`docs/pr-image-evidence.md` for screenshot capture and upload policy.
