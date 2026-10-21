@@ -101,3 +101,7 @@ The user may ask to start a specific issue or dispatch eligible ready work.
 
 Keep the repository public-data safe: no credentials, real customer data, or
 private project history in issues, prompts, or evidence.
+
+## Outcome acceptance handoff
+
+After independent final review and required checks pass, outcome owners mark the final acceptance PR ready and trigger/monitor the existing GitHub Actions Vercel preview workflow. Preview build/deployment is authorized; main merges, production deployment, hosted migrations and credential changes are not. Link the run and preview URL and distinguish deployment success from verified hosted behavior. Report actual failures or approval gates; do not leave an otherwise complete PR draft solely because preview infrastructure has not yet been verified.
