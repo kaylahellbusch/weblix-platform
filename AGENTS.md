@@ -121,3 +121,8 @@ is required.
 
 Use `.github/pull_request_template.md` for the concise format and
 `docs/pr-image-evidence.md` for screenshot capture and upload policy.
+
+PR handoff must include the template's after-merge owner checklist (or explicit
+None), with inspected migration/settings requirements, environment, exact steps,
+ordering, verification and failure guidance. Separate any pre-merge prerequisites;
+never infer hosted setup is complete from local tests or CI.
