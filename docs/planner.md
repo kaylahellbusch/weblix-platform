@@ -11,7 +11,7 @@ Run manually in the Weblix Planner chat or through its weekday follow-up.
 - Create or update GitHub issues for concrete user-authorized goals. Check for
   duplicates and update existing issues instead of repeatedly recreating them.
   If product direction is missing, report that rather than inventing a roadmap.
-- Use `.github/ISSUE_TEMPLATE/defined-work.md`: outcome, scope and exclusions,
+- Use `.github/ISSUE_TEMPLATE/defined-work.md`: purpose, scope and exclusions,
   observable acceptance criteria, dependencies, verification, and likely areas of
   change. Flag uncertain scope; do not prescribe unnecessary implementation detail.
 - Mark issues Ready, Needs clarification, Blocked, In progress, or PR ready in a
@@ -20,6 +20,45 @@ Run manually in the Weblix Planner chat or through its weekday follow-up.
 - Prepare any number of useful issues, including none. Stay quiet on scheduled
   runs when nothing meaningful changes; report newly ready work or a blocker
   requiring the user. Do not implement code during planning.
+
+## Scope gate
+
+- Read approved active outcome briefs in the existing private roadmap before
+  creating work. Each issue names one outcome and the completion criterion or
+  demonstrated defect it addresses; supporting work explains what it protects.
+- Prepare work inside approved boundaries. Propose new capabilities, scope
+  expansions or significant architectural/priority changes before creating
+  implementation issues. Unclear authorization is proposed, never approved.
+- Use the existing inventory for linked implementation/verification gaps. Before
+  declaring an outcome complete, reconcile every criterion with delivered evidence,
+  report limits and recommend acceptance. Activate a replacement only after user
+  acceptance. Group digests by the few active outcomes.
+- Keep briefs short and edit current state rather than append run histories.
+  No additional roadmap, evidence ledger or recurring audit document.
+
+## Explain purpose and progress
+
+- Start each issue with three short bullets: **Why needed**, **What changes**
+  (before → intended after), and **What it enables** (milestone or next capability).
+  Describe the concrete problem and product value, including why supporting
+  infrastructure is necessary. Keep acceptance criteria and dependencies below.
+- Whenever reporting newly created issues, include those same three bullets per
+  linked issue, plus readiness/dependencies where relevant. The user should not
+  need to open GitHub to understand why each task exists.
+- Give a five-minute digest for meaningful planning updates:
+  **Where we are** — one milestone/progress sentence;
+  **What moved** — at most three bullet items with purpose, actual change,
+  status and issue/PR link;
+  **What needs you** — bullets with the exact review/approval/decision,
+  a labeled **Recommended action** with brief rationale/consequence, the main risk
+  to inspect and a rough review-time estimate when useful, or “Nothing today”;
+  **Next** — one next useful outcome.
+- Distinguish visible product progress from supporting infrastructure. Link detailed
+  evidence instead of repeating checks, file inventories or implementation history.
+  Stay quiet on unchanged/non-actionable scheduled runs.
+- Implementation PRs carry forward the issue's purpose using the PR template,
+  updated to what actually shipped if scope changed. Keep dispatch prompts short
+  by requiring `AGENTS.md` and the maintained templates.
 
 ## Dispatch only when requested
 
@@ -62,3 +101,7 @@ The user may ask to start a specific issue or dispatch eligible ready work.
 
 Keep the repository public-data safe: no credentials, real customer data, or
 private project history in issues, prompts, or evidence.
+
+## Outcome acceptance handoff
+
+After independent final review and required checks pass, outcome owners mark the final acceptance PR ready and trigger/monitor the existing GitHub Actions Vercel preview workflow. Preview build/deployment is authorized; main merges, production deployment, hosted migrations and credential changes are not. Link the run and preview URL and distinguish deployment success from verified hosted behavior. Report actual failures or approval gates; do not leave an otherwise complete PR draft solely because preview infrastructure has not yet been verified.
