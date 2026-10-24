@@ -113,9 +113,16 @@ is required.
   Confirm app port/process and local API target before testing. Stop your owned
   stack when it is no longer needed. Never stop another agent's containers.
 - Report migration and RLS results in the PR. Local success does not prove hosted
-  migrations have been applied. Production/hosted migration application remains
-  with the user unless separately authorized; do not link, push, or repair remote
-  migration history during this workflow. See README for commands and limitations.
+  migrations have been applied. See README for commands and limitations.
+- Hosted production (Supabase project "Weblix Platform", not "Weblix DB"): since
+  2026-10-22 agents may apply repository migrations needed for requested work
+  without asking. This is only because Weblix is still being set up and has no
+  real users yet; it will be revisited before launch. Use the connected Supabase
+  plugin, confirm the project name first, compare migration history with
+  `supabase/migrations` before applying (history was not created by the CLI;
+  never blindly `db push`), and verify afterwards. Not covered: resets, deleting
+  data, credential or config changes. Record what you applied in the PR's
+  "After merge" section as already done.
 
 ## PR presentation
 
