@@ -50,7 +50,7 @@ export function ContentForm({ businessName, businessId, initialContent, action: 
       <div><p className="editor-breadcrumb"><Link href="/admin">Businesses</Link>{businessName && <> / {businessName}</>}</p><h1>Edit website</h1></div>
       <div className="editor-actions">
         <Link href={cancelHref} className="secondary">Cancel</Link>
-        <button type="submit" form="website-content-form" aria-label="Save website content" disabled={pending} className="bg-slate-900 px-4 py-2 text-white disabled:opacity-50">{pending ? "Saving..." : "Save changes"}</button>
+        <button type="submit" form="website-content-form" disabled={pending} className="bg-slate-900 px-4 py-2 text-white disabled:opacity-50">{pending ? "Saving..." : "Save changes"}</button>
       </div>
     </header>
     {businessId && <EditorNav id={businessId} current="content" />}
