@@ -13,7 +13,7 @@ export function BusinessDeleteForm({ businessId }: { businessId: string }) {
   return (
     <form action={action} className="space-y-4">
       {state.formError ? <p role="alert" className="text-sm text-red-700">{state.formError}</p> : null}
-      <div className="flex items-center gap-4">
+      <div className="flex flex-wrap items-center gap-4">
         <button type="submit" name="confirm" value="delete" disabled={pending}
           className="rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white hover:bg-red-600 disabled:opacity-70">
           {pending ? "Deleting..." : "Permanently delete business"}

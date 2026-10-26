@@ -15,7 +15,7 @@ export default async function DeleteBusinessPage({ params }: { params: Promise<{
 
   return (
     <section className="space-y-4 rounded-xl border border-red-200 bg-white p-6">
-      <h2 className="text-xl font-semibold">Delete {business.name}?</h2>
+      <h1 className="text-xl font-semibold">Delete {business.name}?</h1>
       <p className="text-sm text-slate-700">This permanently deletes the business. This cannot be undone.</p>
       <BusinessDeleteForm businessId={id} />
     </section>

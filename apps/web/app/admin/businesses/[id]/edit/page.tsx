@@ -1,3 +1,4 @@
+import { EditorNav } from "@/app/ui/editor-nav";
 import { notFound } from "next/navigation";
 import { z } from "zod";
 import { BusinessForm } from "@/app/admin/businesses/business-form";
@@ -21,7 +22,8 @@ export default async function EditBusinessPage({ params }: { params: Promise<{ i
 
   return (
     <section className="space-y-4">
-      <h2 className="text-xl font-semibold">Edit business</h2>
+      <h1 className="text-xl font-semibold">Business details for {business.name}</h1>
+      <EditorNav id={id} current="details" />
       <BusinessForm
         action={updateBusinessAction.bind(null, id)}
         initialValues={initialValues}

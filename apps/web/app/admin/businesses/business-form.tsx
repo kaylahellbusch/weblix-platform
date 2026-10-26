@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
+import { useUnsavedChanges } from "@/app/ui/use-unsaved-changes";
 import type { BusinessFormState, BusinessFormValues } from "@/lib/businesses/form-state";
 
 type BusinessFormProps = {
@@ -12,6 +13,8 @@ type BusinessFormProps = {
 };
 
 export function BusinessForm({ action: submitAction, initialValues, submitLabel, cancelHref }: BusinessFormProps) {
+  const [dirty, setDirty] = useState(false);
+  useUnsavedChanges(dirty);
   const [state, action, pending] = useActionState(submitAction, { values: initialValues });
 
   const formKey = JSON.stringify(state.values ?? {});
@@ -19,6 +22,7 @@ export function BusinessForm({ action: submitAction, initialValues, submitLabel,
   return (
     <form
       key={formKey}
+      onChange={() => setDirty(true)}
       action={action}
       className="space-y-4 rounded-xl border border-slate-200 bg-white p-6"
     >

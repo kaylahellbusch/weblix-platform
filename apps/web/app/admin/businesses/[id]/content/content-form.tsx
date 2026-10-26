@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useUnsavedChanges } from "@/app/ui/use-unsaved-changes";
 import { useActionState, useState, type SetStateAction } from "react";
 import type { WebsiteContent } from "@/lib/website-content/schema";
 import type { ContentFormState } from "@/lib/website-content/form-state";
@@ -23,6 +24,7 @@ export function ContentForm({ initialContent, action: submitAction, cancelHref }
     if (result.saved) setEdited(false);
     return result;
   }, {});
+  useUnsavedChanges(edited);
   const inputClass = "block w-full rounded border border-slate-300 p-2";
   const buttonClass = "rounded border border-slate-400 px-3 py-1 disabled:opacity-50";
   const errorFor = (path: string) => state.errors?.filter(error => error.path === path).map(error => error.message).join(" ");
@@ -59,7 +61,7 @@ export function ContentForm({ initialContent, action: submitAction, cancelHref }
         {error("introduction")}
       </div>
       <section aria-labelledby="services-label" className="space-y-3">
-        <h3 id="services-label" className="font-semibold">Services (up to 20)</h3>
+        <h2 id="services-label" className="font-semibold">Services (up to 20)</h2>
         {error("services")}
         {values.services.length === 0 && <p>No services added.</p>}
         {values.services.map((service, index) => <fieldset key={index} className="space-y-2 rounded border p-3">
@@ -82,7 +84,7 @@ export function ContentForm({ initialContent, action: submitAction, cancelHref }
           onClick={() => setValues({ ...values, services: [...values.services, { title: "", description: "" }] })}>Add service</button>
       </section>
       <section aria-labelledby="areas-label" className="space-y-3">
-        <h3 id="areas-label" className="font-semibold">Service areas (up to 50)</h3>
+        <h2 id="areas-label" className="font-semibold">Service areas (up to 50)</h2>
         {error("serviceAreas")}
         {values.serviceAreas.length === 0 && <p>No service areas added.</p>}
         {values.serviceAreas.map((area, index) => <div key={index} className="space-y-2 rounded border p-3">

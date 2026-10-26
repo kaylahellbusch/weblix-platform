@@ -30,9 +30,9 @@ export default async function BusinessDetailPage({
 
   return (
     <section className="space-y-4 rounded-xl border border-slate-200 bg-white p-6">
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-2xl font-semibold">{business.name}</h2>
+          <h1 className="text-2xl font-semibold">{business.name}</h1>
           <p className="text-sm text-slate-600">{business.industry}</p>
         </div>
         <Link href="/admin" className="text-sm font-medium text-blue-700 hover:underline">

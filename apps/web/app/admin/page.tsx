@@ -1,3 +1,4 @@
+import { BusinessViews } from "./business-views";
 import Link from "next/link";
 import { requireAuthenticatedUser } from "@/lib/auth/user";
 import { listBusinessesByOwner } from "@/lib/businesses/repository";
@@ -18,8 +19,8 @@ export default async function AdminPage() {
 
   return (
     <section className="space-y-4">
-      <div className="flex items-center justify-between gap-3">
-        <h2 className="text-xl font-semibold">Your businesses</h2>
+      <div className="page-heading">
+        <div><h1>Your businesses</h1><p className="page-description">Manage business details and saved website content.</p></div>
         <Link href="/admin/businesses/import" className="text-sm font-medium text-blue-700 hover:underline">Review CSV</Link>
         <Link
           href="/admin/businesses/new"
@@ -35,35 +36,7 @@ export default async function AdminPage() {
         </p>
       ) : null}
 
-      {!hasLoadError && businesses.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-slate-300 bg-white p-8 text-center">
-          <p className="text-slate-700">No businesses yet.</p>
-          <p className="mt-1 text-sm text-slate-500">
-            Create your first business to get started.
-          </p>
-        </div>
-      ) : null}
-
-      {!hasLoadError && businesses.length > 0 ? (
-        <ul className="space-y-3">
-          {businesses.map((business) => (
-            <li key={business.id} className="rounded-xl border border-slate-200 bg-white p-4">
-              <div className="flex items-center justify-between gap-3">
-                <div>
-                  <p className="font-medium text-slate-900">{business.name}</p>
-                  <p className="text-sm text-slate-600">{business.industry}</p>
-                </div>
-                <Link
-                  href={`/admin/businesses/${business.id}`}
-                  className="text-sm font-medium text-blue-700 hover:underline"
-                >
-                  View details
-                </Link>
-              </div>
-            </li>
-          ))}
-        </ul>
-      ) : null}
+      {!hasLoadError && <BusinessViews businesses={businesses} />}
     </section>
   );
 }

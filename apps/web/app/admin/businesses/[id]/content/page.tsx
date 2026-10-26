@@ -1,3 +1,4 @@
+import { EditorNav } from "@/app/ui/editor-nav";
 import { notFound } from "next/navigation";
 import { z } from "zod";
 import { requireAuthenticatedUser } from "@/lib/auth/user";
@@ -18,7 +19,8 @@ export default async function ContentPage({ params }: {
   if (!business) notFound();
   const content = await readWebsiteContent(client, id);
   return <section className="space-y-4">
-    <h2 className="text-2xl font-semibold">Website content for {business.name}</h2>
+    <h1 className="text-2xl font-semibold">Website content for {business.name}</h1>
+    <EditorNav id={id} current="content" />
     <ContentForm key={id} initialContent={content ?? { services: [], serviceAreas: [] }}
       action={saveContentAction.bind(null, id)} cancelHref={`/admin/businesses/${id}`} />
   </section>;
