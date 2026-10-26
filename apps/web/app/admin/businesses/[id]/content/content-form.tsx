@@ -24,7 +24,7 @@ export function ContentForm({ initialContent, action: submitAction, cancelHref }
     if (result.saved) setEdited(false);
     return result;
   }, {});
-  useUnsavedChanges(edited);
+  const discardDialog = useUnsavedChanges(edited);
   const inputClass = "block w-full rounded border border-slate-300 p-2";
   const buttonClass = "rounded border border-slate-400 px-3 py-1 disabled:opacity-50";
   const errorFor = (path: string) => state.errors?.filter(error => error.path === path).map(error => error.message).join(" ");
@@ -44,6 +44,7 @@ export function ContentForm({ initialContent, action: submitAction, cancelHref }
   // Controlled fields retain the exact entered values after server errors.
   return <form action={action} className="space-y-6 rounded-xl border border-slate-200 bg-white p-6">
     {state.saved && !edited && !pending && !state.formError && <p role="status">Website content saved.</p>}
+    {discardDialog}
     <input type="hidden" name="content" value={JSON.stringify(values)} />
     <fieldset disabled={pending} className="space-y-6">
       <legend className="sr-only">Website content</legend>

@@ -14,7 +14,7 @@ type BusinessFormProps = {
 
 export function BusinessForm({ action: submitAction, initialValues, submitLabel, cancelHref }: BusinessFormProps) {
   const [dirty, setDirty] = useState(false);
-  useUnsavedChanges(dirty);
+  const discardDialog = useUnsavedChanges(dirty);
   const [state, action, pending] = useActionState(submitAction, { values: initialValues });
 
   const formKey = JSON.stringify(state.values ?? {});
@@ -26,6 +26,7 @@ export function BusinessForm({ action: submitAction, initialValues, submitLabel,
       action={action}
       className="space-y-4 rounded-xl border border-slate-200 bg-white p-6"
     >
+      {discardDialog}
       <div>
         <label htmlFor="name" className="mb-1 block text-sm font-medium text-slate-700">
           Business name

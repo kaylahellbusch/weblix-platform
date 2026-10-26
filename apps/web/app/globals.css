@@ -128,3 +128,7 @@ body {
   .page-heading { align-items: start; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+.discard-dialog { margin: auto; max-width: min(480px, calc(100% - 32px)); border: 1px solid #78818e; border-radius: 16px; padding: 24px; color: #202734; background: white; }
+.discard-dialog::backdrop { background: rgb(32 39 52 / 45%); }
+.discard-dialog h2 { font-size: 1.5rem; font-weight: 700; line-height: 1.3; }
+.discard-dialog p { margin-block: 16px 24px; }
