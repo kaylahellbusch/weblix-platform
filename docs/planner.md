@@ -105,3 +105,24 @@ private project history in issues, prompts, or evidence.
 ## Outcome acceptance handoff
 
 After independent final review and required checks pass, outcome owners mark the final acceptance PR ready and trigger/monitor the existing GitHub Actions Vercel preview workflow. Preview build/deployment is authorized; main merges, production deployment, hosted migrations and credential changes are not. Link the run and preview URL and distinguish deployment success from verified hosted behavior. Report actual failures or approval gates; do not leave an otherwise complete PR draft solely because preview infrastructure has not yet been verified.
+
+## Visual design acceptance
+
+For every issue that implements or changes an approved design, require direct
+reference-versus-actual review of running screens. Link the written brief and
+applicable reference images; written scope resolves mockup inconsistencies without
+discarding the intended composition. Use comparable viewport and representative
+synthetic content, including enough populated records to assess layout.
+
+Compare layout/proportions, navigation, hierarchy/type, spacing/density, card/row
+dimensions, action placement, control treatment and overall fidelity. Capture
+Reference | Actual evidence separately from Before | After regression evidence.
+Record material deviations with corrections or justified scope/accessibility
+adaptations. Matching colors or passing tests is not visual acceptance.
+
+A fresh independent reviewer inspects final actual screens against the references
+and gives an explicit fidelity verdict, separate from functional/accessibility
+checks. Require real mobile checks; where no approved reference exists, state
+that and assess consistency rather than inventing a match. Keep incomplete visual
+work draft and preserve existing review-round limits. Screenshot/documentation
+follow-ups use delivered screens that passed this gate.
