@@ -21,9 +21,9 @@ export function useUnsavedChanges(dirty: boolean) {
       if (!leaving.current) event.preventDefault();
     }
     function click(event: MouseEvent) {
-      if (leaving.current || event.defaultPrevented) return;
+      if (leaving.current || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       const target = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("a[href]") : null;
-      if (!target || target.getAttribute("href")?.startsWith("#")) return;
+      if (!target || target.getAttribute("href")?.startsWith("#") || target.target === "_blank" || target.hasAttribute("download")) return;
       event.preventDefault();
       event.stopPropagation();
       setPending({ proceed: () => target.click() });

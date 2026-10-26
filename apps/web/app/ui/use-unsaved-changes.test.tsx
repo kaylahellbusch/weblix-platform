@@ -23,3 +23,17 @@ it("retains edits on cancel, allows explicit discard, and removes protection whe
   fireEvent.click(screen.getByText("Leave"));
   expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
 });
+it("preserves modified, auxiliary, new-tab and download link behavior while dirty", () => {
+  function Draft() {
+    const dialog = useUnsavedChanges(true);
+    return <>{dialog}<a href="/admin" onClick={event => event.preventDefault()}>Browse</a><a href="/admin" target="_blank" onClick={event => event.preventDefault()}>New tab</a><a href="/sample.csv" download onClick={event => event.preventDefault()}>Download</a></>;
+  }
+  render(<Draft />);
+  for (const options of [{ metaKey: true }, { ctrlKey: true }, { shiftKey: true }, { altKey: true }, { button: 1 }]) {
+    fireEvent.click(screen.getByText("Browse"), options);
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  }
+  fireEvent.click(screen.getByText("New tab"));
+  fireEvent.click(screen.getByText("Download"));
+  expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+});

@@ -106,7 +106,7 @@ export function ContentForm({ initialContent, action: submitAction, cancelHref }
         <p>{state.formError}</p>
         {state.errors?.filter(item => !/^(headline|introduction|services|serviceAreas)(\.|$)/.test(item.path)).map((item, index) => <p key={index}>{item.message}</p>)}
       </div>}
-      <div className="flex gap-4">
+      <div className="flex flex-wrap gap-4">
         <button type="submit" disabled={pending} className="rounded bg-slate-900 px-4 py-2 text-white disabled:opacity-50">{pending ? "Saving..." : "Save website content"}</button>
         <Link href={cancelHref} className="py-2 text-blue-700 hover:underline">Cancel</Link>
       </div>
