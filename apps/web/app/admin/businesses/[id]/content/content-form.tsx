@@ -1,18 +1,21 @@
 "use client";
 
 import Link from "next/link";
+import { EditorNav } from "@/app/ui/editor-nav";
 import { useUnsavedChanges } from "@/app/ui/use-unsaved-changes";
 import { useActionState, useState, type SetStateAction } from "react";
 import type { WebsiteContent } from "@/lib/website-content/schema";
 import type { ContentFormState } from "@/lib/website-content/form-state";
 
 type Props = {
+  businessName?: string;
+  businessId?: string;
   initialContent: WebsiteContent;
   action: (state: ContentFormState, formData: FormData) => Promise<ContentFormState>;
   cancelHref: string;
 };
 
-export function ContentForm({ initialContent, action: submitAction, cancelHref }: Props) {
+export function ContentForm({ businessName, businessId, initialContent, action: submitAction, cancelHref }: Props) {
   const [values, setDraftValues] = useState(initialContent);
   const [edited, setEdited] = useState(false);
   function setValues(next: SetStateAction<WebsiteContent>) {
@@ -42,27 +45,41 @@ export function ContentForm({ initialContent, action: submitAction, cancelHref }
     });
   }
   // Controlled fields retain the exact entered values after server errors.
-  return <form action={action} className="space-y-6 rounded-xl border border-slate-200 bg-white p-6">
+  return <>
+    <header className="editor-header">
+      <div><p className="editor-breadcrumb"><Link href="/admin">Businesses</Link>{businessName && <> / {businessName}</>}</p><h1>Edit website</h1></div>
+      <div className="editor-actions">
+        <Link href={cancelHref} className="secondary">Cancel</Link>
+        <button type="submit" form="website-content-form" aria-label="Save website content" disabled={pending} className="bg-slate-900 px-4 py-2 text-white disabled:opacity-50">{pending ? "Saving..." : "Save changes"}</button>
+      </div>
+    </header>
+    {businessId && <EditorNav id={businessId} current="content" />}
+    <form id="website-content-form" action={action} className="content-editor-form">
     {state.saved && !edited && !pending && !state.formError && <p role="status">Website content saved.</p>}
     {discardDialog}
     <input type="hidden" name="content" value={JSON.stringify(values)} />
     <fieldset disabled={pending} className="space-y-6">
       <legend className="sr-only">Website content</legend>
-      <p className="text-sm text-slate-600">All sections are optional. Services and areas appear in the order shown. Saving replaces the entire content; the last save wins.</p>
-      <div>
+      <section className="editor-panel" id="headline-section" aria-labelledby="homepage-title">
+        <div className="panel-heading"><span className="section-number" aria-hidden="true">1</span><div><h2 id="homepage-title">Homepage</h2><p>Customize the saved content for your business’s website.</p></div></div>
+        <div className="panel-fields"><h3>Hero section</h3><p className="field-help">The headline introduces your business.</p>
         <label htmlFor="headline">Headline (up to 160 characters)</label>
         <input id="headline" className={inputClass} value={values.headline ?? ""} {...accessibility("headline")}
           onChange={event => setValues({ ...values, headline: event.target.value })} />
         {error("headline")}
-      </div>
-      <div>
+        </div>
+      </section>
+      <details className="editor-panel introduction-panel" id="introduction-section" open={errorFor("introduction") ? true : undefined}>
+        <summary className="panel-heading"><span className="section-number" aria-hidden="true">2</span><div><span className="panel-title">Introduction</span><span className="panel-description">Add a short introduction about your business.</span></div></summary>
+        <div className="panel-fields">
         <label htmlFor="introduction">Introduction (up to 2,000 characters)</label>
-        <textarea id="introduction" rows={5} className={inputClass} value={values.introduction ?? ""} {...accessibility("introduction")}
+        <textarea id="introduction" rows={3} className={inputClass} value={values.introduction ?? ""} {...accessibility("introduction")}
           onChange={event => setValues({ ...values, introduction: event.target.value })} />
         {error("introduction")}
-      </div>
-      <section aria-labelledby="services-label" className="space-y-3">
-        <h2 id="services-label" className="font-semibold">Services (up to 20)</h2>
+        </div>
+      </details>
+      <section id="services-section" aria-labelledby="services-label" className="editor-panel space-y-3">
+        <div className="panel-heading"><span className="section-number" aria-hidden="true">3</span><div><h2 id="services-label">Services (up to 20)</h2><p>Describe the services your business offers.</p></div></div>
         {error("services")}
         {values.services.length === 0 && <p>No services added.</p>}
         {values.services.map((service, index) => <fieldset key={index} className="space-y-2 rounded border p-3">
@@ -84,8 +101,8 @@ export function ContentForm({ initialContent, action: submitAction, cancelHref }
         <button type="button" className={buttonClass} disabled={values.services.length >= 20}
           onClick={() => setValues({ ...values, services: [...values.services, { title: "", description: "" }] })}>Add service</button>
       </section>
-      <section aria-labelledby="areas-label" className="space-y-3">
-        <h2 id="areas-label" className="font-semibold">Service areas (up to 50)</h2>
+      <section id="areas-section" aria-labelledby="areas-label" className="editor-panel space-y-3">
+        <div className="panel-heading"><span className="section-number" aria-hidden="true">4</span><div><h2 id="areas-label">Service areas (up to 50)</h2><p>List the places your business serves.</p></div></div>
         {error("serviceAreas")}
         {values.serviceAreas.length === 0 && <p>No service areas added.</p>}
         {values.serviceAreas.map((area, index) => <div key={index} className="space-y-2 rounded border p-3">
@@ -106,10 +123,7 @@ export function ContentForm({ initialContent, action: submitAction, cancelHref }
         <p>{state.formError}</p>
         {state.errors?.filter(item => !/^(headline|introduction|services|serviceAreas)(\.|$)/.test(item.path)).map((item, index) => <p key={index}>{item.message}</p>)}
       </div>}
-      <div className="flex flex-wrap gap-4">
-        <button type="submit" disabled={pending} className="rounded bg-slate-900 px-4 py-2 text-white disabled:opacity-50">{pending ? "Saving..." : "Save website content"}</button>
-        <Link href={cancelHref} className="py-2 text-blue-700 hover:underline">Cancel</Link>
-      </div>
+      <p className="editor-save-note">All sections are optional. Services and areas keep their displayed order. Saving replaces all saved website content; the last save wins.</p>
     </fieldset>
-  </form>;
+  </form></>;
 }

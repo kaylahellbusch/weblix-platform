@@ -60,3 +60,13 @@ describe("website content editor", () => {
     }
   });
 });
+it("opens the collapsed Introduction panel when a server validation error targets it", async () => {
+  const action = vi.fn(async (): Promise<ContentFormState> => ({ formError: "Please fix Introduction.", errors: [{ path: "introduction", message: "Introduction is too long." }] }));
+  render(<ContentForm initialContent={initialContent} action={action} cancelHref="/admin" />);
+  const introduction = screen.getByLabelText(/Introduction \(up to/);
+  expect(introduction.closest("details")).not.toHaveAttribute("open");
+  fireEvent.click(screen.getByRole("button", { name: "Save website content" }));
+  await screen.findByRole("alert");
+  expect(introduction.closest("details")).toHaveAttribute("open");
+  expect(introduction).toHaveAttribute("aria-describedby", "introduction-error");
+});

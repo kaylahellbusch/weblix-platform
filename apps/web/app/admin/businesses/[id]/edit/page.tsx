@@ -1,3 +1,4 @@
+import { EditorShell } from "@/app/ui/editor-shell";
 import { EditorNav } from "@/app/ui/editor-nav";
 import { notFound } from "next/navigation";
 import { z } from "zod";
@@ -21,8 +22,9 @@ export default async function EditBusinessPage({ params }: { params: Promise<{ i
   );
 
   return (
-    <section className="space-y-4">
-      <h1 className="text-xl font-semibold">Business details for {business.name}</h1>
+    <EditorShell id={id} name={business.name} current="details">
+      <p className="editor-breadcrumb">Businesses / {business.name}</p>
+      <h1 className="text-xl font-semibold">Business details</h1>
       <EditorNav id={id} current="details" />
       <BusinessForm
         action={updateBusinessAction.bind(null, id)}
@@ -30,6 +32,6 @@ export default async function EditBusinessPage({ params }: { params: Promise<{ i
         submitLabel="Save changes"
         cancelHref={`/admin/businesses/${id}`}
       />
-    </section>
+    </EditorShell>
   );
 }

@@ -37,3 +37,14 @@ it("preserves modified, auxiliary, new-tab and download link behavior while dirt
   fireEvent.click(screen.getByText("Download"));
   expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
 });
+it("allows history movement between content anchors without discarding the current draft", () => {
+  const navigation = new EventTarget();
+  Object.defineProperty(window, "navigation", { configurable: true, value: navigation });
+  render(<Editor dirty />);
+  const event = new Event("navigate", { cancelable: true });
+  Object.defineProperties(event, { navigationType: { value: "traverse" }, destination: { value: { key: "section", url: window.location.href.split("#")[0] + "#services-section" } } });
+  navigation.dispatchEvent(event);
+  expect(event.defaultPrevented).toBe(false);
+  expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  Reflect.deleteProperty(window, "navigation");
+});

@@ -40,8 +40,12 @@ export function useUnsavedChanges(dirty: boolean) {
     const navigation = "navigation" in window ? window.navigation as Navigation : undefined;
     function traverse(event: Event) {
       if (leaving.current || !event.cancelable || !("navigationType" in event) || event.navigationType !== "traverse") return;
-      const destination = "destination" in event ? event.destination as { key?: string } : undefined;
+      const destination = "destination" in event ? event.destination as { key?: string; url?: string } : undefined;
       if (!destination?.key || !navigation) return;
+      if (destination.url) {
+        const target = new URL(destination.url, window.location.href);
+        if (target.pathname === window.location.pathname && target.search === window.location.search && target.hash !== window.location.hash) return;
+      }
       event.preventDefault();
       const key = destination.key;
       setPending({ proceed: () => navigation.traverseTo(key) });

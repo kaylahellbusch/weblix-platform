@@ -1,4 +1,4 @@
-import { EditorNav } from "@/app/ui/editor-nav";
+import { EditorShell } from "@/app/ui/editor-shell";
 import { notFound } from "next/navigation";
 import { z } from "zod";
 import { requireAuthenticatedUser } from "@/lib/auth/user";
@@ -18,10 +18,8 @@ export default async function ContentPage({ params }: {
   const business = await getBusinessByIdForOwner(client, id, user.id);
   if (!business) notFound();
   const content = await readWebsiteContent(client, id);
-  return <section className="space-y-4">
-    <h1 className="text-2xl font-semibold">Website content for {business.name}</h1>
-    <EditorNav id={id} current="content" />
-    <ContentForm key={id} initialContent={content ?? { services: [], serviceAreas: [] }}
+  return <EditorShell id={id} name={business.name} current="content">
+    <ContentForm key={id} businessName={business.name} businessId={id} initialContent={content ?? { services: [], serviceAreas: [] }}
       action={saveContentAction.bind(null, id)} cancelHref={`/admin/businesses/${id}`} />
-  </section>;
+  </EditorShell>;
 }

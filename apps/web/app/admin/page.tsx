@@ -18,15 +18,14 @@ export default async function AdminPage() {
   }
 
   return (
-    <section className="space-y-4">
+    <section className="business-page">
       <div className="page-heading">
         <div><h1>Your businesses</h1><p className="page-description">Manage business details and saved website content.</p></div>
-        <Link href="/admin/businesses/import" className="text-sm font-medium text-blue-700 hover:underline">Review CSV</Link>
         <Link
           href="/admin/businesses/new"
           className="rounded-lg bg-slate-900 px-3 py-2 text-sm font-medium text-white hover:bg-slate-800"
         >
-          Add business
+          <span aria-hidden="true">＋</span> Add business
         </Link>
       </div>
 
