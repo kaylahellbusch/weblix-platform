@@ -6,9 +6,15 @@ labels: ''
 assignees: ''
 ---
 
-## Outcome
+## Purpose
 
-<!-- User-visible result and source of the requested work. -->
+**Outcome / criterion:** <!-- Public-safe parent issue/name and criterion or demonstrated defect addressed. -->
+
+- **Why needed:** <!-- The concrete user problem or engineering gap. -->
+- **What changes:** <!-- Before → intended after; describe observable behavior. -->
+- **What it enables:** <!-- Connection to the current milestone or next capability. -->
+
+<!-- Keep each bullet brief. Use destination behavior only, not private planning history. -->
 
 ## Scope
 
