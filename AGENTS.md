@@ -128,3 +128,11 @@ is required.
 
 Use `.github/pull_request_template.md` for the concise format and
 `docs/pr-image-evidence.md` for screenshot capture and upload policy.
+
+README changes: before marking a PR with a substantial README change ready (new
+or rewritten sections; feature, status or architecture claims; a new screenshot
+or demo; not link, typo or formatting fixes), run the README reviewer subagent
+if your environment has it (`readme-reviewer` in Claude, `readme_reviewer` in
+Codex). Give it the base branch and PR number. Fix accuracy findings; assess
+presentation findings like any review. It is separate from the Copilot review
+and doesn't count toward its rounds.
