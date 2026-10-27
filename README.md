@@ -73,7 +73,7 @@ The [migrations](supabase/migrations) define three tables: `businesses` holds bu
 
 ## AI-assisted development workflow
 
-I set the product direction and approve the scope. Agents help inspect the code, prepare GitHub issues, implement changes, and collect test results. I remain responsible for the direction, standards, and decisions about what to accept, merge, or deploy.
+I set the product direction, approve scope, and establish engineering standards. I review what to accept and merge, while deployment follows defined authorization rules. Agents help inspect the code, prepare GitHub issues, implement changes, and collect test results.
 
 **Development orchestration:** Weblix uses public repository instructions alongside a separate private planning and coordination workspace. The private workspace keeps broader project context and supports planning, task preparation, and status reporting. This repository contains the application code, implementation instructions, issues, PRs, and testing evidence, so the delivered work and engineering decisions can be evaluated here.
 
@@ -110,9 +110,9 @@ npm ci
 openssl rand -hex 32
 ```
 
-Add the generated value as server-only `CSV_REVIEW_SECRET` in the helper-created `apps/web/.env.local`, then run `npm run dev` from `apps/web`. Open [localhost:3000/login](http://localhost:3000/login). Use the local `TEST_USER_ONE_EMAIL` or `TEST_USER_TWO_EMAIL` and `TEST_USER_PASSWORD` values from that file to sign in.
+Add the generated value as server-only `CSV_REVIEW_SECRET` in `apps/web/.env.local`, then run `npm run dev`. Open [localhost:3000/login](http://localhost:3000/login) and sign in with the test-account values in that file.
 
-The helper preserves environment files it didn't create; use a fresh worktree if one is already present. **`start` and `reset` rewrite helper-created environment files**, so restore the signing-secret entry afterwards. Keep that secret stable and resolve imports with unknown results before changing it. See [local setup, database management, and the walkthrough](docs/development.md) for details.
+See the [development guide](docs/development.md) for account details, environment-file precautions, database management, and troubleshooting.
 
 ## Additional documentation
 
