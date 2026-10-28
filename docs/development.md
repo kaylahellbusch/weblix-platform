@@ -71,9 +71,9 @@ git diff --check
 After [local setup](#local-development), open `/login` and sign in with a test account.
 
 1. Open `/admin` and choose **Add business**. Try an example like *Cedar Demo Roofing*. Save it, open its details, and refresh to see that the information is still there.
-2. Choose **Edit business** to change contact or location details. Save your changes, or Cancel to leave the saved record as it was.
-3. Choose **Edit website content**. Add a headline, introduction, services, and service areas. Save, reload, and try changing the list order. You're editing the copy here; website preview and publishing aren't available yet.
-4. Return to `/admin` and choose **Review CSV**. Download the sample or try this file:
+2. On the **Details** tab, choose **Edit details** to change contact or location details. Save your changes, or Cancel to leave the saved record as it was.
+3. Open the **Content** tab. Add a headline, introduction, services, and service areas. Save, reload, and try changing the list order. You're editing the copy here; website preview and publishing aren't available yet.
+4. Return to `/admin`, choose **Add business**, then the **Import from CSV** tab. Download the sample or try this file:
 
    ```csv
    name,industry,email
@@ -83,7 +83,7 @@ After [local setup](#local-development), open `/login` and sign in with a test a
    ```
 
    You should see **1 valid, 1 invalid, and 1 duplicate**. Canceling leaves the database unchanged. **Confirm import** saves one business and skips the other two rows. Return to the list and reload to see the new business.
-5. Try deleting a test business. Choose **Delete business**, then **Permanently delete business**. Cancel keeps it. Sign out from `/admin` when you're done.
+5. Try deleting a test business. On its **Settings** tab, choose **Delete business**, then **Permanently delete business**. Cancel keeps it. Sign out from `/admin` when you're done.
 
 **If the app can't tell whether an import finished, keep the page open and retry that same import.** Starting a new review creates a new request and could save another copy. The duplicate check only compares rows within the file; it doesn't look for businesses already in the database. See the [CSV format](csv/business-format.md) and [retry instructions](csv/confirmation.md) for details.
 

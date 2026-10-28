@@ -11,16 +11,20 @@ describe("website content editor", () => {
       .mockResolvedValue({ saved: true });
     render(<ContentForm initialContent={initialContent} action={action} cancelHref="/admin" />);
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "Save website content" }));
+    expect(screen.getByRole("button", { name: "Save changes" })).toBeDisabled();
+    fireEvent.change(screen.getByLabelText(/Headline/), { target: { value: "Updated" } });
+    fireEvent.click(screen.getByRole("button", { name: "Save changes" }));
     await screen.findByRole("status");
+    // Nothing new to save until the next edit.
+    expect(screen.getByRole("button", { name: "Save changes" })).toBeDisabled();
     fireEvent.change(screen.getByLabelText(/Headline/), { target: { value: "x".repeat(161) } });
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "Save website content" }));
+    fireEvent.click(screen.getByRole("button", { name: "Save changes" }));
     await screen.findByRole("alert");
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
     // Correcting back to the stored value still confirms the next successful save.
     fireEvent.change(screen.getByLabelText(/Headline/), { target: { value: "Original" } });
-    fireEvent.click(screen.getByRole("button", { name: "Save website content" }));
+    fireEvent.click(screen.getByRole("button", { name: "Save changes" }));
     await screen.findByRole("status");
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Move service 2 up" }));
@@ -49,9 +53,9 @@ describe("website content editor", () => {
     fireEvent.change(screen.getByLabelText(/Headline/), { target: { value: " My edits " } });
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
     for (let i = 0; i < 2; i++) {
-      fireEvent.click(screen.getByRole("button", { name: "Save website content" }));
+      fireEvent.click(screen.getByRole("button", { name: "Save changes" }));
       await waitFor(() => expect(action).toHaveBeenCalledTimes(i + 1));
-      await waitFor(() => expect(screen.getByRole("button", { name: "Save website content" })).toBeEnabled());
+      await waitFor(() => expect(screen.getByRole("button", { name: "Save changes" })).toBeEnabled());
       expect(screen.queryByRole("status")).not.toBeInTheDocument();
       expect(screen.getByLabelText(/Headline/)).toHaveValue(" My edits ");
       expect(screen.getByLabelText(/Service 1 title/)).toHaveValue("  ");
@@ -59,4 +63,15 @@ describe("website content editor", () => {
       expect(screen.getByText("Title is required.")).toHaveAttribute("id", "services.0.title-error");
     }
   });
+});
+it("opens the collapsed Introduction panel when a server validation error targets it", async () => {
+  const action = vi.fn(async (): Promise<ContentFormState> => ({ formError: "Please fix Introduction.", errors: [{ path: "introduction", message: "Introduction is too long." }] }));
+  render(<ContentForm initialContent={initialContent} action={action} cancelHref="/admin" />);
+  const introduction = screen.getByLabelText(/Introduction \(up to/);
+  expect(introduction.closest("details")).not.toHaveAttribute("open");
+  fireEvent.change(screen.getByLabelText(/Headline/), { target: { value: "Updated" } });
+  fireEvent.click(screen.getByRole("button", { name: "Save changes" }));
+  await screen.findByRole("alert");
+  expect(introduction.closest("details")).toHaveAttribute("open");
+  expect(introduction).toHaveAttribute("aria-describedby", "introduction-error");
 });

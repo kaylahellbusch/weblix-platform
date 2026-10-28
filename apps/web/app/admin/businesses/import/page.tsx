@@ -3,11 +3,16 @@ import { CsvImportForm } from "./upload-form";
 
 export default async function ImportPage() {
   await requireAuthenticatedUser();
-  return <section className="space-y-4">
-    <h2 className="text-xl font-semibold">Review a business CSV</h2>
-    <p>Review first, then explicitly confirm saving valid records. Reviewing and canceling do not save businesses.</p>
-    <p>Use UTF-8 CSV, up to 1 MiB and 500 nonblank data records. Required headers: name, industry. Optional headers: phone, email, website, city, state. Headers are case-sensitive. Quote values containing commas, quotes or newlines.</p>
-    <a className="text-blue-700 underline" href="/admin/businesses/import/sample" download>Download sample CSV</a>
-    <CsvImportForm />
-  </section>;
+  return <CsvImportForm>
+    <section aria-labelledby="csv-requirements-title" className="import-intro">
+      <h2 id="csv-requirements-title" className="section-heading">Import businesses from a CSV file</h2>
+      <p>You review the file first. Nothing is saved until you confirm the import, and canceling saves nothing.</p>
+      <ul>
+        <li>UTF-8 CSV, up to 1 MiB and 500 nonblank data records.</li>
+        <li>Required headers: name, industry. Optional headers: phone, email, website, city, state.</li>
+        <li>Headers are case-sensitive. Quote values containing commas, quotes or newlines.</li>
+      </ul>
+      <a href="/admin/businesses/import/sample" download>Download sample CSV</a>
+    </section>
+  </CsvImportForm>;
 }

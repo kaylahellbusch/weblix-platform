@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { createBusinessAction } from "@/app/admin/businesses/new/actions";
 import { createBusinessForCurrentUser } from "@/lib/businesses/service";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { revalidatePath } from "next/cache";
 
 const redirectMock = vi.fn();
 
@@ -11,6 +12,8 @@ vi.mock("next/navigation", () => ({
     throw new Error("NEXT_REDIRECT");
   },
 }));
+
+vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
 
 vi.mock("@/lib/supabase/server", () => ({
   createSupabaseServerClient: vi.fn(),
@@ -40,6 +43,7 @@ describe("createBusinessAction", () => {
       createBusinessAction({}, buildFormData({ name: "Acme Roofing", industry: "roofing" })),
     ).rejects.toThrow("NEXT_REDIRECT");
 
+    expect(revalidatePath).toHaveBeenCalledWith("/admin", "layout");
     expect(redirectMock).toHaveBeenLastCalledWith("/admin/businesses/saved-business-id");
   });
 

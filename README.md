@@ -17,7 +17,7 @@ Built with **Next.js, React, TypeScript, and Supabase/PostgreSQL**, using a huma
 
 ### Authenticated business workflow
 
-Sign in at `/login`, add an example business from `/admin`, then open **Edit website content** to write and save its copy. Reload to see the saved content. From the business list, **Review CSV** lets you inspect a file before importing anything.
+Sign in at `/login`, add an example business from `/admin`, then open its **Content** tab to write and save its copy. Reload to see the saved content. On the **Add business** page, the **Import from CSV** tab lets you inspect a file before importing anything.
 
 For a concrete example, upload a file with one valid row, a copy of that row, and a row with an invalid email. Review shows **1 valid, 1 duplicate, and 1 invalid**. Cancel saves nothing; confirming saves one business. The [full walkthrough](docs/development.md#authenticated-business-workflow) includes the file and expected results.
 

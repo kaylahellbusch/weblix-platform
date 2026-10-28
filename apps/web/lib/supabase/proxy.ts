@@ -37,11 +37,16 @@ export async function updateSession(request: NextRequest): Promise<NextResponse>
     },
   });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
   const { pathname } = request.nextUrl;
+
+  // On /admin, getClaims verifies the signed JWT locally (refreshing it when expired),
+  // avoiding a Supabase Auth round trip on every request; pages still call getUser.
+  // /login uses getUser so a revoked session with an unexpired JWT is not bounced back
+  // to /admin, where getUser would redirect to /login again.
+  const user =
+    pathname === "/login"
+      ? (await supabase.auth.getUser()).data.user
+      : (await supabase.auth.getClaims()).data?.claims;
 
   if (pathname.startsWith("/admin") && !user) {
     const redirectUrl = request.nextUrl.clone();

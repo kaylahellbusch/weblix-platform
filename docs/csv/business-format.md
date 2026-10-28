@@ -1,7 +1,7 @@
 # Business CSV validation
 
-Signed-in users can open **Review CSV** from the business list, or visit
-`/admin/businesses/import`, to download this sample and review an upload. The
+Signed-in users can choose **Add business**, then the **Import from CSV** tab, or
+visit `/admin/businesses/import`, to download this sample and review an upload. The
 server authenticates before reading file bytes, checks size and logical record
 limits before full parsing, and returns normalized valid rows, field errors,
 duplicate references and counts. Files are processed in memory; there is no

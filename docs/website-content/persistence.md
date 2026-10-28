@@ -1,6 +1,6 @@
 # Website content persistence
 
-Owners open **Edit website content** from a business detail page at
+Owners open **Edit website** from the business list, or the **Content** tab, at
 `/admin/businesses/[id]/content`. Headline, introduction, ordered services and
 ordered service areas use `apps/web/lib/website-content/schema.ts`. All sections
 may be cleared. Text is literal, with no HTML interpretation. Add/remove and

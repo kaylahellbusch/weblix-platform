@@ -14,7 +14,7 @@ See [content testing instructions](website-content/persistence.md#setup-and-veri
 
 Use two test accounts in separate browser sessions:
 
-1. As User A, create an example business, save content, and copy its detail/edit/delete/content URLs.
+1. As User A, create an example business, save content, and copy its detail/edit/content/settings URLs.
 2. As User B, confirm A's business is absent from `/admin` and those direct URLs return not found. B should still be able to manage B's own records.
 3. With User B's session, try reading or changing A's records through the Data API or replayed form requests. Check that A's business and content haven't changed. The [content testing guide](website-content/persistence.md#setup-and-verification) also covers moving content between businesses and requests without a signed-in user.
 4. As A, verify invalid edits retain input without saving, valid edits persist after reload, canceled deletion changes nothing, and confirmed deletion removes the business and its content.

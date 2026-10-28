@@ -53,7 +53,7 @@ export async function confirmBusinessCsvAction(formData: FormData): Promise<Impo
   if (!result.rows.length) return { error: "There are no valid records to import." };
   try {
     const data = await confirmBusinessImport(key, digest, result);
-    revalidatePath("/admin");
+    revalidatePath("/admin", "layout");
     return { inserted: data, invalid: result.counts.invalid, duplicate: result.counts.duplicate };
   } catch {
     return { uncertain: true, error: "The import outcome is unknown. Retry this same request to safely retrieve its result." };
