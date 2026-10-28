@@ -37,9 +37,10 @@ export async function updateSession(request: NextRequest): Promise<NextResponse>
     },
   });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // getClaims verifies the asymmetrically signed JWT locally (refreshing it when expired),
+  // avoiding a Supabase Auth round trip on every request. Pages still call getUser.
+  const { data } = await supabase.auth.getClaims();
+  const user = data?.claims;
 
   const { pathname } = request.nextUrl;
 

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useState } from "react";
+import { useActionState, useState, type ReactNode } from "react";
 import { useUnsavedChanges } from "@/app/ui/use-unsaved-changes";
 import type { BusinessFormState, BusinessFormValues } from "@/lib/businesses/form-state";
 
@@ -9,10 +9,14 @@ type BusinessFormProps = {
   action: (state: BusinessFormState, formData: FormData) => Promise<BusinessFormState>;
   initialValues?: BusinessFormValues;
   submitLabel: string;
-  cancelHref?: string;
+  cancelHref: string;
+  title: string;
+  subtitle?: string;
+  /** Shown between the header and the form, such as the Add business tabs. */
+  tabs?: ReactNode;
 };
 
-export function BusinessForm({ action: submitAction, initialValues, submitLabel, cancelHref }: BusinessFormProps) {
+export function BusinessForm({ action: submitAction, initialValues, submitLabel, cancelHref, title, subtitle, tabs }: BusinessFormProps) {
   const [dirty, setDirty] = useState(false);
   const discardDialog = useUnsavedChanges(dirty);
   const [state, action, pending] = useActionState(submitAction, { values: initialValues });
@@ -20,7 +24,23 @@ export function BusinessForm({ action: submitAction, initialValues, submitLabel,
   const formKey = JSON.stringify(state.values ?? {});
 
   return (
+    <>
+    <header className="editor-header">
+      <div>
+        <h1>{title}</h1>
+        {subtitle ? <h2 className="editor-subtitle">{subtitle}</h2> : null}
+      </div>
+      <div className="editor-actions">
+        <Link href={cancelHref} className="secondary">Cancel</Link>
+        {/* Nothing to save until a field changes. */}
+        <button type="submit" form="business-form" disabled={pending || !dirty} className="bg-slate-900 px-4 py-2 text-white disabled:opacity-50">
+          {pending ? "Saving..." : submitLabel}
+        </button>
+      </div>
+    </header>
+    {tabs}
     <form
+      id="business-form"
       key={formKey}
       onChange={() => setDirty(true)}
       action={action}
@@ -54,7 +74,8 @@ export function BusinessForm({ action: submitAction, initialValues, submitLabel,
         <input
           id="industry"
           name="industry"
-          defaultValue={state.values?.industry ?? "roofing"}
+          defaultValue={state.values?.industry ?? ""}
+          placeholder="e.g. Roofing, Plumbing, Landscaping"
           required
           aria-invalid={Boolean(state.fieldErrors?.industry)}
           aria-describedby={state.fieldErrors?.industry ? "industry-error" : undefined}
@@ -174,18 +195,7 @@ export function BusinessForm({ action: submitAction, initialValues, submitLabel,
         </p>
       ) : null}
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70"
-      >
-        {pending ? "Saving..." : submitLabel}
-      </button>
-      {cancelHref ? (
-        <Link href={cancelHref} className="ml-4 text-sm font-medium text-blue-700 hover:underline">
-          Cancel
-        </Link>
-      ) : null}
     </form>
+    </>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { EditorNav } from "@/app/ui/editor-nav";
 import { useUnsavedChanges } from "@/app/ui/use-unsaved-changes";
 import { useActionState, useState, type SetStateAction } from "react";
 import type { WebsiteContent } from "@/lib/website-content/schema";
@@ -9,13 +8,12 @@ import type { ContentFormState } from "@/lib/website-content/form-state";
 
 type Props = {
   businessName?: string;
-  businessId?: string;
   initialContent: WebsiteContent;
   action: (state: ContentFormState, formData: FormData) => Promise<ContentFormState>;
   cancelHref: string;
 };
 
-export function ContentForm({ businessName, businessId, initialContent, action: submitAction, cancelHref }: Props) {
+export function ContentForm({ businessName, initialContent, action: submitAction, cancelHref }: Props) {
   const [values, setDraftValues] = useState(initialContent);
   const [edited, setEdited] = useState(false);
   function setValues(next: SetStateAction<WebsiteContent>) {
@@ -47,13 +45,12 @@ export function ContentForm({ businessName, businessId, initialContent, action: 
   // Controlled fields retain the exact entered values after server errors.
   return <>
     <header className="editor-header">
-      <div><p className="editor-breadcrumb"><Link href="/admin">Businesses</Link>{businessName && <> / {businessName}</>}</p><h1>Edit website</h1></div>
+      <div>{businessName ? <><h1>{businessName}</h1><h2 className="editor-subtitle">Edit website</h2></> : <h1>Edit website</h1>}</div>
       <div className="editor-actions">
         <Link href={cancelHref} className="secondary">Cancel</Link>
-        <button type="submit" form="website-content-form" disabled={pending} className="bg-slate-900 px-4 py-2 text-white disabled:opacity-50">{pending ? "Saving..." : "Save changes"}</button>
+        <button type="submit" form="website-content-form" disabled={pending || !edited} className="bg-slate-900 px-4 py-2 text-white disabled:opacity-50">{pending ? "Saving..." : "Save changes"}</button>
       </div>
     </header>
-    {businessId && <EditorNav id={businessId} current="content" />}
     <form id="website-content-form" action={action} className="content-editor-form">
     {state.saved && !edited && !pending && !state.formError && <p role="status">Website content saved.</p>}
     {discardDialog}

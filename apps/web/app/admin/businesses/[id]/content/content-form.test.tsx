@@ -11,8 +11,12 @@ describe("website content editor", () => {
       .mockResolvedValue({ saved: true });
     render(<ContentForm initialContent={initialContent} action={action} cancelHref="/admin" />);
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Save changes" })).toBeDisabled();
+    fireEvent.change(screen.getByLabelText(/Headline/), { target: { value: "Updated" } });
     fireEvent.click(screen.getByRole("button", { name: "Save changes" }));
     await screen.findByRole("status");
+    // Nothing new to save until the next edit.
+    expect(screen.getByRole("button", { name: "Save changes" })).toBeDisabled();
     fireEvent.change(screen.getByLabelText(/Headline/), { target: { value: "x".repeat(161) } });
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Save changes" }));
@@ -65,6 +69,7 @@ it("opens the collapsed Introduction panel when a server validation error target
   render(<ContentForm initialContent={initialContent} action={action} cancelHref="/admin" />);
   const introduction = screen.getByLabelText(/Introduction \(up to/);
   expect(introduction.closest("details")).not.toHaveAttribute("open");
+  fireEvent.change(screen.getByLabelText(/Headline/), { target: { value: "Updated" } });
   fireEvent.click(screen.getByRole("button", { name: "Save changes" }));
   await screen.findByRole("alert");
   expect(introduction.closest("details")).toHaveAttribute("open");

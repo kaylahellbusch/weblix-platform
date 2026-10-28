@@ -1,18 +1,15 @@
 import { BusinessViews } from "./business-views";
 import Link from "next/link";
 import { requireAuthenticatedUser } from "@/lib/auth/user";
-import { listBusinessesByOwner } from "@/lib/businesses/repository";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getOwnedBusinesses } from "@/lib/businesses/owned";
 
 export default async function AdminPage() {
-  const user = await requireAuthenticatedUser();
-  const supabase = await createSupabaseServerClient();
-
-  let businesses = [] as Awaited<ReturnType<typeof listBusinessesByOwner>>;
+  await requireAuthenticatedUser();
+  let businesses = [] as Awaited<ReturnType<typeof getOwnedBusinesses>>;
   let hasLoadError = false;
 
   try {
-    businesses = await listBusinessesByOwner(supabase, user.id);
+    businesses = await getOwnedBusinesses();
   } catch {
     hasLoadError = true;
   }

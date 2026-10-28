@@ -39,9 +39,8 @@ export async function updateBusinessAction(
     return { values, formError: "We could not save your changes. Please try again." };
   }
 
-  revalidatePath("/admin");
-  revalidatePath(`/admin/businesses/${businessId}`);
-  revalidatePath(`/admin/businesses/${businessId}/edit`);
+  // "layout" also refreshes the admin sidebar, which shows business names.
+  revalidatePath("/admin", "layout");
   redirect(`/admin/businesses/${businessId}`);
 }
 
@@ -63,7 +62,6 @@ export async function deleteBusinessAction(
     return { formError: "We could not delete this business. Please try again." };
   }
 
-  revalidatePath("/admin");
-  revalidatePath(`/admin/businesses/${businessId}`, "layout");
+  revalidatePath("/admin", "layout");
   redirect("/admin");
 }

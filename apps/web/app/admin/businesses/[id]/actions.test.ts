@@ -40,9 +40,7 @@ describe("update business action", () => {
     expect(updateBusinessForCurrentUser).toHaveBeenCalledWith({}, id, {
       name: "Updated", industry: "plumbing", phone: "555-0100", email: "owner@example.com", website: "https://example.com", city: "Boise", state: "ID",
     });
-    expect(revalidatePath).toHaveBeenCalledWith("/admin");
-    expect(revalidatePath).toHaveBeenCalledWith(`/admin/businesses/${id}`);
-    expect(revalidatePath).toHaveBeenCalledWith(`/admin/businesses/${id}/edit`);
+    expect(revalidatePath).toHaveBeenCalledWith("/admin", "layout");
   });
 
   it("preserves submitted values and gives a retry message on persistence failure", async () => {
@@ -64,8 +62,7 @@ describe("delete business action", () => {
     vi.mocked(deleteBusinessForCurrentUser).mockResolvedValue({ status: "success" });
     await expect(deleteBusinessAction(id, {}, form())).rejects.toThrow("redirect:/admin");
     expect(deleteBusinessForCurrentUser).toHaveBeenCalledWith({}, id);
-    expect(revalidatePath).toHaveBeenCalledWith("/admin");
-    expect(revalidatePath).toHaveBeenCalledWith(`/admin/businesses/${id}`, "layout");
+    expect(revalidatePath).toHaveBeenCalledWith("/admin", "layout");
   });
 
   it("returns a safe retry message on delete failure", async () => {

@@ -26,7 +26,7 @@ describe("CSV review UI", () => {
     submit();
     expect(await screen.findByRole("alert")).toHaveTextContent("Malformed CSV");
     expect(screen.queryByRole("region", { name: "CSV review" })).toBeNull();
-    fireEvent.click(screen.getByText("Cancel review"));
+    fireEvent.click(screen.getByText("Start over"));
     expect(screen.queryByRole("alert")).toBeNull();
   });
   it("ignores an in-flight result after cancel or replacement", async () => {
@@ -34,7 +34,7 @@ describe("CSV review UI", () => {
     vi.mocked(reviewBusinessCsvAction).mockImplementation(() => new Promise(resolve => { complete = resolve; }));
     render(<CsvImportForm />); submit();
     expect(screen.getByRole("button", { name: "Reviewing…" })).toBeDisabled();
-    fireEvent.click(screen.getByText("Cancel review"));
+    fireEvent.click(screen.getByText("Start over"));
     await act(async () => complete(good));
     expect(screen.queryByRole("region", { name: "CSV review" })).toBeNull();
     submit(); fireEvent.change(screen.getByLabelText("Business CSV file"));
@@ -52,12 +52,15 @@ it("requires confirmation, prevents concurrent clicks and retries uncertainty wi
   expect(confirmBusinessCsvAction).not.toHaveBeenCalled();
   fireEvent.click(screen.getByRole("button", { name: "Confirm import" }));
   expect(screen.getByRole("button", { name: "Confirming…" })).toBeDisabled();
+  // Switching to the form tab could abandon the import mid-save.
+  expect(screen.getByRole("link", { name: "Enter details" })).toHaveAttribute("aria-disabled", "true");
   await act(async () => complete({ uncertain: true, error: "Unknown outcome" }));
   expect(screen.queryByText(/Nothing has been imported/)).toBeNull();
   expect(screen.getByRole("button", { name: "Review CSV" })).toBeDisabled();
-  expect(screen.getByRole("button", { name: "Cancel review" })).toBeDisabled();
+  expect(screen.getByRole("button", { name: "Start over" })).toBeDisabled();
   fireEvent.click(screen.getByRole("button", { name: "Retry same import" }));
   expect(await screen.findByText(/Imported 1 businesses/)).toBeInTheDocument();
+  expect(screen.getByRole("link", { name: "Enter details" })).not.toHaveAttribute("aria-disabled");
   expect(vi.mocked(confirmBusinessCsvAction).mock.calls[0][0].get("reviewToken")).toBe("signed-review");
   expect(vi.mocked(confirmBusinessCsvAction).mock.calls[1][0].get("reviewToken")).toBe("signed-review");
 });

@@ -121,11 +121,12 @@ After all three migrations and environment setup, use synthetic data to verify:
 2. Access `/admin` to view only that user's businesses.
 3. Create a business at `/admin/businesses/new`.
 4. Confirm redirect to `/admin/businesses/[id]` and refresh persistence.
-5. Choose **Edit business** on the detail page to update any business field, then **Save changes**. **Cancel** returns without saving.
-6. Choose **Edit website content** on the business detail page to open
+5. Open a business by its name in `/admin` to see its read-only details. Choose **Edit details** to update any business field, then **Save changes**. **Cancel** returns without saving.
+6. Choose **Edit website** in the business list or the **Content** tab to open
    `/admin/businesses/[id]/content`. Follow the linked
    [content verification guide](docs/website-content/persistence.md#setup-and-verification).
-7. Choose **Review CSV** from `/admin` to open `/admin/businesses/import`. Download
+7. On `/admin`, choose **Add business**, then the **Import from CSV** tab
+   (`/admin/businesses/import`). Download
    the sample CSV there or upload a synthetic UTF-8 CSV to review valid, invalid
    and duplicate records. Review runs in memory and creates no business records;
    only explicit confirmation saves the valid unique rows atomically. Invalid rows
@@ -134,7 +135,7 @@ After all three migrations and environment setup, use synthetic data to verify:
    before confirming writes nothing. If the outcome is unknown, keep the page open
    and retry the same request; do not start a fresh review, which can create
    additional businesses. See [confirmation and retry guidance](docs/csv/confirmation.md).
-8. Return to the disposable business detail page, choose **Delete business**, then confirm with **Permanently delete business**. **Cancel** leaves the business unchanged; successful deletion returns to `/admin`.
+8. Open the disposable business's **Settings** page from the sidebar, choose **Delete business**, then confirm in the dialog with **Permanently delete business**. **Cancel** leaves the business unchanged; successful deletion returns to `/admin`.
 9. Sign out from `/admin`.
 
 ## Manual RLS verification with two users
@@ -147,8 +148,8 @@ Use two separate Supabase Auth accounts (User A and User B):
 4. Confirm User B cannot see User A's business in `/admin`.
 5. Attempt to open User A's business detail URL directly; it should return not found.
 6. Confirm User B can create and view only their own businesses.
-7. Attempt to open User A's `/admin/businesses/[id]/edit` and `/delete` URLs as User B; both should return not found. Replayed update/delete requests must also leave User A's record unchanged.
-8. As User A, verify invalid edits preserve entered values without saving, valid edits persist after reload, canceling deletion leaves the record intact, and confirming deletion removes it from the list and makes its detail/edit/delete URLs return not found. Use a disposable test business for deletion.
+7. Attempt to open User A's `/admin/businesses/[id]` and `/edit` URLs as User B; both should return not found. Replayed update/delete requests must also leave User A's record unchanged.
+8. As User A, verify invalid edits preserve entered values without saving, valid edits persist after reload, canceling deletion leaves the record intact, and confirming deletion removes it from the list and makes its detail and edit URLs return not found. Use a disposable test business for deletion.
 
 ### Authenticated RLS verification context
 

@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import {
   getBusinessFormValues,
@@ -44,5 +45,7 @@ export async function createBusinessAction(
     };
   }
 
+  // Refreshes the list and the sidebar's business names.
+  revalidatePath("/admin", "layout");
   redirect(`/admin/businesses/${result.business.id}`);
 }

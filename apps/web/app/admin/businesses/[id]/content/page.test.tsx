@@ -25,6 +25,11 @@ describe("content page", () => {
     expect(screen.getByText("No services added.")).toBeInTheDocument();
     expect(getBusinessByIdForOwner).toHaveBeenCalledWith({}, id, "owner");
   });
+  it("titles the page with the business name", async () => {
+    render(await ContentPage(props));
+    expect(screen.getByRole("heading", { level: 1, name: "Example Roofing" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Edit website" })).toBeInTheDocument();
+  });
   it("loads saved literal text and ordered sections", async () => {
     vi.mocked(readWebsiteContent).mockResolvedValue({ headline: "<script>literal</script>", services: [{ title: "Second", description: "Repair" }, { title: "First", description: "Replace" }], serviceAreas: ["B", "A"] });
     render(await ContentPage(props));

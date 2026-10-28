@@ -17,7 +17,7 @@ describe("business browsing", () => {
     expect(screen.getByLabelText("Search businesses")).toHaveValue("  MERIDIAN ");
     expect(screen.getByRole("button", { name: "Compact" })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByRole("link", { name: "Edit website for Summit Plumbing" })).toHaveAttribute("href", "/admin/businesses/two/content");
-    expect(screen.getByRole("link", { name: "View details for Summit Plumbing" })).toHaveAttribute("href", "/admin/businesses/two");
+    expect(screen.getByRole("link", { name: "Summit Plumbing" })).toHaveAttribute("href", "/admin/businesses/two");
     fireEvent.change(screen.getByLabelText("Search businesses"), { target: { value: "willow.example.test" } });
     expect(screen.getByText("Willow & Pine")).toBeInTheDocument();
     expect(screen.queryByText("Summit Plumbing")).not.toBeInTheDocument();
@@ -25,6 +25,13 @@ describe("business browsing", () => {
     expect(screen.getByText("No matching businesses")).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Clear search" }));
     expect(screen.getByText("Summit Plumbing")).toBeInTheDocument();
+  });
+  it("shows each business's initial instead of a fake preview and keeps search with one business", () => {
+    render(<BusinessViews businesses={businesses.slice(0, 1)} />);
+    const tile = screen.getByText("W").closest(".website-placeholder");
+    expect(tile).toHaveAttribute("aria-hidden", "true");
+    expect(tile).toHaveTextContent("No preview yet");
+    expect(screen.getByLabelText("Search businesses")).toBeInTheDocument();
   });
   it("restores the browser preference and tolerates invalid or unavailable storage", () => {
     localStorage.setItem("weblix-business-view", "compact");

@@ -51,10 +51,11 @@ Both layouts share the same left sidebar, heading, search, Add business action, 
 
 ### 4–5. Editor: with and without live preview
 
-Use left navigation for content sections, with client context and a route back to Businesses. Top-level tabs are **Content, Details, Design**. There is no Settings tab.
+The business sidebar shows client context, a route back to Businesses, and the business's tabs: **Details, Content, Settings** (plus **Design** once it exists). Content sections are not listed in the sidebar or a second navigation column; the numbered section panels identify them on the page. See the October 27 update below.
 
 - Content: website sections such as Homepage, About, Services, Gallery, and Contact. Homepage contains editable website content such as headline, supporting text, button text, and hero image. Section names and availability should follow the actual template capabilities.
-- Details: business name, industry, phone, email, website, city, and state. These fields are not part of Content and Business details is not a duplicate link in the content sidebar. A dedicated Details-tab screen has not yet been visually reviewed.
+- Details: business name, industry, phone, email, website, city, and state, shown read-only with an **Edit details** action. These fields are not part of Content.
+- Settings: business-level actions that are not everyday editing. It holds **Delete business**, which confirms in a dialog.
 - Design: reserved for supported appearance controls; its specific contents have not been designed or approved.
 - With preview: structured editor on the left, website preview on the right, with device-size controls. Keep application styling distinct from the client website's own theme. Preview is future functionality.
 - Without preview: widen and center the editing panels in the available workspace. Do not leave an empty preview column, disabled device controls, or a placeholder pretending to be a live preview. An image-upload placeholder remains an ordinary field.
@@ -96,6 +97,15 @@ This section resolves mockup inconsistencies and supersedes illustrative feature
 - The README opening follows the delivered product: clear purpose, actual running-app screenshot, accurate agent planning/build/independent-review explanation and verified evidence links. Add the demo link only after the demo exists. Preserve usable setup details below.
 - Existing login, business CRUD, CSV confirmation/retries and content persistence must retain behavior and owner isolation. New shared UI must not introduce another backend or unrelated capabilities.
 - Mobile layout and control states may be resolved within this brief; verify real CSS contrast, keyboard navigation, 320px reflow and 200% text zoom. Mockup images are not accessibility or feature-verification evidence.
+
+## Navigation and page updates — October 27, 2026
+
+Decided during UI review; supersedes the earlier editor navigation guidance above.
+
+- Business tabs are Details, Content and Settings. Settings is the only place to delete a business; delete is not shown on Details.
+- Content sections have no separate navigation, neither nested in the sidebar nor as a second column or tab row.
+- Every form page keeps its title, Cancel and primary action in one header bar that stays visible while scrolling. The primary action stays disabled until something changes.
+- Empty detail fields show a muted dash, announced to screen readers as "Not provided".
 
 ## Visual references
 
