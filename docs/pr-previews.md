@@ -1,10 +1,10 @@
 # Vercel PR previews (on-demand)
 
-The [preview workflow](../.github/workflows/vercel-pr-preview.yml) deploys the latest commit of an open, ready-for-review PR from this repository to a Vercel **preview** environment. It can run when a PR is marked ready or when started manually. It doesn't deploy to production or redeploy with every push or merge. The workflow is currently disabled in GitHub, so previews aren't available through it.
+The [preview workflow](../.github/workflows/vercel-pr-preview.yml) deploys the latest commit of an open, ready-for-review PR targeting `main` from this repository to a Vercel **preview** environment. It can run when a PR is marked ready or when started manually. It doesn't deploy to production or redeploy with every push or merge. The workflow was re-enabled on October 27, 2026; inspect current Actions state and run results rather than assuming a preview is available.
 
 ## Manual redeploy
 
-Once the workflow is enabled and a preview is approved, open **Actions → Vercel PR Preview → Run workflow** and enter the open PR number. A manual run uses the workflow from the default branch and looks up the PR's latest commit before checking it out. Draft, closed, and fork PRs are rejected. Check whether a matching run already exists before starting another.
+Once the workflow is enabled and a preview is approved, open **Actions → Vercel PR Preview → Run workflow** and enter the open PR number. A manual run uses the workflow from the default branch and looks up the PR's latest commit before checking it out. Draft, closed, fork, and non-`main`-targeting PRs are rejected. Internal PRs targeting outcome branches do not create previews. Check whether a matching run already exists before starting another.
 
 ## Where to find the preview URL
 

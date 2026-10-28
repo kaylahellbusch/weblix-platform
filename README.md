@@ -119,6 +119,6 @@ See the [development guide](docs/development.md) for account details, environmen
 - [Local setup, application checks, and walkthrough](docs/development.md)
 - [Database upgrades, resets, SQL tests, and troubleshooting](docs/local-database-tests.md)
 - [Hosted migrations, environment settings, and two-user permission checks](docs/hosted-setup.md)
-- [Vercel PR preview setup and use](docs/pr-previews.md) — the workflow is currently disabled in GitHub.
+- [Vercel PR preview setup and use](docs/pr-previews.md) — previews require a ready-for-review PR targeting `main`.
 - [CSV format](docs/csv/business-format.md) and [confirmation/retry instructions](docs/csv/confirmation.md)
 - [Content model](apps/web/lib/website-content/README.md) and [editing/persistence behavior](docs/website-content/persistence.md)
