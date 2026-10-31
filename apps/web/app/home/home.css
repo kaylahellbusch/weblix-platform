@@ -40,7 +40,7 @@
 .hero-collage .home-example { width: 59%; min-height: 120px; box-shadow: 0 4px 12px rgb(32 39 52 / 4%); }
 .collage-business { margin-right: auto; }
 .collage-import { align-self: end; margin-top: -2.5rem; }
-.collage-content { margin-left: 8%; margin-top: -2.5rem; }
+.collage-content { margin-left: 8%; margin-top: -1rem; }
 .home-gallery { padding-block: 28px 32px; }
 .home-section-heading { text-align: center; margin-bottom: 28px; }
 .public-home h2 { font-size: clamp(1.5rem, 2.4vw, 2rem); font-weight: 750; letter-spacing: -.035em; line-height: 1.2; }
