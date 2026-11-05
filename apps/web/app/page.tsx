@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { ArrowRight, Check, FileText, Building2, Upload } from "lucide-react";
 import { Brand } from "./ui/brand";
 import { MobileNavigation } from "./home/navigation";
 import "./home/home.css";
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 
 function ExamplePanel({ title, children, className = "" }: { title: string; children: ReactNode; className?: string }) {
   return <div className={`home-example ${className}`}>
-    <div className="example-bar"><span aria-hidden="true">● ● ●</span><span>{title}</span></div>
+    <div className="example-bar"><FileText size={16} aria-hidden="true" /><span>{title}</span></div>
     <div className="example-body">{children}</div>
   </div>;
 }
@@ -44,16 +45,19 @@ export default function Home() {
       <main id="main" tabIndex={-1}>
         <section className="home-hero home-section" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <p className="home-eyebrow">For local business website managers</p>
-            <h1 id="hero-title">Your clients.<br />A little more organized.</h1>
+            <h1 id="hero-title">Your clients.<br /><span>A little more organized.</span></h1>
+            <p className="home-audience">For local business website managers</p>
             <p className="home-lead">One workspace to organize client details and keep their website content in order.</p>
-            <div className="home-actions"><a href="/login" className="home-button">Log in</a><a href="#workspace-examples" className="home-button home-secondary">Explore the workspace</a></div>
+            <div className="home-actions"><a href="/login" className="home-button">Log in <ArrowRight size={18} aria-hidden="true" /></a><a href="#workspace-examples" className="home-button home-secondary">Explore the workspace</a></div>
           </div>
           <figure className="hero-examples">
-            <div className="hero-collage">
-              <ExamplePanel title="Business details" className="collage-business"><strong>Juniper Flower Studio</strong><p>Florist · Boise, ID</p></ExamplePanel>
-              <ExamplePanel title="CSV review" className="collage-import"><strong>Review your client list</strong><p>Check rows before importing.</p></ExamplePanel>
-              <ExamplePanel title="Website content" className="collage-content"><span className="example-label">Headline</span><p className="example-field">Flowers for everyday moments</p></ExamplePanel>
+            <div className="client-jacket">
+              <div className="jacket-heading"><span><Building2 size={18} aria-hidden="true" /> Business details</span><span>Juniper Flower Studio</span></div>
+              <div className="jacket-records">
+                <div className="jacket-business"><span className="example-label">Business</span><strong>Juniper Flower Studio</strong><p>Florist · Boise, ID</p></div>
+                <div className="jacket-content"><span className="example-label">Website content · Headline</span><p>Flowers for everyday moments</p></div>
+                <div className="jacket-import"><Upload size={22} aria-hidden="true" /><strong>Review your client list</strong><p>Check rows before importing.</p><span className="jacket-tag"><Check size={14} aria-hidden="true" /> CSV review</span></div>
+              </div>
             </div>
             <figcaption>Synthetic workspace illustrations</figcaption>
           </figure>
@@ -61,9 +65,9 @@ export default function Home() {
         <section className="home-gallery home-section" id="workspace-examples" aria-labelledby="examples-title">
           <div className="home-section-heading"><h2 id="examples-title">Client information. All in one place.</h2><p>Illustrative app examples with fictional data.</p></div>
           <div className="example-grid">
-            <article><ExamplePanel title="Businesses"><BusinessExample /></ExamplePanel><h3>Organize your clients</h3><p>Search your clients in grid or compact view.</p></article>
-            <article><ExamplePanel title="CSV review"><ImportExample /></ExamplePanel><h3>Bring your client list</h3><p>Review CSV rows before confirming an import.</p></article>
-            <article><ExamplePanel title="Website content"><ContentExample /></ExamplePanel><h3>Keep content together</h3><p>Save each client’s headlines, services, and more.</p></article>
+            <article><div className="feature-copy"><Building2 size={24} aria-hidden="true" /><h3>Organize your clients</h3><p>Search your clients in grid or compact view.</p></div><ExamplePanel title="Businesses"><BusinessExample /></ExamplePanel></article>
+            <article><div className="feature-copy"><Upload size={24} aria-hidden="true" /><h3>Bring your client list</h3><p>Review CSV rows before confirming an import.</p></div><ExamplePanel title="CSV review"><ImportExample /></ExamplePanel></article>
+            <article><div className="feature-copy"><FileText size={24} aria-hidden="true" /><h3>Keep content together</h3><p>Save each client’s headlines, services, and more.</p></div><ExamplePanel title="Website content"><ContentExample /></ExamplePanel></article>
           </div>
         </section>
         <section className="home-workflow home-section" id="how-it-works" aria-labelledby="workflow-title">
