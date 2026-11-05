@@ -45,15 +45,17 @@ export default function Home() {
         <section className="home-hero home-section" aria-labelledby="hero-title">
           <div className="hero-copy">
             <p className="home-eyebrow">For local business website managers</p>
-            <h1 id="hero-title">Your clients.<br />A little more organized.</h1>
+            <h1 id="hero-title">Your clients.<br /><span>A little more organized.</span></h1>
             <p className="home-lead">One workspace to organize client details and keep their website content in order.</p>
             <div className="home-actions"><a href="/login" className="home-button">Log in</a><a href="#workspace-examples" className="home-button home-secondary">Explore the workspace</a></div>
           </div>
           <figure className="hero-examples">
-            <div className="hero-collage">
-              <ExamplePanel title="Business details" className="collage-business"><strong>Juniper Flower Studio</strong><p>Florist · Boise, ID</p></ExamplePanel>
-              <ExamplePanel title="CSV review" className="collage-import"><strong>Review your client list</strong><p>Check rows before importing.</p></ExamplePanel>
-              <ExamplePanel title="Website content" className="collage-content"><span className="example-label">Headline</span><p className="example-field">Flowers for everyday moments</p></ExamplePanel>
+            <div className="hero-workspace">
+              <div className="workspace-illustration-bar"><span aria-hidden="true">● ● ●</span><span>Your workspace</span><span className="illustration-label">Example</span></div>
+              <div className="workspace-illustration-body">
+                <div className="illustration-sidebar"><span className="example-label">Businesses</span><div className="illustration-client"><span className="client-initial" aria-hidden="true">J</span><span><strong>Juniper Flower Studio</strong><small>Florist · Boise, ID</small></span></div><div className="illustration-client muted-client"><span className="client-initial" aria-hidden="true">N</span><span>Northline Plumbing</span></div><div className="illustration-import"><span className="example-label">CSV review</span><strong>Review your client list</strong><p>Check rows before importing.</p></div></div>
+                <div className="illustration-detail"><span className="example-label">Business details</span><h3>Juniper Flower Studio</h3><p>Florist · Boise, ID</p><div className="illustration-content"><span className="content-marker" aria-hidden="true">Aa</span><strong>Website content</strong><span className="example-label">Headline</span><p className="example-field">Flowers for everyday moments</p><span className="example-label">Services</span><p className="example-field">Seasonal bouquets</p></div></div>
+              </div>
             </div>
             <figcaption>Synthetic workspace illustrations</figcaption>
           </figure>
@@ -67,7 +69,7 @@ export default function Home() {
           </div>
         </section>
         <section className="home-workflow home-section" id="how-it-works" aria-labelledby="workflow-title">
-          <h2 id="workflow-title">How it works</h2>
+          <p className="home-eyebrow">A straightforward workflow</p><h2 id="workflow-title">How it works</h2>
           <ol className="workflow-grid">
             <li><span className="step-number" aria-hidden="true">1</span><h3>Add your clients</h3><p>Enter a business by hand or review and confirm a CSV import.</p></li>
             <li><span className="step-number" aria-hidden="true">2</span><h3>Bring the details together</h3><p>Organize contact details and website content.</p></li>
