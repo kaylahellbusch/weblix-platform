@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 function ExamplePanel({ title, children, className = "" }: { title: string; children: ReactNode; className?: string }) {
   return <div className={`home-example ${className}`}>
-    <div className="example-bar"><span aria-hidden="true">● ● ●</span><span>{title}</span></div>
+    <div className="example-bar"><span className="example-window-mark" aria-hidden="true" /><span>{title}</span></div>
     <div className="example-body">{children}</div>
   </div>;
 }
@@ -44,26 +44,25 @@ export default function Home() {
       <main id="main" tabIndex={-1}>
         <section className="home-hero home-section" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <p className="home-eyebrow">For local business website managers</p>
-            <h1 id="hero-title">Your clients.<br />A little more organized.</h1>
-            <p className="home-lead">One workspace to organize client details and keep their website content in order.</p>
-            <div className="home-actions"><a href="/login" className="home-button">Log in</a><a href="#workspace-examples" className="home-button home-secondary">Explore the workspace</a></div>
+            <h1 id="hero-title">Your clients.<br /><span>A little more organized.</span></h1>
+            <div className="hero-introduction"><div><p className="home-lead">One workspace to organize client details and keep their website content in order.</p><p className="hero-audience">For local business website managers</p></div>
+            <div className="home-actions"><a href="/login" className="home-button">Log in</a><a href="#workspace-examples" className="home-button home-secondary">Explore the workspace<svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M5 12h14m-6-6 6 6-6 6" /></svg></a></div></div>
           </div>
           <figure className="hero-examples">
-            <div className="hero-collage">
-              <ExamplePanel title="Business details" className="collage-business"><strong>Juniper Flower Studio</strong><p>Florist · Boise, ID</p></ExamplePanel>
-              <ExamplePanel title="CSV review" className="collage-import"><strong>Review your client list</strong><p>Check rows before importing.</p></ExamplePanel>
+            <div className="hero-record"><div className="record-heading"><span>Client workspace</span><strong>Juniper Flower Studio</strong><span>Illustrative example</span></div><div className="hero-collage">
+              <ExamplePanel title="Business details" className="collage-business"><strong>Juniper Flower Studio</strong><p>Florist · Boise, ID</p><span className="record-note">Contact information &amp; location</span></ExamplePanel>
+              <ExamplePanel title="CSV review" className="collage-import"><strong>Review your client list</strong><p>Check rows before importing.</p><span className="record-note">Review, then confirm</span></ExamplePanel>
               <ExamplePanel title="Website content" className="collage-content"><span className="example-label">Headline</span><p className="example-field">Flowers for everyday moments</p></ExamplePanel>
-            </div>
+            </div></div>
             <figcaption>Synthetic workspace illustrations</figcaption>
           </figure>
         </section>
         <section className="home-gallery home-section" id="workspace-examples" aria-labelledby="examples-title">
           <div className="home-section-heading"><h2 id="examples-title">Client information. All in one place.</h2><p>Illustrative app examples with fictional data.</p></div>
           <div className="example-grid">
-            <article><ExamplePanel title="Businesses"><BusinessExample /></ExamplePanel><h3>Organize your clients</h3><p>Search your clients in grid or compact view.</p></article>
-            <article><ExamplePanel title="CSV review"><ImportExample /></ExamplePanel><h3>Bring your client list</h3><p>Review CSV rows before confirming an import.</p></article>
-            <article><ExamplePanel title="Website content"><ContentExample /></ExamplePanel><h3>Keep content together</h3><p>Save each client’s headlines, services, and more.</p></article>
+            <article><ExamplePanel title="Businesses"><BusinessExample /></ExamplePanel><div className="example-description"><h3>Organize your clients</h3><p>Search your clients in grid or compact view.</p></div></article>
+            <article><ExamplePanel title="CSV review"><ImportExample /></ExamplePanel><div className="example-description"><h3>Bring your client list</h3><p>Review CSV rows before confirming an import.</p></div></article>
+            <article><ExamplePanel title="Website content"><ContentExample /></ExamplePanel><div className="example-description"><h3>Keep content together</h3><p>Save each client’s headlines, services, and more.</p></div></article>
           </div>
         </section>
         <section className="home-workflow home-section" id="how-it-works" aria-labelledby="workflow-title">

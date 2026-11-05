@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-05T20:12:54.272488+00:00",
+  "title": "Design System: Weblix homepage experiment",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Primary blue",
+        "tonalRamp": [
+          "oklch(15% 0.0525 265)",
+          "oklch(25% 0.1125 265)",
+          "oklch(35% 0.1500 265)",
+          "oklch(45% 0.1500 265)",
+          "oklch(55% 0.1500 265)",
+          "oklch(65% 0.1500 265)",
+          "oklch(85% 0.1125 265)",
+          "oklch(95% 0.0525 265)"
+        ]
+      },
+      "primary-hover": {
+        "role": "primary",
+        "displayName": "Deep action blue",
+        "tonalRamp": [
+          "oklch(15% 0.0525 265)",
+          "oklch(25% 0.1125 265)",
+          "oklch(35% 0.1500 265)",
+          "oklch(45% 0.1500 265)",
+          "oklch(55% 0.1500 265)",
+          "oklch(65% 0.1500 265)",
+          "oklch(85% 0.1125 265)",
+          "oklch(95% 0.0525 265)"
+        ]
+      },
+      "apricot": {
+        "role": "secondary",
+        "displayName": "Apricot",
+        "tonalRamp": [
+          "oklch(15% 0.0420 60)",
+          "oklch(25% 0.0900 60)",
+          "oklch(35% 0.1200 60)",
+          "oklch(45% 0.1200 60)",
+          "oklch(55% 0.1200 60)",
+          "oklch(65% 0.1200 60)",
+          "oklch(85% 0.0900 60)",
+          "oklch(95% 0.0420 60)"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Neutral off-white",
+        "tonalRamp": [
+          "oklch(15% 0.0014 90)",
+          "oklch(25% 0.0030 90)",
+          "oklch(35% 0.0040 90)",
+          "oklch(45% 0.0040 90)",
+          "oklch(55% 0.0040 90)",
+          "oklch(65% 0.0040 90)",
+          "oklch(85% 0.0030 90)",
+          "oklch(95% 0.0014 90)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "White",
+        "tonalRamp": [
+          "oklch(15% 0.0000 0)",
+          "oklch(25% 0.0000 0)",
+          "oklch(35% 0.0000 0)",
+          "oklch(45% 0.0000 0)",
+          "oklch(55% 0.0000 0)",
+          "oklch(65% 0.0000 0)",
+          "oklch(85% 0.0000 0)",
+          "oklch(95% 0.0000 0)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Main ink",
+        "tonalRamp": [
+          "oklch(15% 0.0087 260)",
+          "oklch(25% 0.0188 260)",
+          "oklch(35% 0.0250 260)",
+          "oklch(45% 0.0250 260)",
+          "oklch(55% 0.0250 260)",
+          "oklch(65% 0.0250 260)",
+          "oklch(85% 0.0188 260)",
+          "oklch(95% 0.0087 260)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Secondary slate",
+        "tonalRamp": [
+          "oklch(15% 0.0087 260)",
+          "oklch(25% 0.0188 260)",
+          "oklch(35% 0.0250 260)",
+          "oklch(45% 0.0250 260)",
+          "oklch(55% 0.0250 260)",
+          "oklch(65% 0.0250 260)",
+          "oklch(85% 0.0188 260)",
+          "oklch(95% 0.0087 260)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Neutral border",
+        "tonalRamp": [
+          "oklch(15% 0.0052 260)",
+          "oklch(25% 0.0112 260)",
+          "oklch(35% 0.0150 260)",
+          "oklch(45% 0.0150 260)",
+          "oklch(55% 0.0150 260)",
+          "oklch(65% 0.0150 260)",
+          "oklch(85% 0.0112 260)",
+          "oklch(95% 0.0052 260)"
+        ]
+      },
+      "control-border": {
+        "role": "neutral",
+        "displayName": "Control boundary",
+        "tonalRamp": [
+          "oklch(15% 0.0087 260)",
+          "oklch(25% 0.0188 260)",
+          "oklch(35% 0.0250 260)",
+          "oklch(45% 0.0250 260)",
+          "oklch(55% 0.0250 260)",
+          "oklch(65% 0.0250 260)",
+          "oklch(85% 0.0188 260)",
+          "oklch(95% 0.0087 260)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Homepage display",
+        "purpose": "Hero heading only."
+      },
+      "body": {
+        "displayName": "Example body",
+        "purpose": "Synthetic records and supporting explanations."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "navigation-underline",
+        "value": "text-decoration-color 180ms cubic-bezier(.16,1,.3,1)",
+        "purpose": "Reveal section-link underline; disabled for reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "tablet-max",
+        "value": "1100px"
+      },
+      {
+        "name": "phone-max",
+        "value": "700px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Homepage link action.",
+      "html": "<a class=\"ds-primary\" href=\"#example\">Log in</a>",
+      "css": ".ds-primary{font-family:Manrope,'Segoe UI',sans-serif;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 24px;border:1px solid #3566d6;border-radius:8px;font-size:.875rem;font-weight:700;text-align:center;color:#fff;background:#3566d6;}.ds-primary:hover{background:#2854b7;text-decoration:underline;text-underline-offset:4px;}.ds-primary:focus-visible{outline:3px solid #3566d6;outline-offset:5px;}"
+    },
+    {
+      "name": "Secondary action",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Homepage link action.",
+      "html": "<a class=\"ds-secondary\" href=\"#example\">Explore the workspace</a>",
+      "css": ".ds-secondary{font-family:Manrope,'Segoe UI',sans-serif;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 24px;border:1px solid #3566d6;border-radius:8px;font-size:.875rem;font-weight:700;text-align:center;color:#202734;background:#fff;border-color:#78818e;}.ds-secondary:hover{background:#f7f7f5;text-decoration:underline;text-underline-offset:4px;}.ds-secondary:focus-visible{outline:3px solid #3566d6;outline-offset:5px;}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "description": "Section wayfinding with underline reveal.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Example navigation\"><a href=\"#example\">How it works</a></nav>",
+      "css": ".ds-nav a{font-family:Manrope,'Segoe UI',sans-serif;display:inline-flex;align-items:center;min-height:44px;color:#202734;font-size:.875rem;font-weight:600;text-decoration:underline;text-decoration-color:transparent;text-underline-offset:6px;transition:text-decoration-color 180ms cubic-bezier(.16,1,.3,1);}.ds-nav a:hover{text-decoration-color:currentColor;}.ds-nav a:focus-visible{outline:3px solid #3566d6;outline-offset:5px;border-radius:4px;}@media(prefers-reduced-motion:reduce){.ds-nav a{transition:none;}}"
+    },
+    {
+      "name": "Client record",
+      "kind": "card",
+      "refersTo": "record",
+      "description": "Flat synthetic client information record.",
+      "html": "<article class=\"ds-record\"><strong>Juniper Flower Studio</strong><p>Florist \u00b7 Boise, ID</p></article>",
+      "css": ".ds-record{font-family:Manrope,'Segoe UI',sans-serif;background:#fff;color:#202734;border:1px solid #d8dce2;border-radius:16px;padding:32px;font-size:.875rem;line-height:1.6;}.ds-record strong{font-weight:700;}.ds-record p{color:#566171;}"
+    },
+    {
+      "name": "Illustrated field",
+      "kind": "custom",
+      "refersTo": "illustrated-field",
+      "description": "Static content illustration, not an editable input.",
+      "html": "<div class=\"ds-example\"><span>Headline</span><p>Flowers for everyday moments</p></div>",
+      "css": ".ds-example{font-family:Manrope,'Segoe UI',sans-serif;color:#566171;}.ds-example span{display:block;font-size:.75rem;margin-bottom:6px;}.ds-example p{border:1px solid #d8dce2;border-radius:8px;background:#f7f7f5;padding:10px 12px;font-size:.875rem;line-height:1.6;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The local directory, made clear",
+    "overview": "This document records only the finished public-homepage experiment in apps/web/app/page.tsx and apps/web/app/home/home.css. It does not establish a redesign of the application. The approved docs/design/ui-design-brief.md remains authoritative; homepage display sizing and composition are local to this surface.\n\nProfessional, legible and spacious, this system organizes related information as flat white records on a neutral ground. Blue identifies actions and orientation; restrained apricot numbers mark the real workflow. The existing vector Weblix logo is retained.",
+    "keyCharacteristics": [
+      "Connected, bordered records",
+      "Clean self-hosted Manrope",
+      "Blue actions and restrained apricot markers",
+      "Responsive, content-driven spacing"
+    ],
+    "rules": [
+      {
+        "name": "The Blue Action Rule",
+        "body": "Use blue for primary actions and keyboard orientation; keep apricot markers subordinate.",
+        "section": "colors"
+      },
+      {
+        "name": "The Flat Record Rule",
+        "body": "Use borders and tonal separation to organize related information rather than decorative lift.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do retain the approved palette and existing vector logo.",
+      "Do label synthetic examples and distinguish illustrations from interactive controls.",
+      "Do retain visible keyboard focus and readable stacked records on narrow screens."
+    ],
+    "donts": [
+      "Don't imply website rendering, live preview or publishing is available.",
+      "Don't introduce unrelated decoration, gradients or decorative shadows.",
+      "Don't apply this homepage experiment as an application-wide redesign."
+    ]
+  }
+}
