@@ -12,7 +12,7 @@
 .public-home nav a { display: inline-flex; align-items: center; min-height: 44px; font-size: .875rem; font-weight: 600; }
 .public-home a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .public-home :is(a, summary):focus-visible { outline: 3px solid #3566d6; outline-offset: 4px; border-radius: 4px; }
-.public-home main:focus { outline: none; }
+.public-home main:focus-visible { outline: 3px solid #3566d6; outline-offset: -3px; }
 .home-button { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; border: 1px solid #3566d6; border-radius: 9px; padding: 11px 24px; background: #3566d6; color: white; font-weight: 650; text-align: center; font-size: .875rem; }
 .home-button:hover { background: #2854b7; }
 .home-secondary { background: white; color: #202734; border-color: #78818e; }
