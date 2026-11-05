@@ -96,6 +96,12 @@ For application code, run from `apps/web`:
 - `npm run test`
 - `npm run build`
 
+A Stop hook (`scripts/stop-checks.py`, set up in `.claude/settings.json` and
+`.codex/hooks.json`) runs lint, typecheck and tests when you try to finish with
+`apps/web` changes, and sends you back while they fail. After three failed tries it
+lets you stop: then report the failing checks; never call the work done. It skips
+the build, so still run it. Codex runs the hook only after it's trusted in `/hooks`.
+
 Run `git diff --check` for all edits. For documentation-only changes, inspect the
 content and check links and runnable examples as applicable; no application build
 is required.
