@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 function ExamplePanel({ title, children, className = "" }: { title: string; children: ReactNode; className?: string }) {
   return <div className={`home-example ${className}`}>
-    <div className="example-bar"><span aria-hidden="true">● ● ●</span><span>{title}</span></div>
+    <div className="example-bar"><span className="panel-mark" aria-hidden="true" /><span>{title}</span></div>
     <div className="example-body">{children}</div>
   </div>;
 }
@@ -44,14 +44,14 @@ export default function Home() {
       <main id="main" tabIndex={-1}>
         <section className="home-hero home-section" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <p className="home-eyebrow">For local business website managers</p>
-            <h1 id="hero-title">Your clients.<br />A little more organized.</h1>
+            <p className="home-audience">For local business website managers</p>
+            <h1 id="hero-title">Good client work<br />starts with order.</h1>
             <p className="home-lead">One workspace to organize client details and keep their website content in order.</p>
             <div className="home-actions"><a href="/login" className="home-button">Log in</a><a href="#workspace-examples" className="home-button home-secondary">Explore the workspace</a></div>
           </div>
           <figure className="hero-examples">
-            <div className="hero-collage">
-              <ExamplePanel title="Business details" className="collage-business"><strong>Juniper Flower Studio</strong><p>Florist · Boise, ID</p></ExamplePanel>
+            <div className="hero-collage"><div className="workspace-heading"><span>Client workspace</span><span>Illustrative example</span></div><div className="workspace-client"><span className="client-initial" aria-hidden="true">J</span><div><strong>Juniper Flower Studio</strong><p>Florist in Boise, Idaho</p></div></div>
+              <ExamplePanel title="Business details" className="collage-business"><span className="example-label">Client information</span><strong>Contact, location &amp; industry</strong><p>Keep the essentials together.</p></ExamplePanel>
               <ExamplePanel title="CSV review" className="collage-import"><strong>Review your client list</strong><p>Check rows before importing.</p></ExamplePanel>
               <ExamplePanel title="Website content" className="collage-content"><span className="example-label">Headline</span><p className="example-field">Flowers for everyday moments</p></ExamplePanel>
             </div>
@@ -76,7 +76,7 @@ export default function Home() {
         </section>
         <section className="home-editor home-section" aria-labelledby="editor-title">
           <div><h2 id="editor-title">A place for the details.<br />Room for the words.</h2><p className="home-lead">Edit business details and saved website content in one focused workspace.</p><p className="editor-scope">Website rendering, live preview, and publishing are not available yet.</p><a href="/login" className="home-button">Log in</a></div>
-          <figure><ExamplePanel title="Juniper Flower Studio · Content" className="editor-example"><div className="illustrated-tabs"><strong>Content</strong><span>Details</span></div><div className="illustrated-editor"><h3>Homepage</h3><span className="example-label">Headline</span><p className="example-field">Flowers for everyday moments</p><span className="example-label">Introduction</span><p className="example-field">Seasonal flowers, thoughtfully arranged.</p></div></ExamplePanel><figcaption>Synthetic content illustration · not an interactive editor</figcaption></figure>
+          <figure><ExamplePanel title="Juniper Flower Studio · Content" className="editor-example"><div className="illustrated-tabs"><span>Details</span><strong>Content</strong><span>Settings</span></div><div className="illustrated-editor"><h3>Homepage</h3><span className="example-label">Headline</span><p className="example-field">Flowers for everyday moments</p><span className="example-label">Introduction</span><p className="example-field">Seasonal flowers, thoughtfully arranged.</p></div></ExamplePanel><figcaption>Synthetic content illustration · not an interactive editor</figcaption></figure>
         </section>
         <section className="home-cta" aria-labelledby="cta-title"><h2 id="cta-title">Your next client update starts here.</h2><a href="/login" className="home-button">Log in</a></section>
       </main>
