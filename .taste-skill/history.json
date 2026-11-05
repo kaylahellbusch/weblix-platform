@@ -1,0 +1,20 @@
+{
+ "palettes": [
+  "olive-on-bone"
+ ],
+ "types": [
+  "onest"
+ ],
+ "dealt": [
+  "host",
+  "outfit",
+  "onest"
+ ],
+ "moments": [
+  {
+   "id": "word-highlight",
+   "at": "2026-11-05T10:45:41.842Z",
+   "seed": "5a9c7503"
+  }
+ ]
+}

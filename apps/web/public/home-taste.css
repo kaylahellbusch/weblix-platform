@@ -1,0 +1,83 @@
+:root {
+  --p-bg: #ecebe7; --p-surface: #e1dfd9; --p-ink: #38450f; --p-muted: #5a6537;
+  --p-accent: #38450f; --p-accent-ink: #ecebe7; --p-action: #38450f; --p-action-ink: #ecebe7;
+  --p-inv-bg: #38450f; --p-inv-surface: #435020; --p-inv-ink: #ecebe7; --p-inv-muted: #bbbfaf;
+  --p-inv-accent: #ecebe7; --p-inv-accent-ink: #38450f; --p-inv-action: #ecebe7; --p-inv-action-ink: #38450f;
+  --font-display: "Onest", system-ui, sans-serif;
+  --font-text: "Onest", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 400;
+  --display-tracking: -0.035em;
+  --display-tracking-xl: -0.04em;
+}
+/* Page CSS is the product illustration inside the kit's frames. */
+.client-window { background: #fafbf8; color: #26321a; width: 100%; height: 100%; border: 1px solid #c1c9b5; border-radius: var(--r-md); overflow: hidden; font-family: var(--font-text); }
+.client-bar { display: flex; align-items: center; gap: 24px; padding: 16px 24px; border-bottom: 1px solid #d6dcce; font-size: 13px; background: #f1f4ed; }
+.client-body { display: grid; grid-template-columns: 36% 64%; height: calc(100% - 53px); }
+.client-list { padding: 24px; background: #f1f4ed; border-right: 1px solid #d6dcce; }
+.visual-label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 12px; }
+.visual-search { border: 1px solid #9ca78f; border-radius: var(--r-sm); padding: 12px; font-size: 14px; margin-bottom: 24px; }
+.client-item { display: flex; gap: 12px; padding: 16px 8px; border-bottom: 1px solid #d6dcce; font-size: 14px; }
+.client-item strong, .client-item span { display: block; }
+.client-item strong { font-weight: 500; }
+.client-item div > span { margin-top: 4px; font-size: 13px; }
+.client-initial { padding: 8px; background: #dbe3d1; border-radius: 4px; align-self: start; }
+.client-detail { padding: 32px; }
+.client-detail h3 { font: 400 28px/1.2 var(--font-display); margin-bottom: 12px; }
+.client-detail > p { font-size: 14px; }
+.visual-tabs { display: flex; gap: 24px; border-bottom: 1px solid #d6dcce; margin-top: 32px; padding-bottom: 16px; font-size: 14px; }
+.visual-tabs strong { font-weight: 500; }
+.visual-form { padding-top: 24px; }
+.visual-field { font-size: 16px; line-height: 1.6; background: white; border: 1px solid #a5af9a; border-radius: var(--r-sm); padding: 12px 16px; margin-bottom: 24px; }
+.client-window--compact .client-body { grid-template-columns: 1fr; }
+.client-window--compact .client-list { display: none; }
+.client-window--compact .client-detail { padding: 32px; }
+.hero__media > .client-window { height: 100%; }
+.app-frame { margin-top: var(--s-7); border-radius: var(--r-lg); overflow: hidden; }
+#how-it-works .panel { --p-h: 336px; }
+.visual-details { background: #fafbf8; color: #26321a; padding: 24px; border: 1px solid #c1c9b5; border-radius: var(--r-md); }
+.visual-details > strong { font-weight: 500; display: block; margin-bottom: 24px; }
+.visual-details dl { font-size: 16px; line-height: 1.5; }
+.visual-details dt { font-size: 13px; margin-top: 16px; }
+.visual-details dd { margin: 4px 0; }
+.visual-review-note { padding: 16px; font-size: 14px; }
+.editor-art { height: calc(100% - 64px); }
+#statement .mo-wh__text { margin-top: var(--s-7); font-size: var(--t-h1); max-width: 1100px; }
+@media (max-width: 1023px) {
+  .client-list { padding: 16px; }
+  .client-detail { padding: 24px; }
+  .client-item { flex-direction: column; }
+  #how-it-works { --h: 2; }
+}
+@media (max-width: 639px) {
+  .client-window--compact .client-detail { padding: 16px; }
+  .client-window--compact .client-detail h3 { font-size: 20px; }
+  .client-window--compact .visual-tabs { margin-top: 16px; }
+  .client-window--compact .visual-form { padding-top: 16px; }
+  .client-window--compact .visual-form > :nth-child(n+4) { display: none; }
+  .client-window--compact .visual-field { font-size: 14px; margin-bottom: 12px; }
+  .client-body { grid-template-columns: 1fr; }
+  .client-list { display: none; }
+  .client-detail { padding: 24px; }
+  #how-it-works { --hm: 2; }
+  #how-it-works .panel { --p-h: 200px; }
+}
+/* Next/Tailwind also defines start-7 as a physical inset. The kit uses it as a grid column. */
+.start-7 { inset-inline-start: auto; }
+/* Keep the skip link visually clipped until keyboard focus, as the kit's system reference requires. */
+.nav .skip-link { left: 0; top: 0; width: 1px; height: 1px; padding: 0; clip-path: inset(50%); }
+.nav .skip-link:focus { left: var(--gut); top: 8px; width: auto; height: auto; padding: 12px; clip-path: none; }
+/* Configure the provided ground's screen token to follow the v4 section count. */
+#how-it-works, #statement { --g-screen: calc(var(--h, 1) * 100svh); padding-block: var(--padt) calc(var(--padb) + var(--bar)); }
+.steps-grid .card { --c-text: var(--ink); }
+.steps-grid .stage { --ax: 32px; --ay: 32px; }
+@media (min-width: 1024px) and (max-width: 1279px) { #how-it-works { --h: 2; } }
+@media (max-width: 639px) {
+  #how-it-works .panel { --p-h: 260px; }
+  #how-it-works, #statement { --g-screen: 0px; }
+}
+
+.app-frame { position: relative; }
+.app-frame::after { content: ""; position: absolute; inset: auto 0 0; height: 64px; background: linear-gradient(transparent, #fafbf8); pointer-events: none; }
+@media (max-width: 1023px) { .client-window--compact .visual-form > :nth-child(n+4) { display: none; } }
+@media (min-width: 1024px) and (max-width: 1279px) { #editor .frame--split { --ratio: 100%; } }
