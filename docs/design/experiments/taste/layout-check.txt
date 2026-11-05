@@ -1,0 +1,50 @@
+
+1440x900  lines x 80 and 1360, nav 72px, one screen 900px
+  hero 900 tall; h1 72px/1.02, 3 lines, 519x211 at 80,120; lead 20/30, 2 lines, 519 wide; buttons 2 x 44; visual 628x716 at 732,120
+  stress: split h1 at 45 of 45 characters takes 4 lines, hero 900 tall
+  section section.hero.hero--split section.hero.hero--split "Client wo y     0  h   900  content 716
+  section #workspace-examples section.section "Client details.Website  y   900  h   900  content 708
+  section #how-it-works section.section.bg-mist "Your client updates i y  1800  h   900  content 621
+  section #editor section.section "A home for website contentEdit e"   y  2700  h   900  content 503
+  section #statement section.section.bg-dots "The next client updateFi y  3600  h   900  content 689
+  hero-lines       h1: a 45-character h1 takes 4 lines; heroes.json allows 3 at 1440: lower maxChars
+
+1024x768  lines x 80 and 944, nav 72px, one screen 768px
+  hero 768 tall; h1 59.3215px/1.02, 3 lines, 346x173 at 80,120; lead 18.8186/28.228, 3 lines, 346 wide; buttons 2 x 44; visual 420x584 at 524,120
+  stress: split h1 at 45 of 45 characters takes 4 lines, hero 768 tall
+  section section.hero.hero--split section.hero.hero--split "Client wo y     0  h   768  content 584
+  section #workspace-examples section.section "Client details.Website  y   768  h   768  content 576
+  section #how-it-works section.section.bg-mist "Your client updates i y  1536  h  1536  content 1111
+  section #editor section.section "A home for website contentEdit e"   y  3072  h   768  content 420
+  section #statement section.section.bg-dots "The next client updateFi y  3840  h   840  content 640
+  no findings
+
+820x1180  lines x 48 and 772, nav 72px, one screen 1180px
+  hero 1180 tall; h1 53.1036px/1.02, 1 lines, 703x47 at 48,120; lead 18.2352/27.3528, 2 lines, 509 wide; buttons 2 x 44; visual 724x701 at 48,415
+  stress: split h1 at 45 of 45 characters takes 2 lines, hero 1180 tall
+  section section.hero.hero--split section.hero.hero--split "Client wo y     0  h  1180  content 996
+  section #workspace-examples section.section "Client details.Website  y  1180  h  1180  content 988
+  section #how-it-works section.section.bg-mist "Your client updates i y  2360  h  2360  content 1538
+  section #editor section.section "A home for website contentEdit e"   y  4720  h  1180  content 814
+  section #statement section.section.bg-dots "The next client updateFi y  5900  h  1180  content 634
+  no findings
+
+768x1024  lines x 48 and 720, nav 72px, one screen 1024px
+  hero 1024 tall; h1 51.5186px/1.02, 2 lines, 672x98 at 48,120; lead 18.0865/27.1297, 2 lines, 505 wide; buttons 2 x 44; visual 672x494 at 48,466
+  stress: split h1 at 45 of 45 characters takes 2 lines, hero 1024 tall
+  section section.hero.hero--split section.hero.hero--split "Client wo y     0  h  1024  content 840
+  section #workspace-examples section.section "Client details.Website  y  1024  h  1024  content 832
+  section #how-it-works section.section.bg-mist "Your client updates i y  2048  h  2048  content 1537
+  section #editor section.section "A home for website contentEdit e"   y  4096  h  1024  content 772
+  section #statement section.section.bg-dots "The next client updateFi y  5120  h  1024  content 616
+  no findings
+
+390x844  lines x 24 and 366, nav 56px, one screen 844px
+  hero 844 tall; h1 40px/1.02, 2 lines, 342x77 at 24,96; lead 17.0054/25.5081, 3 lines, 342 wide; buttons 2 x 44; visual 342x325 at 24,495
+  stress: split h1 at 45 of 45 characters takes 3 lines, hero 844 tall
+  section section.hero.hero--split section.hero.hero--split "Client wo y     0  h   844  content 724
+  section #workspace-examples section.section "Client details.Website  y   844  h   844  content 700
+  section #how-it-works section.section.bg-mist "Your client updates i y  1688  h  1688  content 1399
+  section #editor section.section "A home for website contentEdit e"   y  3376  h   844  content 676
+  section #statement section.section.bg-dots "The next client updateFi y  4220  h   844  content 700
+  no findings

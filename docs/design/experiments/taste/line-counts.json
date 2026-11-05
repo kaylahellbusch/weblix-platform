@@ -1,0 +1,38 @@
+{
+  "selected_skill_copy": {
+    "added": 122898,
+    "deleted": 0,
+    "files": 1617,
+    "binary_files": 151
+  },
+  "deal_and_plan": {
+    "added": 58,
+    "deleted": 0,
+    "files": 5,
+    "binary_files": 0
+  },
+  "homepage_and_app": {
+    "added": 155,
+    "deleted": 74,
+    "files": 4,
+    "binary_files": 0
+  },
+  "runtime_kit_assets": {
+    "added": 99569,
+    "deleted": 0,
+    "files": 1588,
+    "binary_files": 151
+  },
+  "evidence_reports": {
+    "added": 26958,
+    "deleted": 0,
+    "files": 13,
+    "binary_files": 0
+  },
+  "total": {
+    "added": 249638,
+    "deleted": 74,
+    "files": 3227,
+    "binary_files": 302
+  }
+}

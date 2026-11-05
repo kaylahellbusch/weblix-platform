@@ -1,0 +1,54 @@
+
+perf http://127.0.0.1:3157 @ 1440px
+  PASS  host CPU load (before/after)               7/4 %
+  PASS  total transfer                             379.3 KiB      html 8.2K  css 78.2K  js 225.3K  font 50.8K  other 16.8K
+  PASS  requests                                   38             36 by load
+  PASS  images bytes                               0 KiB          0 files
+  WARN  JS parsed                                  678.1 KiB      20 files, 225.3K gz
+  PASS  CSS                                        78.2 KiB       11 files
+  PASS  font families                              1              Onest
+  PASS  font files                                 2              50.8K
+  PASS  font bytes                                 50.8 KiB
+  PASS  images without width+height                0
+  PASS  below-fold images not lazy                 0
+  PASS  oversized images (natural > 2.2x shown)    0
+  PASS  WebGL live at load                         0
+  PASS  WebGL live at bottom                       0
+  PASS  WebGL peak live                            1              2 contexts made in all
+  PASS  long tasks (WebGL off)                     0              runs 3, 0..0, max 0ms
+  PASS  blocking time (WebGL off)                  0 ms           runs 3, 0..0 ms; at load 0ms
+  PASS  FCP (CPU, relative)                        84 ms          runs 3, 76..116
+  PASS  LCP (CPU, relative)                        84 ms          runs 3, 76..116, h1
+  PASS  layout shift                               0.013          runs 3, 0.009..0.013; at load 0.013
+  INFO    info: one load with WebGL on the CPU     59 ms          1 long tasks; SwiftShader runs shaders on the CPU, not a verdict, and shader compile on a real GPU is not measured
+  PASS  modules loaded, never mounted              0
+  PASS  broken requests                            0
+  PASS  page height                                6 screens      DOM 371 nodes
+
+perf http://127.0.0.1:3157 @ 390px
+  PASS  host CPU load (before/after)               7/4 %
+  PASS  total transfer                             376.8 KiB      html 8.2K  css 77.7K  js 225.3K  font 50.8K  other 14.7K
+  PASS  requests                                   37             35 by load
+  PASS  images bytes                               0 KiB          0 files
+  WARN  JS parsed                                  678.1 KiB      20 files, 225.3K gz
+  PASS  CSS                                        77.7 KiB       11 files
+  PASS  font families                              1              Onest
+  PASS  font files                                 2              50.8K
+  PASS  font bytes                                 50.8 KiB
+  PASS  images without width+height                0
+  PASS  below-fold images not lazy                 0
+  PASS  oversized images (natural > 2.2x shown)    0
+  PASS  WebGL live at load                         0
+  PASS  WebGL live at bottom                       0
+  PASS  WebGL peak live                            1              2 contexts made in all
+  PASS  long tasks (WebGL off)                     0              runs 3, 0..0, max 0ms
+  PASS  blocking time (WebGL off)                  0 ms           runs 3, 0..0 ms; at load 0ms
+  PASS  FCP (CPU, relative)                        96 ms          runs 3, 92..112
+  PASS  LCP (CPU, relative)                        96 ms          runs 3, 92..112, p.hero__lead
+  PASS  layout shift                               0.000          runs 3, 0.000..0.000; at load 0.000
+  INFO    info: one load with WebGL on the CPU     56 ms          1 long tasks; SwiftShader runs shaders on the CPU, not a verdict, and shader compile on a real GPU is not measured
+  PASS  modules loaded, never mounted              0
+  PASS  broken requests                            0
+  PASS  page height                                7 screens      DOM 371 nodes
+
+SUMMARY http://127.0.0.1:3157: 0 FAIL, 2 WARN  -> WARN

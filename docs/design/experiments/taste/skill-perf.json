@@ -1,0 +1,304 @@
+{
+ "page": "http://127.0.0.1:3157",
+ "partial": false,
+ "results": [
+  {
+   "w": 1440,
+   "rows": [
+    {
+     "name": "host CPU load (before/after)",
+     "value": "7/4 %",
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "total transfer",
+     "value": "379.3 KiB",
+     "verdict": "PASS",
+     "note": "html 8.2K  css 78.2K  js 225.3K  font 50.8K  other 16.8K"
+    },
+    {
+     "name": "requests",
+     "value": 38,
+     "verdict": "PASS",
+     "note": "36 by load"
+    },
+    {
+     "name": "images bytes",
+     "value": "0 KiB",
+     "verdict": "PASS",
+     "note": "0 files"
+    },
+    {
+     "name": "JS parsed",
+     "value": "678.1 KiB",
+     "verdict": "WARN",
+     "note": "20 files, 225.3K gz"
+    },
+    {
+     "name": "CSS",
+     "value": "78.2 KiB",
+     "verdict": "PASS",
+     "note": "11 files"
+    },
+    {
+     "name": "font families",
+     "value": 1,
+     "verdict": "PASS",
+     "note": "Onest"
+    },
+    {
+     "name": "font files",
+     "value": 2,
+     "verdict": "PASS",
+     "note": "50.8K"
+    },
+    {
+     "name": "font bytes",
+     "value": "50.8 KiB",
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "images without width+height",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "below-fold images not lazy",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "oversized images (natural > 2.2x shown)",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "WebGL live at load",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "WebGL live at bottom",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "WebGL peak live",
+     "value": 1,
+     "verdict": "PASS",
+     "note": "2 contexts made in all"
+    },
+    {
+     "name": "long tasks (WebGL off)",
+     "value": 0,
+     "verdict": "PASS",
+     "note": "runs 3, 0..0, max 0ms"
+    },
+    {
+     "name": "blocking time (WebGL off)",
+     "value": "0 ms",
+     "verdict": "PASS",
+     "note": "runs 3, 0..0 ms; at load 0ms"
+    },
+    {
+     "name": "FCP (CPU, relative)",
+     "value": "84 ms",
+     "verdict": "PASS",
+     "note": "runs 3, 76..116"
+    },
+    {
+     "name": "LCP (CPU, relative)",
+     "value": "84 ms",
+     "verdict": "PASS",
+     "note": "runs 3, 76..116, h1"
+    },
+    {
+     "name": "layout shift",
+     "value": "0.013",
+     "verdict": "PASS",
+     "note": "runs 3, 0.009..0.013; at load 0.013"
+    },
+    {
+     "name": "  info: one load with WebGL on the CPU",
+     "value": "59 ms",
+     "verdict": "INFO",
+     "note": "1 long tasks; SwiftShader runs shaders on the CPU, not a verdict, and shader compile on a real GPU is not measured"
+    },
+    {
+     "name": "modules loaded, never mounted",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "broken requests",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "page height",
+     "value": "6 screens",
+     "verdict": "PASS",
+     "note": "DOM 371 nodes"
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "rows": [
+    {
+     "name": "host CPU load (before/after)",
+     "value": "7/4 %",
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "total transfer",
+     "value": "376.8 KiB",
+     "verdict": "PASS",
+     "note": "html 8.2K  css 77.7K  js 225.3K  font 50.8K  other 14.7K"
+    },
+    {
+     "name": "requests",
+     "value": 37,
+     "verdict": "PASS",
+     "note": "35 by load"
+    },
+    {
+     "name": "images bytes",
+     "value": "0 KiB",
+     "verdict": "PASS",
+     "note": "0 files"
+    },
+    {
+     "name": "JS parsed",
+     "value": "678.1 KiB",
+     "verdict": "WARN",
+     "note": "20 files, 225.3K gz"
+    },
+    {
+     "name": "CSS",
+     "value": "77.7 KiB",
+     "verdict": "PASS",
+     "note": "11 files"
+    },
+    {
+     "name": "font families",
+     "value": 1,
+     "verdict": "PASS",
+     "note": "Onest"
+    },
+    {
+     "name": "font files",
+     "value": 2,
+     "verdict": "PASS",
+     "note": "50.8K"
+    },
+    {
+     "name": "font bytes",
+     "value": "50.8 KiB",
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "images without width+height",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "below-fold images not lazy",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "oversized images (natural > 2.2x shown)",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "WebGL live at load",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "WebGL live at bottom",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "WebGL peak live",
+     "value": 1,
+     "verdict": "PASS",
+     "note": "2 contexts made in all"
+    },
+    {
+     "name": "long tasks (WebGL off)",
+     "value": 0,
+     "verdict": "PASS",
+     "note": "runs 3, 0..0, max 0ms"
+    },
+    {
+     "name": "blocking time (WebGL off)",
+     "value": "0 ms",
+     "verdict": "PASS",
+     "note": "runs 3, 0..0 ms; at load 0ms"
+    },
+    {
+     "name": "FCP (CPU, relative)",
+     "value": "96 ms",
+     "verdict": "PASS",
+     "note": "runs 3, 92..112"
+    },
+    {
+     "name": "LCP (CPU, relative)",
+     "value": "96 ms",
+     "verdict": "PASS",
+     "note": "runs 3, 92..112, p.hero__lead"
+    },
+    {
+     "name": "layout shift",
+     "value": "0.000",
+     "verdict": "PASS",
+     "note": "runs 3, 0.000..0.000; at load 0.000"
+    },
+    {
+     "name": "  info: one load with WebGL on the CPU",
+     "value": "56 ms",
+     "verdict": "INFO",
+     "note": "1 long tasks; SwiftShader runs shaders on the CPU, not a verdict, and shader compile on a real GPU is not measured"
+    },
+    {
+     "name": "modules loaded, never mounted",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "broken requests",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "page height",
+     "value": "7 screens",
+     "verdict": "PASS",
+     "note": "DOM 371 nodes"
+    }
+   ]
+  }
+ ]
+}

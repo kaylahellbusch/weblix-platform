@@ -1,0 +1,809 @@
+{
+ "page": "http://127.0.0.1:3157",
+ "url": "http://127.0.0.1:3157",
+ "at": "2026-11-05T11:06:43.317Z",
+ "out": "/tmp/weblix-taste-evidence/consistency-final",
+ "widths": [
+  {
+   "width": 1440,
+   "height": 900,
+   "screens": 7,
+   "held": 0,
+   "errors": [],
+   "findings": [
+    {
+     "check": "scroll-reveal",
+     "sev": "FAIL",
+     "sel": "section#statement > div.wrap > p.mo-wh__text",
+     "text": "Find the business. Review its details. Keep cont",
+     "msg": "starts \"color\" (0.2 s) the moment it is scrolled into view (an IntersectionObserver) on span.mo-w:nth-of-type(1)",
+     "stop": 5,
+     "crop": "1440-08-scroll-reveal.jpg",
+     "fix": "show it at rest: no fade, rise or unmask when it is scrolled into view"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "FAIL",
+     "sel": "section#editor / section#statement",
+     "text": "",
+     "stop": 4,
+     "msg": "398px between these sections, +72% against the median 232px",
+     "crop": "1440-06-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "scroll-linked",
+     "sev": "WARN",
+     "sel": "section#statement > div.wrap > p.mo-wh__text > span.mo-w:nth-of-type(1)",
+     "text": "Find",
+     "msg": "its colour changes with the scroll and changes back when the scroll goes back (colour), with 1 part inside it, eased after the scroll stops; 34 more parts of this section change with the scroll too (span.mo-w:nth-of-type(2), span.mo-w:nth-of-type(3), span.mo-w:nth-of-type(4), span.mo-w:nth-of-type(5), ...) (a scroll moment on a software page: allowed, one scene and two moments at most, house rule; its still is judged under reduced motion)",
+     "stop": 4,
+     "crop": "1440-07-scroll-linked.jpg",
+     "fix": "remove the scroll-driven motion; motion lives inside a visual as a small loop"
+    },
+    {
+     "check": "same-action",
+     "sev": "WARN",
+     "sel": "section#editor > div.wrap.grid > div.span-5.stack-5 > a.link",
+     "text": "See the workspace",
+     "msg": "\"See the workspace\" is a button in one place and a text link in another: one action in two looks",
+     "fix": "show one action one way: the same button wherever it repeats, or a text link everywhere",
+     "stop": 3,
+     "crop": "1440-04-same-action.jpg"
+    },
+    {
+     "check": "copy-headings",
+     "sev": "WARN",
+     "sel": "h2#editor-title",
+     "text": "A home for website content",
+     "msg": "\"A home for website content\" names no product, part, place or section (the one brand line a page may have)",
+     "stop": 3,
+     "crop": "1440-05-copy-headings.jpg",
+     "fix": "name the thing in every heading: the product, a part, the place or a section noun"
+    },
+    {
+     "check": "links",
+     "sev": "WARN",
+     "sel": "header#top > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary",
+     "text": "Log in",
+     "msg": "\"Log in\" goes to /login, which does not exist here",
+     "stop": 0,
+     "crop": "1440-01-links.jpg",
+     "fix": "point every link at a real section, page or file"
+    },
+    {
+     "check": "nav-labels",
+     "sev": "WARN",
+     "sel": "header#top > div.wrap.nav__bar > a.skip-link",
+     "text": "Skip to content",
+     "msg": "\"Skip to content\" opens a section headed \"Client workspace for local sites\"",
+     "stop": null,
+     "fix": "name each nav link after the heading of the section it opens"
+    },
+    {
+     "check": "nav-labels",
+     "sev": "WARN",
+     "sel": "div.wrap.nav__bar > nav.nav__links > div.nav__item:nth-of-type(2) > a.nav__link",
+     "text": "Workflow",
+     "msg": "\"Workflow\" opens a section headed \"Your client updates in 3 steps\"",
+     "stop": 0,
+     "crop": "1440-02-nav-labels.jpg",
+     "fix": "name each nav link after the heading of the section it opens"
+    },
+    {
+     "check": "nav-current",
+     "sev": "WARN",
+     "sel": "header#top",
+     "text": "",
+     "stop": 1,
+     "msg": "the nav stays on screen with 4 links to the page's sections, but never marks the one you are in (no link changes as the page scrolls)",
+     "crop": "1440-03-nav-current.jpg",
+     "fix": "mark the link of the section on screen (a colour, a weight or a line under it) as the visitor scrolls"
+    },
+    {
+     "check": "section-air",
+     "sev": "WARN",
+     "sel": "section#editor",
+     "text": "A home for website contentEdit each clie",
+     "msg": "the content fills 54.2% of the section's height (488 of 900px): 55% or more (40% WARN) (SR-3)",
+     "fix": "fill the section to 55%: more content, a picture or a background layer, or merge it into the section above as its last block",
+     "rule": "SR-3 T-fill",
+     "crop": "1440-rhythm-09-section-air.jpg"
+    },
+    {
+     "check": "one-section",
+     "sev": "FAIL",
+     "sel": "section#workspace-examples > div.wrap > div.app-frame.fill > div.ui.ui-panel",
+     "text": "Weblix / BusinessesBusinessesSearch clie",
+     "msg": "a band: a box 89% of the section wide on a ground of its own that holds the heading or the intro: the section's own ground is the band (SR-4)",
+     "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+     "rule": "SR-4 T-dom",
+     "crop": "1440-rhythm-01-one-section.jpg"
+    },
+    {
+     "check": "one-section",
+     "sev": "FAIL",
+     "sel": "div.wrap > div.app-frame.fill > div.ui.ui-panel > div.client-bar",
+     "text": "Weblix / Businesses",
+     "msg": "a band: a box 89% of the section wide on a ground of its own that holds only text: the section's own ground is the band (SR-4)",
+     "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+     "rule": "SR-4 T-dom",
+     "crop": "1440-rhythm-02-one-section.jpg"
+    },
+    {
+     "check": "one-section",
+     "sev": "FAIL",
+     "sel": "footer.footer.closing > div.wrap > div.closing__cta.close--type > a.btn.btn--primary",
+     "text": "Log in",
+     "msg": "a band: a box 89% of the section wide on a ground of its own that holds only text: the section's own ground is the band (SR-4)",
+     "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+     "rule": "SR-4 T-dom",
+     "crop": "1440-rhythm-03-one-section.jpg"
+    },
+    {
+     "check": "one-heading",
+     "sev": "FAIL",
+     "sel": "h2#cta-title",
+     "text": "Your next client update starts here.",
+     "msg": "headings of two sections show whole on one screen at 9 of 91 scroll positions (9.9%; at scroll 3850, 3900, 3950, 4000px), here with \"location,\": at most 3% on a desktop (SR-5)",
+     "fix": "make the sections one screen tall so their headings sit a screen apart and two never share one",
+     "rule": "SR-5 T2",
+     "crop": "1440-rhythm-04-one-heading.jpg"
+    },
+    {
+     "check": "split-pair",
+     "sev": "FAIL",
+     "sel": "main#main > section.hero.hero--split > div.wrap > div.hero-text.grid",
+     "text": "Client workspace for local sitesOrganize",
+     "msg": "the two columns of the split start 19px apart at the top: a split's columns are top-aligned, 8px either way (SR-8)",
+     "fix": "top-align both columns of the split (align-items: start)",
+     "rule": "SR-8 T-mode",
+     "crop": "1440-rhythm-05-split-pair.jpg"
+    },
+    {
+     "check": "split-pair",
+     "sev": "FAIL",
+     "sel": "main#main > section.hero.hero--split > div.wrap > div.hero-text.grid",
+     "text": "Client workspace for local sitesOrganize",
+     "msg": "the split's columns are off the page's one pair of lines: its left column ends at 599px, not 24px before the right one (708px) (SR-8)",
+     "fix": "start every split's right column on one shared line (wrap.left + k x (width + 24) / 12, k 5, 6 or 7; 6 on a place page) and end the left one 24px before it",
+     "rule": "SR-8 T-pair",
+     "crop": "1440-rhythm-06-split-pair.jpg"
+    },
+    {
+     "check": "split-pair",
+     "sev": "FAIL",
+     "sel": "section#workspace-examples > div.wrap > div.grid",
+     "text": "Client details.Website content.One works",
+     "msg": "the split's columns are off the page's one pair of lines: its left column ends at 599px, not 24px before the right one (708px) (SR-8)",
+     "fix": "start every split's right column on one shared line (wrap.left + k x (width + 24) / 12, k 5, 6 or 7; 6 on a place page) and end the left one 24px before it",
+     "rule": "SR-8 T-pair",
+     "crop": "1440-rhythm-07-split-pair.jpg"
+    },
+    {
+     "check": "split-pair",
+     "sev": "FAIL",
+     "sel": "section#editor > div.wrap.grid",
+     "text": "A home for website contentEdit each clie",
+     "msg": "the split's columns are off the page's one pair of lines: its left column ends at 599px, not 24px before the right one (708px) (SR-8)",
+     "fix": "start every split's right column on one shared line (wrap.left + k x (width + 24) / 12, k 5, 6 or 7; 6 on a place page) and end the left one 24px before it",
+     "rule": "SR-8 T-pair",
+     "crop": "1440-rhythm-08-split-pair.jpg"
+    }
+   ],
+   "glAsked": 2
+  },
+  {
+   "width": 1024,
+   "height": 768,
+   "screens": 9,
+   "held": 0,
+   "errors": [],
+   "findings": [
+    {
+     "check": "cut-text",
+     "sev": "FAIL",
+     "sel": "div.client-body > div.client-detail > div.visual-form > p.visual-field:nth-of-type(3)",
+     "text": "Seasonal bouquets",
+     "msg": "cut 9px at the bottom by the overflow of div.wrap > div.hero-text.grid > div.hero__media.span-6 > div.ui.ui-panel",
+     "stop": 0,
+     "crop": "1024-01-cut-text.jpg",
+     "fix": "give the text room: no overflow clipping a line, no line past its box"
+    },
+    {
+     "check": "cut-text",
+     "sev": "FAIL",
+     "sel": "div.client-body > div.client-detail > div.visual-form > span.visual-label:nth-of-type(2)",
+     "text": "Headline",
+     "msg": "cut 7px at the bottom by the overflow of div.frame.frame--split > div.stage > div.at-rise.fit > div.ui.ui-panel",
+     "stop": 5,
+     "crop": "1024-05-cut-text.jpg",
+     "fix": "give the text room: no overflow clipping a line, no line past its box"
+    },
+    {
+     "check": "scroll-reveal",
+     "sev": "FAIL",
+     "sel": "section#statement > div.wrap > p.mo-wh__text",
+     "text": "Find the business. Review its details. Keep cont",
+     "msg": "starts \"color\" (0.2 s) the moment it is scrolled into view (an IntersectionObserver) on span.mo-w:nth-of-type(1)",
+     "stop": 6,
+     "crop": "1024-07-scroll-reveal.jpg",
+     "fix": "show it at rest: no fade, rise or unmask when it is scrolled into view"
+    },
+    {
+     "check": "scroll-linked",
+     "sev": "WARN",
+     "sel": "section#statement > div.wrap > p.mo-wh__text > span.mo-w:nth-of-type(1)",
+     "text": "Find",
+     "msg": "its colour changes with the scroll and changes back when the scroll goes back (colour), with 1 part inside it, eased after the scroll stops; 34 more parts of this section change with the scroll too (span.mo-w:nth-of-type(2), span.mo-w:nth-of-type(3), span.mo-w:nth-of-type(4), span.mo-w:nth-of-type(5), ...) (a scroll moment on a software page: allowed, one scene and two moments at most, house rule; its still is judged under reduced motion)",
+     "stop": 6,
+     "crop": "1024-08-scroll-linked.jpg",
+     "fix": "remove the scroll-driven motion; motion lives inside a visual as a small loop"
+    },
+    {
+     "check": "same-action",
+     "sev": "WARN",
+     "sel": "section#editor > div.wrap.grid > div.span-5.stack-5 > a.link",
+     "text": "See the workspace",
+     "msg": "\"See the workspace\" is a button in one place and a text link in another: one action in two looks",
+     "fix": "show one action one way: the same button wherever it repeats, or a text link everywhere",
+     "stop": 5,
+     "crop": "1024-06-same-action.jpg"
+    },
+    {
+     "check": "cta",
+     "sev": "WARN",
+     "sel": "section#how-it-works",
+     "text": "Your client updates in 3 steps",
+     "msg": "a section over 1.5 screens long with no link or button in it",
+     "stop": 3,
+     "crop": "1024-04-cta.jpg",
+     "fix": "add the action: a button in the hero, one on every priced item, one in the closing section"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "main#main > section.hero.hero--split / section#workspace-examples",
+     "text": "",
+     "stop": 1,
+     "msg": "180px between these sections, -41% against the median 306px",
+     "crop": "1024-02-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "section#statement / footer.footer.closing",
+     "text": "",
+     "stop": 7,
+     "msg": "197px between these sections, -35% against the median 305px of gaps at a change of ground",
+     "crop": "1024-09-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "nav-current",
+     "sev": "WARN",
+     "sel": "header#top",
+     "text": "",
+     "stop": 1,
+     "msg": "the nav stays on screen with 4 links to the page's sections, but never marks the one you are in (no link changes as the page scrolls)",
+     "crop": "1024-03-nav-current.jpg",
+     "fix": "mark the link of the section on screen (a colour, a weight or a line under it) as the visitor scrolls"
+    }
+   ],
+   "glAsked": 2
+  },
+  {
+   "width": 820,
+   "height": 1180,
+   "screens": 9,
+   "held": 0,
+   "errors": [],
+   "findings": [
+    {
+     "check": "scroll-reveal",
+     "sev": "FAIL",
+     "sel": "section#statement > div.wrap > p.mo-wh__text",
+     "text": "Find the business. Review its details. Keep cont",
+     "msg": "starts \"color\" (0.2 s) the moment it is scrolled into view (an IntersectionObserver) on span.mo-w:nth-of-type(1)",
+     "stop": 6,
+     "crop": "820-06-scroll-reveal.jpg",
+     "fix": "show it at rest: no fade, rise or unmask when it is scrolled into view"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "FAIL",
+     "sel": "main#main > section.hero.hero--split / section#workspace-examples",
+     "text": "",
+     "stop": 1,
+     "msg": "181px between these sections, -64% against the median 504px",
+     "crop": "820-01-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "scroll-linked",
+     "sev": "WARN",
+     "sel": "section#statement > div.wrap > p.mo-wh__text > span.mo-w:nth-of-type(1)",
+     "text": "Find",
+     "msg": "its colour changes with the scroll and changes back when the scroll goes back (colour), with 1 part inside it, eased after the scroll stops; 34 more parts of this section change with the scroll too (span.mo-w:nth-of-type(2), span.mo-w:nth-of-type(3), span.mo-w:nth-of-type(4), span.mo-w:nth-of-type(5), ...) (a scroll moment on a software page: allowed, one scene and two moments at most, house rule; its still is judged under reduced motion)",
+     "stop": 6,
+     "crop": "820-07-scroll-linked.jpg",
+     "fix": "remove the scroll-driven motion; motion lives inside a visual as a small loop"
+    },
+    {
+     "check": "same-action",
+     "sev": "WARN",
+     "sel": "section#editor > div.wrap.grid > div.span-5.stack-5 > a.link",
+     "text": "See the workspace",
+     "msg": "\"See the workspace\" is a button in one place and a text link in another: one action in two looks",
+     "fix": "show one action one way: the same button wherever it repeats, or a text link everywhere",
+     "stop": 4,
+     "crop": "820-04-same-action.jpg"
+    },
+    {
+     "check": "cta",
+     "sev": "WARN",
+     "sel": "section#how-it-works",
+     "text": "Your client updates in 3 steps",
+     "msg": "a section over 1.5 screens long with no link or button in it",
+     "stop": 3,
+     "crop": "820-02-cta.jpg",
+     "fix": "add the action: a button in the hero, one on every priced item, one in the closing section"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "section#statement / footer.footer.closing",
+     "text": "",
+     "stop": 6,
+     "msg": "364px between these sections, -28% against the median 504px of gaps at a change of ground",
+     "crop": "820-08-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "section#statement / footer.footer.closing",
+     "text": "",
+     "stop": 6,
+     "msg": "uneven space at the edge of a band: 247px outside its edge, 117px inside it (the space on either side of a change of ground reads as one gap only when the two match)",
+     "crop": "820-09-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "proximity",
+     "sev": "WARN",
+     "sel": "section#editor > div.wrap.grid > div.frame.frame--split",
+     "text": "A home for website content Edit each client’s he",
+     "msg": "stacked at this width, the visual starts 21px under the text and buttons above it (\"A home for website content Edi\"): it reads glued to them",
+     "fix": "give the stacked split the section's own gap between text and visual (40px or more on a phone)",
+     "stop": 4,
+     "crop": "820-05-proximity.jpg"
+    },
+    {
+     "check": "hole",
+     "sev": "WARN",
+     "sel": "article.card.card--row:nth-of-type(2) > div.panel > div.stage > div.at-rise.fit",
+     "text": "Business details Juniper Flower Studio Industry ",
+     "msg": "the card is 660px wide but its content keeps to the left 27%: the right side stands empty",
+     "stop": 3,
+     "crop": "820-03-hole.jpg",
+     "fix": "close the empty space: move the content together, or give the space the visual it lacks"
+    },
+    {
+     "check": "section-air",
+     "sev": "FAIL",
+     "sel": "section#workspace-examples / section#how-it-works",
+     "text": "",
+     "msg": "640px of air between the content of these two sections: 128-480px (64-600px WARN) (every gap out of the band at 820px, top to bottom: 640px after \"Client details.Websi\", 575px after \"Your client updates \") (SR-3)",
+     "fix": "keep 128-480px of air between the content of neighbouring sections (112-420px on a phone): the sections' padding (--padt, --padb)",
+     "rule": "SR-3 T-gap",
+     "crop": "820-rhythm-01-section-air.jpg"
+    },
+    {
+     "check": "section-air",
+     "sev": "WARN",
+     "sel": "section#how-it-works / section#editor",
+     "text": "",
+     "msg": "575px of air between the content of these two sections: 128-480px (64-600px WARN) (SR-3)",
+     "fix": "keep 128-480px of air between the content of neighbouring sections (112-420px on a phone): the sections' padding (--padt, --padb)",
+     "rule": "SR-3 T-gap",
+     "crop": "820-rhythm-06-section-air.jpg"
+    },
+    {
+     "check": "one-section",
+     "sev": "FAIL",
+     "sel": "section#workspace-examples > div.wrap > div.app-frame.fill > div.ui.ui-panel",
+     "text": "Weblix / BusinessesBusinessesSearch clie",
+     "msg": "a band: a box 88% of the section wide on a ground of its own that holds the heading or the intro: the section's own ground is the band (SR-4)",
+     "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+     "rule": "SR-4 T-dom",
+     "crop": "820-rhythm-02-one-section.jpg"
+    },
+    {
+     "check": "one-section",
+     "sev": "FAIL",
+     "sel": "div.wrap > div.app-frame.fill > div.ui.ui-panel > div.client-bar",
+     "text": "Weblix / Businesses",
+     "msg": "a band: a box 88% of the section wide on a ground of its own that holds only text: the section's own ground is the band (SR-4)",
+     "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+     "rule": "SR-4 T-dom",
+     "crop": "820-rhythm-03-one-section.jpg"
+    },
+    {
+     "check": "one-section",
+     "sev": "FAIL",
+     "sel": "footer.footer.closing > div.wrap > div.closing__cta.close--type > a.btn.btn--primary",
+     "text": "Log in",
+     "msg": "a band: a box 88% of the section wide on a ground of its own that holds only text: the section's own ground is the band (SR-4)",
+     "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+     "rule": "SR-4 T-dom",
+     "crop": "820-rhythm-04-one-section.jpg"
+    },
+    {
+     "check": "one-heading",
+     "sev": "FAIL",
+     "sel": "h2#cta-title",
+     "text": "Your next client update starts here.",
+     "msg": "headings of two sections show whole on one screen at 11 of 142 scroll positions (7.7%; at scroll 6150, 6200, 6250, 6300px), here with \"Find\": at most 3% on a desktop (SR-5)",
+     "fix": "make the sections one screen tall so their headings sit a screen apart and two never share one",
+     "rule": "SR-5 T2",
+     "crop": "820-rhythm-05-one-heading.jpg"
+    }
+   ],
+   "glAsked": 2
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "screens": 9,
+   "held": 0,
+   "errors": [],
+   "findings": [
+    {
+     "check": "cut-text",
+     "sev": "FAIL",
+     "sel": "div.client-body > div.client-detail > div.visual-form > p.visual-field:nth-of-type(3)",
+     "text": "Seasonal bouquets",
+     "msg": "cut 18px at the bottom by the overflow of section#workspace-examples > div.wrap > div.app-frame.fill > div.ui.ui-panel",
+     "stop": 2,
+     "crop": "768-02-cut-text.jpg",
+     "fix": "give the text room: no overflow clipping a line, no line past its box"
+    },
+    {
+     "check": "scroll-reveal",
+     "sev": "FAIL",
+     "sel": "section#statement > div.wrap > p.mo-wh__text",
+     "text": "Find the business. Review its details. Keep cont",
+     "msg": "starts \"color\" (0.2 s) the moment it is scrolled into view (an IntersectionObserver) on span.mo-w:nth-of-type(1)",
+     "stop": 6,
+     "crop": "768-07-scroll-reveal.jpg",
+     "fix": "show it at rest: no fade, rise or unmask when it is scrolled into view"
+    },
+    {
+     "check": "scroll-linked",
+     "sev": "WARN",
+     "sel": "section#statement > div.wrap > p.mo-wh__text > span.mo-w:nth-of-type(1)",
+     "text": "Find",
+     "msg": "its colour changes with the scroll and changes back when the scroll goes back (colour), with 1 part inside it, eased after the scroll stops; 34 more parts of this section change with the scroll too (span.mo-w:nth-of-type(2), span.mo-w:nth-of-type(3), span.mo-w:nth-of-type(4), span.mo-w:nth-of-type(5), ...) (a scroll moment on a software page: allowed, one scene and two moments at most, house rule; its still is judged under reduced motion)",
+     "stop": 6,
+     "crop": "768-08-scroll-linked.jpg",
+     "fix": "remove the scroll-driven motion; motion lives inside a visual as a small loop"
+    },
+    {
+     "check": "same-action",
+     "sev": "WARN",
+     "sel": "section#editor > div.wrap.grid > div.span-5.stack-5 > a.link",
+     "text": "See the workspace",
+     "msg": "\"See the workspace\" is a button in one place and a text link in another: one action in two looks",
+     "fix": "show one action one way: the same button wherever it repeats, or a text link everywhere",
+     "stop": 4,
+     "crop": "768-05-same-action.jpg"
+    },
+    {
+     "check": "cta",
+     "sev": "WARN",
+     "sel": "section#how-it-works",
+     "text": "Your client updates in 3 steps",
+     "msg": "a section over 1.5 screens long with no link or button in it",
+     "stop": 3,
+     "crop": "768-03-cta.jpg",
+     "fix": "add the action: a button in the hero, one on every priced item, one in the closing section"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "main#main > section.hero.hero--split / section#workspace-examples",
+     "text": "",
+     "stop": 1,
+     "msg": "181px between these sections, -48% against the median 349px",
+     "crop": "768-01-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "proximity",
+     "sev": "WARN",
+     "sel": "section#editor > div.wrap.grid > div.frame.frame--split",
+     "text": "A home for website content Edit each client’s he",
+     "msg": "stacked at this width, the visual starts 21px under the text and buttons above it (\"A home for website content Edi\"): it reads glued to them",
+     "fix": "give the stacked split the section's own gap between text and visual (40px or more on a phone)",
+     "stop": 4,
+     "crop": "768-06-proximity.jpg"
+    },
+    {
+     "check": "hole",
+     "sev": "WARN",
+     "sel": "article.card.card--row:nth-of-type(2) > div.panel > div.stage > div.at-rise.fit",
+     "text": "Business details Juniper Flower Studio Industry ",
+     "msg": "the card is 608px wide but its content keeps to the left 30%: the right side stands empty",
+     "stop": 3,
+     "crop": "768-04-hole.jpg",
+     "fix": "close the empty space: move the content together, or give the space the visual it lacks"
+    },
+    {
+     "check": "one-section",
+     "sev": "FAIL",
+     "sel": "section#workspace-examples > div.wrap > div.app-frame.fill > div.ui.ui-panel",
+     "text": "Weblix / BusinessesBusinessesSearch clie",
+     "msg": "a band: a box 88% of the section wide on a ground of its own that holds the heading or the intro: the section's own ground is the band (SR-4)",
+     "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+     "rule": "SR-4 T-dom",
+     "crop": "768-rhythm-01-one-section.jpg"
+    },
+    {
+     "check": "one-section",
+     "sev": "FAIL",
+     "sel": "div.wrap > div.app-frame.fill > div.ui.ui-panel > div.client-bar",
+     "text": "Weblix / Businesses",
+     "msg": "a band: a box 87% of the section wide on a ground of its own that holds only text: the section's own ground is the band (SR-4)",
+     "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+     "rule": "SR-4 T-dom",
+     "crop": "768-rhythm-02-one-section.jpg"
+    },
+    {
+     "check": "one-section",
+     "sev": "FAIL",
+     "sel": "footer.footer.closing > div.wrap > div.closing__cta.close--type > a.btn.btn--primary",
+     "text": "Log in",
+     "msg": "a band: a box 88% of the section wide on a ground of its own that holds only text: the section's own ground is the band (SR-4)",
+     "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+     "rule": "SR-4 T-dom",
+     "crop": "768-rhythm-03-one-section.jpg"
+    },
+    {
+     "check": "one-heading",
+     "sev": "FAIL",
+     "sel": "h2#cta-title",
+     "text": "Your next client update starts here.",
+     "msg": "headings of two sections show whole on one screen at 10 of 123 scroll positions (8.1%; at scroll 5350, 5400, 5450, 5500px), here with \"Find\": at most 3% on a desktop (SR-5)",
+     "fix": "make the sections one screen tall so their headings sit a screen apart and two never share one",
+     "rule": "SR-5 T2",
+     "crop": "768-rhythm-04-one-heading.jpg"
+    }
+   ],
+   "glAsked": 2
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "screens": 9,
+   "held": 0,
+   "errors": [],
+   "findings": [
+    {
+     "check": "same-action",
+     "sev": "WARN",
+     "sel": "section#editor > div.wrap.grid > div.span-5.stack-5 > a.link",
+     "text": "See the workspace",
+     "msg": "\"See the workspace\" is a button in one place and a text link in another: one action in two looks",
+     "fix": "show one action one way: the same button wherever it repeats, or a text link everywhere",
+     "stop": 5,
+     "crop": "390-03-same-action.jpg"
+    },
+    {
+     "check": "cta",
+     "sev": "WARN",
+     "sel": "section#how-it-works",
+     "text": "Your client updates in 3 steps",
+     "msg": "a section over 1.5 screens long with no link or button in it",
+     "stop": 3,
+     "crop": "390-02-cta.jpg",
+     "fix": "add the action: a button in the hero, one on every priced item, one in the closing section"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "main#main > section.hero.hero--split / section#workspace-examples",
+     "text": "",
+     "stop": 1,
+     "msg": "117px between these sections, -37% against the median 186px",
+     "crop": "390-01-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "proximity",
+     "sev": "WARN",
+     "sel": "section#editor > div.wrap.grid > div.frame.frame--split",
+     "text": "A home for website content Edit each client’s he",
+     "msg": "stacked at this width, the visual starts 17px under the text and buttons above it (\"A home for website content Edi\"): it reads glued to them",
+     "fix": "give the stacked split the section's own gap between text and visual (40px or more on a phone)",
+     "stop": 5,
+     "crop": "390-04-proximity.jpg"
+    },
+    {
+     "check": "one-section",
+     "sev": "FAIL",
+     "sel": "section#workspace-examples > div.wrap > div.app-frame.fill > div.ui.ui-panel",
+     "text": "Weblix / BusinessesBusinessesSearch clie",
+     "msg": "a band: a box 88% of the section wide on a ground of its own that holds the heading or the intro: the section's own ground is the band (SR-4)",
+     "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+     "rule": "SR-4 T-dom",
+     "crop": "390-rhythm-01-one-section.jpg"
+    },
+    {
+     "check": "one-heading",
+     "sev": "FAIL",
+     "sel": "h2#cta-title",
+     "text": "Your next client update starts here.",
+     "msg": "headings of two sections show whole on one screen at 11 of 102 scroll positions (10.8%; at scroll 4400, 4450, 4500, 4550px), here with \"Keep\": at most 5% on a phone (SR-5)",
+     "fix": "make the sections one screen tall so their headings sit a screen apart and two never share one",
+     "rule": "SR-5 T2",
+     "crop": "390-rhythm-02-one-heading.jpg"
+    }
+   ],
+   "glAsked": 2
+  }
+ ],
+ "shaders": 7,
+ "glFallback": {
+  "hosts": 1,
+  "asked": 2,
+  "empty": 0
+ },
+ "reduced": {
+  "screens": 6,
+  "notRead": 0
+ },
+ "hidden": {
+  "screens": 6
+ },
+ "slow": {
+  "stops": 9,
+  "late": 0
+ },
+ "sweep": {
+  "widths": [
+   1280,
+   1152,
+   896
+  ],
+  "errors": [],
+  "findings": []
+ },
+ "counts": {
+  "FAIL": 28,
+  "WARN": 32
+ },
+ "checks": {
+  "assets": "PASS",
+  "shader-lint": "PASS",
+  "gl-fallback": "PASS",
+  "empty-visual": "PASS",
+  "hero-fill": "PASS",
+  "flush": "PASS",
+  "placeholder": "PASS",
+  "sample-label": "PASS",
+  "caption": "PASS",
+  "credit-wall": "PASS",
+  "nav": "PASS",
+  "nav-covers": "PASS",
+  "spill": "PASS",
+  "off-viewport": "PASS",
+  "fold-card": "PASS",
+  "hover-spill": "PASS",
+  "overlap-text": "PASS",
+  "row-gap": "PASS",
+  "cut-text": "FAIL",
+  "fold-cut": "PASS",
+  "marquee": "PASS",
+  "scroll-linked": "WARN",
+  "scroll-reveal": "FAIL",
+  "pinned": "PASS",
+  "loop-pause": "PASS",
+  "reduced-motion": "PASS",
+  "hidden-content": "PASS",
+  "webgl": "PASS",
+  "no-visual": "PASS",
+  "text-only": "PASS",
+  "card-visual": "PASS",
+  "hidden-visual": "PASS",
+  "card-family": "PASS",
+  "card-layout": "PASS",
+  "nesting": "PASS",
+  "effect-repeat": "PASS",
+  "ui-fit": "PASS",
+  "ui-centre": "PASS",
+  "dark-ground": "PASS",
+  "button-styles": "PASS",
+  "button-shape": "PASS",
+  "same-action": "WARN",
+  "button-picture": "PASS",
+  "cta": "WARN",
+  "pricing-tiers": "PASS",
+  "copy-headline": "PASS",
+  "copy-fact": "PASS",
+  "copy-headings": "WARN",
+  "copy-buttons": "PASS",
+  "copy-actions": "PASS",
+  "heading-scale": "PASS",
+  "stagger": "PASS",
+  "top-stagger": "PASS",
+  "off-grid": "PASS",
+  "col-edge": "PASS",
+  "right-edge": "PASS",
+  "centre-axis": "PASS",
+  "tilt": "PASS",
+  "contrast": "PASS",
+  "text-contrast": "PASS",
+  "body-size": "PASS",
+  "busy-ground": "PASS",
+  "section-gaps": "FAIL",
+  "proximity": "WARN",
+  "hole": "WARN",
+  "links": "WARN",
+  "forms": "PASS",
+  "photo-upscale": "PASS",
+  "photo-set": "PASS",
+  "photo-credit": "PASS",
+  "nav-family": "PASS",
+  "nav-labels": "WARN",
+  "link-styles": "PASS",
+  "heading-align": "PASS",
+  "label-centre": "PASS",
+  "fake-button": "PASS",
+  "stranded-action": "PASS",
+  "orphan": "PASS",
+  "unit-break": "PASS",
+  "tab-wrap": "PASS",
+  "effects-fit": "PASS",
+  "fade-cut": "PASS",
+  "photo-weight": "PASS",
+  "copy-length": "PASS",
+  "nav-current": "WARN",
+  "progress-bar": "PASS",
+  "photo-repeat": "PASS",
+  "button-contrast": "PASS",
+  "photo-print": "PASS",
+  "grounds": "PASS",
+  "split-align": "PASS",
+  "fact-agree": "PASS",
+  "fold-action": "PASS",
+  "action-count": "PASS",
+  "one-screen": "PASS",
+  "hover": "PASS",
+  "hover-move": "PASS",
+  "product-shown": "PASS",
+  "same-object": "PASS",
+  "font-load": "PASS",
+  "visual-caption": "PASS",
+  "visual-empty": "PASS",
+  "effect-kind": "PASS",
+  "street-number": "PASS",
+  "postcode": "PASS",
+  "coordinates": "PASS",
+  "company-number": "PASS",
+  "phone-number": "PASS",
+  "hero-screen": "PASS",
+  "section-height": "PASS",
+  "section-air": "FAIL",
+  "one-section": "FAIL",
+  "one-heading": "FAIL",
+  "container-edges": "PASS",
+  "row-lines": "PASS",
+  "split-pair": "FAIL",
+  "motion-layer": "PASS",
+  "count-text": "PASS",
+  "loop-cycle": "PASS",
+  "section-tile": "PASS"
+ }
+}

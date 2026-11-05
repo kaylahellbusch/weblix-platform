@@ -1,0 +1,13 @@
+Common base: 1d70f1690f1d87d9845bc1ecd384a22f8b750959
+Parents: aab464939e0635724ad636a6c2dff9950e6ced10 + b669441182db5bf08b16a917329b6748eee7dcd0
+Branch: codex/homepage-design-taste
+Observed run start (branch creation): 2026-11-05T10:44:52Z
+Skill: design-taste-frontend / tasteskill 2.5.0, copied unchanged from design-skills/taste-skill
+Build: Next.js 16.4.0, npm run build -- --webpack (default Turbopack blocked by worker port sandbox)
+Production server: http://127.0.0.1:3157
+Capture viewports: 1440x900, 390x844; additional skill views 1024x768, 820x1180, 768x1024
+Browser: Google Chrome 156.0.8078.80
+Lighthouse: 13.0.1; Node v25.2.1; default mobile and preset=desktop; no scoring/throttling overrides
+Categories: Performance, Accessibility, Best Practices, SEO
+One measured Lighthouse run per preset; screenshots and skill diagnostics are separate from Lighthouse.
+No token/cost usage telemetry available to this run.
