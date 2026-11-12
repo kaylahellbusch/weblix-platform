@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Stop hook for Claude Code and Codex: an agent can't finish while lint, types or tests fail.
 
-Runs only when apps/web differs from origin/main, and skips a tree that already passed. After three
-failed attempts in one session it lets the agent stop, so it reports the failure instead of looping.
+Runs only when apps/web differs from origin/main (or always, if no base can be found), and skips a
+tree that already passed. After three failed attempts in one session it lets the agent stop, so it
+reports the failure instead of looping.
 """
 import hashlib
 import json
@@ -20,8 +21,19 @@ def git(*args):
     return subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True).stdout
 
 
+def merge_base():
+    for ref in ("origin/main", "main"):
+        base = git("merge-base", "HEAD", ref).strip()
+        if base:
+            return base
+    return None
+
+
 def changed_web_files():
-    base = git("merge-base", "HEAD", "origin/main").strip() or "HEAD"
+    base = merge_base()
+    if base is None:
+        # Without a base we can't tell what changed, so check everything rather than skip.
+        return ["apps/web"]
     tracked = git("diff", "--name-only", base, "--", "apps/web").split()
     untracked = git("ls-files", "--others", "--exclude-standard", "--", "apps/web").split()
     return sorted(set(tracked + untracked))
