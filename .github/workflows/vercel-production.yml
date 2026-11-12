@@ -72,7 +72,6 @@ jobs:
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       VERCEL_CLI_VERSION: 64.1.0
     steps:
       - name: Check out exact target commit
@@ -92,6 +91,8 @@ jobs:
         run: npm ci
 
       - name: Build production artifacts with Vercel CLI
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         working-directory: .
         run: |
           set -euo pipefail
@@ -131,7 +132,7 @@ jobs:
             if grep -q '^PATH=' "${env_file}"; then
               has_path_entry=true
             fi
-            echo "Pulled preview env defines PATH: ${has_path_entry}"
+            echo "Pulled production env defines PATH: ${has_path_entry}"
             if [[ "${has_path_entry}" == "true" ]]; then
               tmp_env_file="$(mktemp)"
               awk '!/^PATH=/' "${env_file}" > "${tmp_env_file}"
@@ -166,6 +167,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           TARGET_SHA: ${{ needs.preflight.outputs.head_sha }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
           set -euo pipefail
           main_sha="$(gh api "repos/${GITHUB_REPOSITORY}/commits/main" --jq .sha)"
