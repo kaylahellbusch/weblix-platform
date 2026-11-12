@@ -4,7 +4,11 @@ Weblix is a multi-tenant website management platform I'm building to simplify cr
 
 Today, you can manage businesses, edit structured website content, and review and confirm CSV imports. Website rendering, AI copy generation, and publishing are still planned.
 
-Built with **Next.js, React, TypeScript, and Supabase/PostgreSQL**, using a human-directed, AI-assisted development workflow.
+Built with **Next.js, React, TypeScript, and Supabase/PostgreSQL**.
+
+**How it's built:** AI agents turn an approved goal into an issue with acceptance criteria, build it in a pull request with tests and screenshots, and review the final revision. I set the outcome, check the evidence, and decide what merges.
+
+**[Live site](https://weblix-platform.vercel.app)** · **Example:** [issue #43](https://github.com/kaylahellbusch/weblix-platform/issues/43) → [PR #51 with tests and before/after screenshots](https://github.com/kaylahellbusch/weblix-platform/pull/51) → [review of its final revision](https://github.com/kaylahellbusch/weblix-platform/pull/51#issuecomment-6813852535)
 
 [Features](#key-features) · [Architecture](#architecture) · [Engineering decisions](#engineering-decisions) · [AI workflow](#ai-assisted-development-workflow) · [Run locally](#local-development)
 
@@ -79,6 +83,8 @@ I set the product direction, approve scope, and establish engineering standards.
 
 The [project instructions](.github/copilot-instructions.md) set architecture and quality standards. The [planning guide](docs/planner.md) covers preparing issues with acceptance criteria, checking dependencies and ownership, and starting implementation when requested. The [delivery workflow](AGENTS.md) calls for isolated worktrees, relevant checks, and draft PRs. Code changes require running-app verification and Copilot review of the current revision; documentation-only changes have lighter checks. Valid findings are fixed and reviewed again, with a limit on review rounds. Blocked verification or unresolved findings keep the PR in draft.
 
+When Copilot couldn't complete a review on [PR #51](https://github.com/kaylahellbusch/weblix-platform/pull/51), I made an exception to that rule: I accepted an independent agent review of the final revision, plus a live keyboard check, before merging.
+
 Separate reviews of whether a feature meets its intended outcome also draw on private coordination and task-specific instructions. The CSV import is a public example: [issue #23](https://github.com/kaylahellbusch/weblix-platform/issues/23) defined the task, [PR #35](https://github.com/kaylahellbusch/weblix-platform/pull/35) implemented it, and [Copilot reviewed the final revision](https://github.com/kaylahellbusch/weblix-platform/pull/35#pullrequestreview-5590799993). A separate pass [tested the full workflow locally in PR #39](https://github.com/kaylahellbusch/weblix-platform/pull/39). Copilot found no defects and still recommended human review of the security-sensitive code.
 
 Planning and coordination sit outside the application runtime. These instructions guide the work; they aren't an automatically enforced GitHub gate or proof that every past change followed today's process. CI automates the checks described below. Review comments and passing checks help me decide what to accept, but they don't replace trying the feature.
@@ -93,9 +99,8 @@ These checks cover specific behavior. A hosted installation still needs its migr
 
 ## Current status
 
-- **Implemented:** existing-account sign-in/out; business management; saved website copy; CSV review, confirmation, and same-request retries; local database tools and application CI.
-- **In progress:** [UI improvements, search, and business view options](https://github.com/kaylahellbusch/weblix-platform/pull/46), not yet merged into `main`.
-- **Planned:** [product homepage](https://github.com/kaylahellbusch/weblix-platform/issues/43), [account-free demo](https://github.com/kaylahellbusch/weblix-platform/issues/44), and [owner-only Granite website preview](https://github.com/kaylahellbusch/weblix-platform/issues/13). Granite scope and assets still need preparation. AI copy generation, publishing, custom domains, and signup aren't implemented.
+- **Implemented:** existing-account sign-in/out; business management with [search and business view options](https://github.com/kaylahellbusch/weblix-platform/pull/46); saved website copy; CSV review, confirmation, and same-request retries; a [public homepage](https://github.com/kaylahellbusch/weblix-platform/pull/51) deployed to production when CI passes on `main`; local database tools and application CI.
+- **Planned:** [account-free demo](https://github.com/kaylahellbusch/weblix-platform/issues/44) and [owner-only Granite website preview](https://github.com/kaylahellbusch/weblix-platform/issues/13). Granite scope and assets still need preparation. AI copy generation, publishing, custom domains, and signup aren't implemented.
 
 ## Local development
 

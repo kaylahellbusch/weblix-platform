@@ -10,6 +10,10 @@ A working local app doesn't tell you whether a hosted installation has been set 
 
 See [content testing instructions](website-content/persistence.md#setup-and-verification) and [CSV prerequisites and retry guarantees](csv/confirmation.md). Hosted changes must follow the authorization rules in [AGENTS.md](../AGENTS.md); deployment is separate from local development.
 
+## Production releases
+
+After CI passes, merging to main automatically deploys that commit to production through [the production workflow](../.github/workflows/vercel-production.yml); a manual re-run is available through workflow_dispatch. Previews stay on ready PRs, and Vercel's own git builds are intentionally ignored. Apply and verify any required hosted migration before merging a change that needs it. A deployment does not replace the hosted checks above.
+
 ## Manual RLS verification with two users
 
 Use two test accounts in separate browser sessions:
