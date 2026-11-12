@@ -4,7 +4,11 @@ Weblix is a multi-tenant website management platform I'm building to simplify cr
 
 Today, you can manage businesses, edit structured website content, and review and confirm CSV imports. Website rendering, AI copy generation, and publishing are still planned.
 
-Built with **Next.js, React, TypeScript, and Supabase/PostgreSQL**, using a human-directed, AI-assisted development workflow.
+Built with **Next.js, React, TypeScript, and Supabase/PostgreSQL**.
+
+**How it's built:** AI agents turn an approved goal into an issue with acceptance criteria, build it in a pull request with tests and screenshots, and review the final revision. I set the outcome, check the evidence, and decide what merges.
+
+**[Live site](https://weblix-platform.vercel.app)** · Example: [issue #43](https://github.com/kaylahellbusch/weblix-platform/issues/43) → [PR #51 with tests and before/after screenshots](https://github.com/kaylahellbusch/weblix-platform/pull/51) → [review of its final revision](https://github.com/kaylahellbusch/weblix-platform/pull/51#issuecomment-6813852535)
 
 [Features](#key-features) · [Architecture](#architecture) · [Engineering decisions](#engineering-decisions) · [AI workflow](#ai-assisted-development-workflow) · [Run locally](#local-development)
 
@@ -77,7 +81,7 @@ I set the product direction, approve scope, and establish engineering standards.
 
 **Development orchestration:** Weblix uses public repository instructions alongside a separate private planning and coordination workspace. The private workspace keeps broader project context and supports planning, task preparation, and status reporting. This repository contains the application code, implementation instructions, issues, PRs, and testing evidence, so the delivered work and engineering decisions can be evaluated here.
 
-The [project instructions](.github/copilot-instructions.md) set architecture and quality standards. The [planning guide](docs/planner.md) covers preparing issues with acceptance criteria, checking dependencies and ownership, and starting implementation when requested. The [delivery workflow](AGENTS.md) calls for isolated worktrees, relevant checks, and draft PRs. Code changes require running-app verification and Copilot review of the current revision; documentation-only changes have lighter checks. Valid findings are fixed and reviewed again, with a limit on review rounds. Blocked verification or unresolved findings keep the PR in draft.
+The [project instructions](.github/copilot-instructions.md) set architecture and quality standards. The [planning guide](docs/planner.md) covers preparing issues with acceptance criteria, checking dependencies and ownership, and starting implementation when requested. The [delivery workflow](AGENTS.md) calls for isolated worktrees, relevant checks, and draft PRs. Code changes require running-app verification and Copilot review of the current revision; when Copilot can't complete a review, I can accept an independent agent review instead, as on PR #51; documentation-only changes have lighter checks. Valid findings are fixed and reviewed again, with a limit on review rounds. Blocked verification or unresolved findings keep the PR in draft.
 
 Separate reviews of whether a feature meets its intended outcome also draw on private coordination and task-specific instructions. The CSV import is a public example: [issue #23](https://github.com/kaylahellbusch/weblix-platform/issues/23) defined the task, [PR #35](https://github.com/kaylahellbusch/weblix-platform/pull/35) implemented it, and [Copilot reviewed the final revision](https://github.com/kaylahellbusch/weblix-platform/pull/35#pullrequestreview-5590799993). A separate pass [tested the full workflow locally in PR #39](https://github.com/kaylahellbusch/weblix-platform/pull/39). Copilot found no defects and still recommended human review of the security-sensitive code.
 
