@@ -41,7 +41,8 @@ def changed_web_files():
 
 def fingerprint(files):
     digest = hashlib.sha256(git("rev-parse", "HEAD").encode() + git("diff", "HEAD", "--", "apps/web").encode())
-    for name in files:
+    untracked = git("ls-files", "--others", "--exclude-standard", "--", "apps/web").split()
+    for name in sorted(set(files + untracked)):
         path = ROOT / name
         digest.update(name.encode() + (path.read_bytes() if path.is_file() else b""))
     return digest.hexdigest()
@@ -52,8 +53,23 @@ def finish(output=None):
     sys.exit(0)
 
 
+def read_event():
+    try:
+        event = json.load(sys.stdin)
+    except ValueError:
+        return {}
+    return event if isinstance(event, dict) else {}
+
+
+def read_count(path):
+    try:
+        return int(path.read_text())
+    except (OSError, ValueError):
+        return 0
+
+
 def main():
-    event = json.load(sys.stdin)
+    event = read_event()
     state_dir = ROOT / git("rev-parse", "--git-dir").strip() / "stop-checks"
     state_dir.mkdir(exist_ok=True)
     passed = state_dir / "passed"
@@ -81,10 +97,12 @@ def main():
         blocks.unlink(missing_ok=True)
         finish()
 
-    count = int(blocks.read_text()) + 1 if blocks.exists() else 1
+    count = read_count(blocks) + 1
     blocks.write_text(str(count))
     report = "\n\n".join(failures)
     if count > MAX_BLOCKS:
+        # Let this stop through, and start counting again for the next one.
+        blocks.unlink(missing_ok=True)
         finish({"systemMessage": f"Checks still fail after {MAX_BLOCKS} attempts. The work is not done.\n\n{report}"})
     finish({
         "decision": "block",
