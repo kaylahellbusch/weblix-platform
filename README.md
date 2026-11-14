@@ -16,7 +16,7 @@ Built with **Next.js, React, TypeScript, and Supabase/PostgreSQL**.
 
 - **Business management:** create, view, edit, and delete business records, with contact and location details.
 - **Website content editing:** save a headline, introduction, ordered services, and service areas. Validation keeps failed edits in the form so you can correct them.
-- **Read-only website preview:** open **Preview website** from business details to see saved facts and content in the Granite roofing design. Empty sections are omitted, and the demo contact form sends nothing.
+- **[Read-only website preview](https://github.com/kaylahellbusch/weblix-platform/pull/69):** open **Preview website** from business details to see saved facts and content in the Granite roofing design. Empty sections are omitted, and the demo contact form sends nothing.
 - **CSV review and import:** inspect valid rows, errors, and duplicates before confirming. The import saves valid unique rows together, with a way to retry if the response is lost.
 - **Account separation:** each signed-in account manages its own businesses and content, with access checks in both the app and database.
 
@@ -100,8 +100,8 @@ These checks cover specific behavior. A hosted installation still needs its migr
 
 ## Current status
 
-- **Implemented:** existing-account sign-in/out; business management with [search and business view options](https://github.com/kaylahellbusch/weblix-platform/pull/46); saved website copy; CSV review, confirmation, and same-request retries; a [public homepage](https://github.com/kaylahellbusch/weblix-platform/pull/51) deployed to production when CI passes on `main`; local database tools and application CI.
-- **Planned:** [account-free demo](https://github.com/kaylahellbusch/weblix-platform/issues/44) and [owner-only Granite website preview](https://github.com/kaylahellbusch/weblix-platform/issues/13). Granite scope and assets still need preparation. AI copy generation, publishing, custom domains, and signup aren't implemented.
+- **Implemented:** existing-account sign-in/out; business management with [search and business view options](https://github.com/kaylahellbusch/weblix-platform/pull/46); saved website copy and an owner-only Granite roofing preview; CSV review, confirmation, and same-request retries; a [public homepage](https://github.com/kaylahellbusch/weblix-platform/pull/51) deployed to production when CI passes on `main`; local database tools and application CI.
+- **Planned:** [account-free demo](https://github.com/kaylahellbusch/weblix-platform/issues/44). AI copy generation, publishing, custom domains, and signup aren't implemented.
 
 ## Local development
 
