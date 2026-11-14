@@ -1,0 +1,26 @@
+import { test, expect } from '@playwright/test';
+import { base, createBusiness } from './preview-fixture';
+test.use({ storageState: process.env.WEBLIX_STORAGE_STATE });
+test('AC3: missing business reveals no data and signed-out visitors go to login', async ({ page, browser }) => {
+  const path = await createBusiness(page, 'Private Roofing');
+  await page.goto(`${base()}${path}/preview`);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Private Roofing');
+  if (!process.env.WEBLIX_OTHER_STORAGE_STATE) throw new Error('Provide WEBLIX_OTHER_STORAGE_STATE for a second synthetic owner.');
+  const otherContext = await browser.newContext({ storageState: process.env.WEBLIX_OTHER_STORAGE_STATE });
+  const otherPage = await otherContext.newPage();
+  const otherPath = await createBusiness(otherPage, 'Other Owner Roofing');
+  await page.goto(`${base()}${otherPath}/preview`);
+  await expect(page.getByText('This page could not be found.')).toBeVisible();
+  await expect(page.getByRole('article', { name: 'Website preview' })).toHaveCount(0);
+  await expect(page.locator('body')).not.toContainText('Other Owner Roofing');
+  await otherContext.close();
+  await page.goto(`${base()}/admin/businesses/00000000-0000-4000-8000-000000000000/preview`);
+  await expect(page.getByText('This page could not be found.')).toBeVisible();
+  await expect(page.getByRole('article', { name: 'Website preview' })).toHaveCount(0);
+  const context = await browser.newContext({ storageState: { cookies: [], origins: [] } });
+  const guest = await context.newPage();
+  await guest.goto(`${base()}${path}/preview`);
+  await expect(guest).toHaveURL(/\/login/);
+  await expect(guest.getByText('Private Roofing')).toHaveCount(0);
+  await context.close();
+});

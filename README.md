@@ -2,7 +2,7 @@
 
 Weblix is a multi-tenant website management platform I'm building to simplify creating and maintaining websites for local businesses. It brings business information, website content, and eventually publishing into one application.
 
-Today, you can manage businesses, edit structured website content, and review and confirm CSV imports. Website rendering, AI copy generation, and publishing are still planned.
+Today, you can manage businesses, edit structured website content, preview a roofing website from saved data, and review and confirm CSV imports. AI copy generation and publishing are still planned.
 
 Built with **Next.js, React, TypeScript, and Supabase/PostgreSQL**.
 
@@ -16,6 +16,7 @@ Built with **Next.js, React, TypeScript, and Supabase/PostgreSQL**.
 
 - **Business management:** create, view, edit, and delete business records, with contact and location details.
 - **Website content editing:** save a headline, introduction, ordered services, and service areas. Validation keeps failed edits in the form so you can correct them.
+- **[Read-only website preview](https://github.com/kaylahellbusch/weblix-platform/pull/69):** open **Preview website** from business details to see saved facts and content in the Granite roofing design. Empty sections are omitted, and the demo contact form sends nothing.
 - **CSV review and import:** inspect valid rows, errors, and duplicates before confirming. The import saves valid unique rows together, with a way to retry if the response is lost.
 - **Account separation:** each signed-in account manages its own businesses and content, with access checks in both the app and database.
 
@@ -25,7 +26,7 @@ Sign in at `/login`, add an example business from `/admin`, then open its **Cont
 
 For a concrete example, upload a file with one valid row, a copy of that row, and a row with an invalid email. Review shows **1 valid, 1 duplicate, and 1 invalid**. Cancel saves nothing; confirming saves one business. The [full walkthrough](docs/development.md#authenticated-business-workflow) includes the file and expected results.
 
-There isn't an account-free demo or signup flow yet. [Local setup](#local-development) creates test accounts; an existing installation requires an account in its Supabase project. The content editor saves copy—it doesn't render or publish a website yet.
+There isn't an account-free demo or signup flow yet. [Local setup](#local-development) creates test accounts; an existing installation requires an account in its Supabase project. The content editor saves copy; **Preview website** on business details renders it privately for the owner. Previews are not published.
 
 ## Architecture
 
@@ -59,9 +60,9 @@ The [migrations](supabase/migrations) define three tables: `businesses` holds bu
 
 **Problem:** A content edit can change several sections and their order. Saving those pieces separately would leave room for a partly saved page.
 
-**Solution:** Save the content as one JSON document in a single database operation, separate from business facts. Zod checks field names, lengths, and list sizes; database constraints also reject malformed documents. A [mapping function](apps/web/lib/website-content/preview.ts) prepares the data for a future renderer without inventing missing business claims.
+**Solution:** Save the content as one JSON document in a single database operation, separate from business facts. Zod checks field names, lengths, and list sizes; database constraints also reject malformed documents. A [mapping function](apps/web/lib/website-content/preview.ts) prepares the data for the server-rendered preview without inventing missing business claims.
 
-**Tradeoff:** The last successful save wins. There is no revision history or merging of concurrent edits. The mapping is implemented; the rendered website preview isn't.
+**Tradeoff:** The last successful save wins. There is no revision history or merging of concurrent edits. The preview supports roofing only; it has no public hosting or publishing.
 
 **Evidence:** [Content schema](apps/web/lib/website-content/schema.ts), [persistence behavior](docs/website-content/persistence.md), and [implementation and testing in PR #25](https://github.com/kaylahellbusch/weblix-platform/pull/25).
 
@@ -99,8 +100,8 @@ These checks cover specific behavior. A hosted installation still needs its migr
 
 ## Current status
 
-- **Implemented:** existing-account sign-in/out; business management with [search and business view options](https://github.com/kaylahellbusch/weblix-platform/pull/46); saved website copy; CSV review, confirmation, and same-request retries; a [public homepage](https://github.com/kaylahellbusch/weblix-platform/pull/51) deployed to production when CI passes on `main`; local database tools and application CI.
-- **Planned:** [account-free demo](https://github.com/kaylahellbusch/weblix-platform/issues/44) and [owner-only Granite website preview](https://github.com/kaylahellbusch/weblix-platform/issues/13). Granite scope and assets still need preparation. AI copy generation, publishing, custom domains, and signup aren't implemented.
+- **Implemented:** existing-account sign-in/out; business management with [search and business view options](https://github.com/kaylahellbusch/weblix-platform/pull/46); saved website copy and an owner-only Granite roofing preview; CSV review, confirmation, and same-request retries; a [public homepage](https://github.com/kaylahellbusch/weblix-platform/pull/51) deployed to production when CI passes on `main`; local database tools and application CI.
+- **Planned:** [account-free demo](https://github.com/kaylahellbusch/weblix-platform/issues/44). AI copy generation, publishing, custom domains, and signup aren't implemented.
 
 ## Local development
 
