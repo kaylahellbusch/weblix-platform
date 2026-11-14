@@ -1169,3 +1169,9 @@ body {
     white-space: nowrap;
   }
 }
+
+/* A website preview fills the viewport without changing other workspace pages. */
+.workspace:has(.granite-preview) { display: block; padding: 0; background: white; }
+.workspace:has(.granite-preview) > .workspace-sidebar { display: none; }
+.workspace:has(.granite-preview) > .workspace-content { padding: 0; margin: 0; width: 100%; max-width: none; }
+.workspace:has(.granite-preview) .editor-body { width: 100%; max-width: none; margin: 0; padding: 0; }

@@ -1,0 +1,88 @@
+.preview {
+  --green: #1e4f32;
+  background: white;
+  color: #0f172a;
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.preview h1, .preview h2, .preview h3, .preview p { margin: 0; }
+.preview h2 { font-size: 30px; line-height: 36px; font-weight: 700; margin-bottom: 16px; }
+.preview h3 { font-weight: 700; }
+.preview a { color: inherit; text-decoration: none; }
+.preview a:hover { text-decoration: underline; color: inherit; }
+.preview :is(a, summary):focus-visible { outline: 3px solid #8abf9b; outline-offset: 4px; }
+.container { width: 100%; padding: 0 32px; margin: 0 auto; }
+.notice { background: #e8f1eb; color: #1e4f32; padding: 8px 16px; text-align: center; font-size: 14px; }
+.header { background: white; position: sticky; top: 0; z-index: 10; padding: 16px 0; }
+.headerInner { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 0 32px; margin: auto; }
+.brand { display: flex; align-items: center; gap: 6px; min-height: 48px; min-width: 0; }
+.brand > span { min-width: 0; display: flex; flex-direction: column; line-height: 1; }
+.brand strong { font-size: 20px; text-transform: uppercase; letter-spacing: -.5px; }
+.brand span span { font-size: 16px; letter-spacing: .4px; color: #4b5563; }
+.desktopNav { display: flex; gap: 24px; font-weight: 500; }
+.headerPhone { display: flex; align-items: center; gap: 8px; color: var(--green) !important; font-weight: 500; }
+.mobileMenu, .mobilePhone { display: none; }
+.hero { background: linear-gradient(#00000080, #00000080), url('/images/granite/new-roof-3.jpg') bottom center / cover; }
+.heroContent { padding: 112px 0; max-width: 768px; color: white; }
+.preview .hero h1 { font-size: 48px; line-height: 1; font-weight: 700; margin-bottom: 48px; color: white; letter-spacing: normal; }
+.button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 32px; border-radius: 9999px; background: var(--green); color: white !important; }
+.contactSection { padding: 48px 0; background: #f8fafc; }
+.contactGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.introduction { margin-bottom: 24px !important; white-space: pre-line; color: #475569; }
+.contacts { display: grid; gap: 16px; color: #475569; }
+.contacts > div { display: flex; gap: 12px; align-items: flex-start; min-width: 0; }
+.contacts svg { color: var(--green); width: 20px; height: 20px; flex-shrink: 0; }
+.contacts a { text-decoration: underline; }
+.demo { padding: 24px; border-radius: 12px; background: white; box-shadow: 0 1px 2px #0000000d; }
+.preview .demo p { font-size: 14px; margin-bottom: 16px; }
+.preview .demo fieldset { padding: 0; border: 0; margin: 0; display: grid; gap: 16px; }
+.preview .demo label { display: block; font-weight: 400; font-size: 16px; margin-bottom: 0; }
+.preview .demo :is(input, textarea) { display: block; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; background: white; font: inherit; font-size: 14px; color: #475569; box-shadow: none; }
+.preview .demo input { height: 40px; min-height: 40px; }
+.preview .demo textarea { min-height: 120px; }
+.preview .demo button { background: var(--green); border: 0; border-radius: 8px; padding: 8px 16px; color: white; font: inherit; height: 40px; opacity: 1; cursor: default; }
+.section { padding: 64px 0; }
+.preview .sectionTitle { text-align: center; margin-bottom: 48px; }
+.services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.card { border: 1px solid #f1f5f9; border-radius: 12px; padding: 16px; box-shadow: 0 1px 2px #0000000d; }
+.icon { display: flex; align-items: center; justify-content: center; background: #1e4f321a; border-radius: 9999px; width: 48px; height: 48px; margin-bottom: 12px; color: var(--green); }
+.icon svg { width: 24px; height: 24px; }
+.preview .card h3 { font-size: 18px; line-height: 28px; margin-bottom: 4px; }
+.card p { font-size: 14px; color: #475569; white-space: pre-line; }
+.areas { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.areas > div { padding: 16px; border-radius: 12px; text-align: center; box-shadow: 0 1px 2px #0000000d; font-weight: 500; }
+.footer { padding: 64px 0 32px; background: #0f172a; color: white; }
+.footerGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; margin-bottom: 48px; }
+.footer h3 { font-size: 18px; margin-bottom: 16px; }
+.footer p { margin-top: 12px; color: #cbd5e1; }
+.footer ul { padding: 0; list-style: none; display: grid; gap: 8px; color: #cbd5e1; }
+.footer .contacts { color: #cbd5e1; }
+.footer .contacts svg { color: #8abf9b; }
+.footer .brand span span { color: white; }
+.copyright { padding-top: 32px; border-top: 1px solid #1e293b; text-align: center; font-size: 14px; color: #94a3b8; }
+@media (min-width: 640px) { .container, .headerInner { max-width: 640px; } }
+@media (min-width: 768px) { .container, .headerInner { max-width: 768px; } }
+@media (min-width: 1024px) { .container, .headerInner { max-width: 1024px; } }
+@media (min-width: 1280px) { .container, .headerInner { max-width: 1280px; } }
+@media (min-width: 1400px) { .container, .headerInner { max-width: 1400px; } }
+@media (max-width: 1023px) { .services, .footerGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .desktopNav { gap: 12px; } .headerPhone { display: none; } .areas { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 767px) {
+  .header { padding: 0 0 8px; }
+  .headerInner { padding: 0 16px; }
+  .brand strong { font-size: 16px; }
+  .brand span span { font-size: 14px; }
+  .desktopNav { display: none; }
+  .mobilePhone { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 4px; background: var(--green); color: white; padding: 8px 16px; margin-bottom: 8px; }
+  .mobilePhone a { text-decoration: underline; }
+  .mobileMenu { display: block; }
+  .mobileMenu summary { cursor: pointer; padding: 8px; }
+  .mobileMenu nav { position: absolute; right: 16px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; display: grid; gap: 16px; }
+  .heroContent { padding: 80px 0; }
+  .preview .hero h1 { font-size: 36px; line-height: 40px; min-height: 40px; }
+  .button { display: flex; }
+  .contactGrid { grid-template-columns: 1fr; gap: 32px; }
+  .services, .footerGrid { grid-template-columns: 1fr; }
+  .areas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .preview .card h3 { font-size: 16px; line-height: 24px; }
+}

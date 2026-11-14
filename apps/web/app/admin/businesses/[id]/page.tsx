@@ -26,6 +26,7 @@ export default async function BusinessDetailPage({ params }: { params: Promise<{
       <header className="editor-header">
         <div><h1>{business.name}</h1><h2 className="editor-subtitle">Business details</h2></div>
         <div className="editor-actions">
+          <Link href={`/admin/businesses/${id}/preview`} className="secondary">Preview website</Link>
           <Link href={`/admin/businesses/${id}/edit`} className="bg-slate-900 px-4 py-2 text-white">Edit details</Link>
         </div>
       </header>
