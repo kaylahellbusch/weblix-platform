@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
 
 test.use({ storageState: process.env.WEBLIX_STORAGE_STATE });
-for (const width of [375, 1280]) {
+// The workspace sidebar is intentionally hidden below 700px (AC4).
+for (const width of [1280]) {
   test(`AC1: selected sidebar has a complete dark border at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(`${process.env.BASE_URL}/admin`);
