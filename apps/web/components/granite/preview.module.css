@@ -23,7 +23,10 @@
 .desktopNav { display: flex; gap: 24px; font-weight: 500; }
 .headerPhone { display: flex; align-items: center; gap: 8px; color: var(--green) !important; font-weight: 500; }
 .mobileMenu, .mobilePhone { display: none; }
-.hero { background: linear-gradient(#00000080, #00000080), url('/images/granite/new-roof-3.jpg') bottom center / cover; }
+.hero { position: relative; overflow: hidden; background: #0f172a; }
+.heroImage { object-fit: cover; object-position: bottom center; }
+.heroOverlay { position: absolute; inset: 0; background: #00000080; pointer-events: none; }
+.hero > .container { position: relative; }
 .heroContent { padding: 112px 0; max-width: 768px; color: white; }
 .preview .hero h1 { font-size: 48px; line-height: 1; font-weight: 700; margin-bottom: 48px; color: white; letter-spacing: normal; }
 .button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 32px; border-radius: 9999px; background: var(--green); color: white !important; }

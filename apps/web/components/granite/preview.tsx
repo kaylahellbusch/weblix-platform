@@ -1,5 +1,6 @@
 import { House, Mail, MapPin, Phone } from "lucide-react";
 import { Inter } from "next/font/google";
+import Image from "next/image";
 import type { WebsitePreview } from "@/lib/website-content/preview";
 import styles from "./preview.module.css";
 
@@ -37,6 +38,8 @@ export function GranitePreview({ preview }: { preview: WebsitePreview }) {
       </div>
     </header>
     <section className={styles.hero} aria-labelledby="preview-headline">
+      <Image src="/images/granite/new-roof-3.webp" alt="" fill sizes="100vw" priority className={styles.heroImage} />
+      <div className={styles.heroOverlay} aria-hidden="true" />
       <div className={styles.container}><div className={styles.heroContent}>
         <h1 id="preview-headline">{headline}</h1>
         <a className={styles.button} href="#contact">Get My Free Estimate</a>
