@@ -12,7 +12,7 @@ test('AC3: missing business reveals no data and signed-out visitors go to login'
   await page.goto(`${base()}${otherPath}/preview`);
   await expect(page.getByText('This page could not be found.')).toBeVisible();
   await expect(page.getByRole('article', { name: 'Website preview' })).toHaveCount(0);
-  await expect(page.locator('main')).not.toContainText('Other Owner Roofing');
+  await expect(page.locator('body')).not.toContainText('Other Owner Roofing');
   await otherContext.close();
   await page.goto(`${base()}/admin/businesses/00000000-0000-4000-8000-000000000000/preview`);
   await expect(page.getByText('This page could not be found.')).toBeVisible();
