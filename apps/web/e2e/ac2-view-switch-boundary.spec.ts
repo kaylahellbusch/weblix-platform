@@ -11,6 +11,12 @@ for (const width of [375, 1280]) {
       await expect(button).toHaveAttribute('aria-pressed', 'true');
       await expect(button).toHaveCSS('outline', 'rgb(32, 39, 52) solid 2px');
       await expect(page.locator('.view-switch button[aria-pressed="false"]')).toHaveCSS('outline-style', 'none');
+      // Return using the keyboard to exercise :focus-visible on the selected control.
+      await page.keyboard.press('Tab');
+      await page.keyboard.press('Shift+Tab');
+      await expect(button).toBeFocused();
+      await expect(button).toHaveCSS('outline', 'rgb(32, 39, 52) solid 2px');
+      await expect(button).toHaveCSS('box-shadow', 'rgb(255, 255, 255) 0px 0px 0px 3px, rgb(53, 102, 214) 0px 0px 0px 6px');
     }
   });
 }

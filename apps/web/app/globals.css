@@ -247,6 +247,10 @@ body {
   outline: 2px solid #202734;
   outline-offset: -2px;
 }
+/* Keep keyboard focus distinct from the inset selection boundary. */
+.view-switch button[aria-pressed='true']:focus-visible {
+  box-shadow: 0 0 0 3px white, 0 0 0 6px #3566d6;
+}
 .result-count {
   font-size: 0.875rem;
   color: #566171;
