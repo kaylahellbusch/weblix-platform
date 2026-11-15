@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { publishingSchema } from "./publishing";
 
 const optionalTrimmedText = z.preprocess((value) => {
   if (typeof value !== "string") {
@@ -71,5 +72,16 @@ export function parseCreateBusinessInput(formData: FormData) {
     website: formData.get("website"),
     city: formData.get("city"),
     state: formData.get("state"),
+  });
+}
+
+export const updateBusinessSchema = createBusinessSchema.and(publishingSchema);
+export type UpdateBusinessInput = z.infer<typeof updateBusinessSchema>;
+export function parseUpdateBusinessInput(formData: FormData) {
+  return updateBusinessSchema.safeParse({
+    ...Object.fromEntries(CREATE_BUSINESS_FIELDS.map((field) => [field, formData.get(field)])),
+    industry: formData.get("industry") ?? "roofing",
+    subdomain: formData.get("subdomain") ?? "",
+    published: formData.get("published") === "on",
   });
 }

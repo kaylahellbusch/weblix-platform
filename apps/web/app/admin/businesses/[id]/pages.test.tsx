@@ -17,7 +17,9 @@ beforeAll(() => {
   HTMLDialogElement.prototype.close = vi.fn(function (this: HTMLDialogElement) { this.removeAttribute("open"); });
 });
 const id = "29d25f3f-2a5c-4c43-bdd5-6b84b8687d21";
-const business: Business = { id, owner_id: "owner-1", name: "Acme", industry: "roofing", phone: null, email: null, website: null, city: "Boise", state: "ID", created_at: "2026-01-01T00:00:00Z", updated_at: "2026-01-01T00:00:00Z" };
+const business: Business = { id, owner_id: "owner-1", name: "Acme", industry: "roofing", phone: null, email: null, website: null, city: "Boise", state: "ID", created_at: "2026-01-01T00:00:00Z", subdomain: null,
+      published: false,
+      updated_at: "2026-01-01T00:00:00Z" };
 beforeEach(() => {
   vi.resetAllMocks();
   vi.mocked(requireAuthenticatedUser).mockResolvedValue({ id: "owner-1" } as never);

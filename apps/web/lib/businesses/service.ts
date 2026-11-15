@@ -1,5 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/lib/database.types";
+import { SubdomainTakenError } from "./publishing";
+import type { UpdateBusinessInput } from "./schema";
 import type { CreateBusinessInput } from "@/lib/businesses/schema";
 import {
   createBusinessForOwner,
@@ -16,12 +18,13 @@ export type BusinessMutationResult =
   | { status: "success" }
   | { status: "unauthenticated" }
   | { status: "not-found" }
+  | { status: "subdomain-taken" }
   | { status: "error" };
 
 export async function updateBusinessForCurrentUser(
   supabase: AppSupabaseClient,
   businessId: string,
-  input: CreateBusinessInput,
+  input: UpdateBusinessInput,
 ): Promise<BusinessMutationResult> {
   try {
     const { data: { user }, error } = await supabase.auth.getUser();
@@ -29,7 +32,8 @@ export async function updateBusinessForCurrentUser(
 
     const business = await updateBusinessForOwner(supabase, businessId, user.id, input);
     return { status: business ? "success" : "not-found" };
-  } catch {
+  } catch (error) {
+    if (error instanceof SubdomainTakenError) return { status: "subdomain-taken" };
     return { status: "error" };
   }
 }

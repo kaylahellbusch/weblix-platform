@@ -4,9 +4,9 @@ import { updateBusinessForCurrentUser, deleteBusinessForCurrentUser } from "./se
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/lib/database.types";
 
-const input = { name: "Updated Roofing", industry: "roofing" };
+const input = { name: "Updated Roofing", industry: "roofing", subdomain: null, published: false };
 
-function mockClient(userId: string | null, response = { data: { id: "business-1" } as { id: string } | null, error: null as { message: string } | null }) {
+function mockClient(userId: string | null, response = { data: { id: "business-1" } as { id: string } | null, error: null as { message: string; code?: string } | null }) {
   const query = {
     update: vi.fn(), delete: vi.fn(), eq: vi.fn(), select: vi.fn(),
     maybeSingle: vi.fn().mockResolvedValue(response),
@@ -80,4 +80,16 @@ describe("owner-scoped business mutations", () => {
       expect(await run(mock.client)).toEqual({ status: "error" });
     });
   }
+});
+
+
+describe("subdomain conflicts", () => {
+  it("maps the database unique violation to a friendly result", async () => {
+    const mock = mockClient("owner-1", { data: null, error: { code: "23505", message: 'duplicate key value violates unique constraint "businesses_subdomain_key"' } });
+    expect(await updateBusinessForCurrentUser(mock.client, "business-1", { ...input, subdomain: "example-roof", published: true })).toEqual({ status: "subdomain-taken" });
+  });
+  it("does not describe unrelated uniqueness failures as a subdomain conflict", async () => {
+    const mock = mockClient("owner-1", { data: null, error: { code: "23505", message: 'constraint "other_key"' } });
+    expect(await updateBusinessForCurrentUser(mock.client, "business-1", input)).toEqual({ status: "error" });
+  });
 });

@@ -1,5 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/lib/database.types";
+import { isSubdomainUniqueViolation, SubdomainTakenError } from "./publishing";
+import type { UpdateBusinessInput } from "./schema";
 import type { CreateBusinessInput } from "@/lib/businesses/schema";
 
 export type Business = Database["public"]["Tables"]["businesses"]["Row"];
@@ -10,11 +12,13 @@ export async function updateBusinessForOwner(
   supabase: AppSupabaseClient,
   businessId: string,
   ownerId: string,
-  input: CreateBusinessInput,
+  input: UpdateBusinessInput,
 ): Promise<Business | null> {
   const { data, error } = await supabase
     .from("businesses")
     .update({
+      subdomain: input.subdomain,
+      published: input.published,
       name: input.name,
       industry: input.industry,
       phone: input.phone ?? null,
@@ -28,7 +32,10 @@ export async function updateBusinessForOwner(
     .select("*")
     .maybeSingle();
 
-  if (error) throw new Error("Unable to update business.");
+  if (error) {
+    if (isSubdomainUniqueViolation(error)) throw new SubdomainTakenError();
+    throw new Error("Unable to update business.");
+  }
   return data;
 }
 

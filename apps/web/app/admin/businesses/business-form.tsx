@@ -14,9 +14,10 @@ type BusinessFormProps = {
   subtitle?: string;
   /** Shown between the header and the form, such as the Add business tabs. */
   tabs?: ReactNode;
+  publishing?: boolean;
 };
 
-export function BusinessForm({ action: submitAction, initialValues, submitLabel, cancelHref, title, subtitle, tabs }: BusinessFormProps) {
+export function BusinessForm({ action: submitAction, initialValues, submitLabel, cancelHref, title, subtitle, tabs, publishing = false }: BusinessFormProps) {
   const [dirty, setDirty] = useState(false);
   const discardDialog = useUnsavedChanges(dirty);
   const [state, action, pending] = useActionState(submitAction, { values: initialValues });
@@ -188,6 +189,28 @@ export function BusinessForm({ action: submitAction, initialValues, submitLabel,
           ) : null}
         </div>
       </div>
+
+      {publishing ? (
+        <fieldset className="space-y-4 border-t border-slate-200 pt-4">
+          <legend className="text-sm font-semibold text-slate-900">Website publishing</legend>
+          <div>
+            <label htmlFor="subdomain" className="mb-1 block text-sm font-medium text-slate-700">Subdomain</label>
+            <input
+              id="subdomain" name="subdomain" type="text"
+              defaultValue={state.values?.subdomain ?? ""}
+              aria-invalid={Boolean(state.fieldErrors?.subdomain)}
+              aria-describedby={`subdomain-help${state.fieldErrors?.subdomain ? " subdomain-error" : ""}`}
+              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 shadow-sm outline-none ring-blue-500 focus:border-blue-500 focus:ring"
+            />
+            <p id="subdomain-help" className="mt-1 text-sm text-slate-600">3–40 lowercase letters, digits and single hyphens. No leading or trailing hyphen.</p>
+            {state.fieldErrors?.subdomain ? <p id="subdomain-error" className="mt-1 text-sm text-red-700">{state.fieldErrors.subdomain}</p> : null}
+          </div>
+          <label className="flex items-center gap-3 text-sm font-medium text-slate-700">
+            <input type="checkbox" role="switch" name="published" defaultChecked={state.values?.published === "on"} className="h-5 w-5 accent-slate-900" />
+            Published
+          </label>
+        </fieldset>
+      ) : null}
 
       {state.formError ? (
         <p role="alert" className="rounded-lg bg-red-50 p-3 text-sm text-red-700">
