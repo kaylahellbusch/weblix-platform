@@ -38,7 +38,7 @@ describe("update business action", () => {
     vi.mocked(updateBusinessForCurrentUser).mockResolvedValue({ status: "success" });
     await expect(updateBusinessAction(id, {}, form({ name: " Updated ", industry: " plumbing ", phone: " 555-0100 ", email: "owner@example.com", website: "https://example.com", city: " Boise ", state: " ID ", owner_id: "forged-owner" }))).rejects.toThrow(`redirect:/admin/businesses/${id}`);
     expect(updateBusinessForCurrentUser).toHaveBeenCalledWith({}, id, {
-      name: "Updated", industry: "plumbing", phone: "555-0100", email: "owner@example.com", website: "https://example.com", city: "Boise", state: "ID",
+      subdomain: null, published: false, name: "Updated", industry: "plumbing", phone: "555-0100", email: "owner@example.com", website: "https://example.com", city: "Boise", state: "ID",
     });
     expect(revalidatePath).toHaveBeenCalledWith("/admin", "layout");
   });
@@ -93,3 +93,19 @@ for (const operation of ["update", "delete"] as const) {
     });
   });
 }
+
+
+describe("publishing validation", () => {
+  it.each(["Bad-name", "bad--name", "www", ""])("rejects invalid publishing input %s without saving", async (subdomain) => {
+    const result = await updateBusinessAction(id, {}, form({ subdomain, published: "on" }));
+    expect(result.fieldErrors?.subdomain).toEqual(expect.any(String));
+    expect(updateBusinessForCurrentUser).not.toHaveBeenCalled();
+  });
+  it("returns a field error and preserves the switch on a duplicate", async () => {
+    vi.mocked(updateBusinessForCurrentUser).mockResolvedValue({ status: "subdomain-taken" });
+    const result = await updateBusinessAction(id, {}, form({ subdomain: "example-roof", published: "on" }));
+    expect(result.fieldErrors?.subdomain).toMatch(/already in use/);
+    expect(result.values).toMatchObject({ subdomain: "example-roof", published: "on" });
+    expect(revalidatePath).not.toHaveBeenCalled();
+  });
+});

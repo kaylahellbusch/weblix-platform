@@ -20,7 +20,8 @@ export default async function EditBusinessPage({ params }: { params: Promise<{ i
   return (
     <BusinessForm
       action={updateBusinessAction.bind(null, id)}
-      initialValues={initialValues}
+      publishing
+      initialValues={{ ...initialValues, subdomain: business.subdomain ?? "", published: business.published ? "on" : "" }}
       submitLabel="Save changes"
       cancelHref={`/admin/businesses/${id}`}
       title={business.name}

@@ -15,6 +15,7 @@ Built with **Next.js, React, TypeScript, and Supabase/PostgreSQL**.
 ## Key features
 
 - **Business management:** create, view, edit, and delete business records, with contact and location details.
+- **Publishing settings:** the business edit page saves a unique subdomain and a Published switch, off by default. Public subdomain routing is still planned; this switch alone does not expose the site.
 - **Website content editing:** save a headline, introduction, ordered services, and service areas. Validation keeps failed edits in the form so you can correct them.
 - **[Read-only website preview](https://github.com/kaylahellbusch/weblix-platform/pull/69):** open **Preview website** from business details to see saved facts and content in the Granite roofing design. Empty sections are omitted, and the demo contact form sends nothing.
 - **CSV review and import:** inspect valid rows, errors, and duplicates before confirming. The import saves valid unique rows together, with a way to retry if the response is lost.

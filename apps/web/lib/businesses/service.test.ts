@@ -58,6 +58,8 @@ describe("business service auth and errors", () => {
       city: null,
       state: null,
       created_at: "2026-01-01T00:00:00.000Z",
+      subdomain: null,
+      published: false,
       updated_at: "2026-01-01T00:00:00.000Z",
     });
 

@@ -34,6 +34,8 @@ export interface Database {
           state: string | null;
           created_at: string;
           updated_at: string;
+          subdomain: string | null;
+          published: boolean;
         };
         Insert: {
           id?: string;
@@ -47,6 +49,8 @@ export interface Database {
           state?: string | null;
           created_at?: string;
           updated_at?: string;
+          subdomain?: string | null;
+          published?: boolean;
         };
         Update: {
           id?: string;
@@ -60,6 +64,8 @@ export interface Database {
           state?: string | null;
           created_at?: string;
           updated_at?: string;
+          subdomain?: string | null;
+          published?: boolean;
         };
         Relationships: [
           {

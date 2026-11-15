@@ -1,5 +1,6 @@
 "use server";
 
+import { SUBDOMAIN_TAKEN } from "@/lib/businesses/publishing";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 import { z } from "zod";
@@ -8,7 +9,7 @@ import {
   getBusinessFormValues,
   type BusinessFormState,
 } from "@/lib/businesses/form-state";
-import { parseCreateBusinessInput } from "@/lib/businesses/schema";
+import { parseUpdateBusinessInput } from "@/lib/businesses/schema";
 import {
   updateBusinessForCurrentUser,
   deleteBusinessForCurrentUser,
@@ -22,7 +23,7 @@ export async function updateBusinessAction(
 ): Promise<BusinessFormState> {
   if (!z.string().uuid().safeParse(businessId).success) notFound();
   const values = getBusinessFormValues(formData);
-  const parsed = parseCreateBusinessInput(formData);
+  const parsed = parseUpdateBusinessInput(formData);
   if (!parsed.success) {
     return {
       values,
@@ -35,6 +36,9 @@ export async function updateBusinessAction(
   const result = await updateBusinessForCurrentUser(supabase, businessId, parsed.data);
   if (result.status === "unauthenticated") redirect("/login");
   if (result.status === "not-found") notFound();
+  if (result.status === "subdomain-taken") {
+    return { values, fieldErrors: { subdomain: SUBDOMAIN_TAKEN }, formError: "Please fix the highlighted fields and try again." };
+  }
   if (result.status === "error") {
     return { values, formError: "We could not save your changes. Please try again." };
   }
