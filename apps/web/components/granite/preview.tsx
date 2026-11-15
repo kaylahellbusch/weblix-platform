@@ -42,7 +42,7 @@ export function GranitePreview({ preview, publicSite = false }: { preview: Websi
       <div className={styles.heroOverlay} aria-hidden="true" />
       <div className={styles.container}><div className={styles.heroContent}>
         <h1 id="preview-headline">{headline}</h1>
-        <a className={styles.button} href="#contact">Get My Free Estimate</a>
+        <a className={styles.button} href="#contact">Contact us</a>
       </div></div>
     </section>
     <section className={styles.contactSection} id="contact" aria-labelledby="contact-title">
@@ -57,7 +57,7 @@ export function GranitePreview({ preview, publicSite = false }: { preview: Websi
             <label>Name<input placeholder="Your Name" /></label>
             <label>Phone Number<input type="tel" placeholder="(555) 123-4567" /></label>
             <label>Message<textarea placeholder="How can we help?" /></label>
-            <button type="button" disabled>Get My Free Estimate</button>
+            <button type="button" disabled>Contact us</button>
           </fieldset>
         </div>
       </div>
