@@ -161,6 +161,9 @@ body {
   font: inherit;
   max-width: 100%;
 }
+.login-screen .login-password-input {
+  padding-right: 52px;
+}
 .workspace :is(input, textarea)::placeholder {
   color: #566171;
   opacity: 1;
