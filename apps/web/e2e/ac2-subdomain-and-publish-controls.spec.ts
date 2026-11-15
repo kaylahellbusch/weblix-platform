@@ -10,6 +10,7 @@ for (const width of [375, 1280]) {
     await page.setViewportSize({ width, height: 1100 });
     const business = await createBusiness(page, 'Publishing Example Roofing');
     await page.goto(`${base()}${business}/edit`);
+    await expect(page.getByLabel("Business name", { exact: true })).toBeVisible();
     await expect(page.getByLabel("Business name", { exact: true })).toHaveValue("Publishing Example Roofing");
     await page.screenshot({ path: process.env.PLAYWRIGHT_SCREENSHOT_DIR
       ? path.join(process.env.PLAYWRIGHT_SCREENSHOT_DIR, `business-publishing-${width}.png`)
