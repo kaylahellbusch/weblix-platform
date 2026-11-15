@@ -12,5 +12,5 @@ test('AC5: saved markup stays literal and contact links use safe schemes', async
   const hrefs = await page.locator('.granite-preview a').evaluateAll(links => links.map(a => a.getAttribute('href')));
   expect(hrefs.length).toBeGreaterThan(0);
   for (const href of hrefs) expect(href).toMatch(/^(#contact|tel:|mailto:|https?:)/);
-  await expect(page.getByRole('button', { name: 'Get My Free Estimate' })).toBeDisabled();
+  await expect(page.getByRole('group', { name: 'Demo contact form' }).getByRole('button')).toBeDisabled();
 });
