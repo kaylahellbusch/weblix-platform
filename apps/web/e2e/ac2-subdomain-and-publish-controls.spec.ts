@@ -36,7 +36,7 @@ for (const width of [375, 1280]) {
       await page.getByLabel('Business name', { exact: true }).fill('Must not save');
       await page.getByRole('button', { name: 'Save changes', exact: true }).click();
       await expect(subdomain).toHaveAttribute('aria-invalid', 'true');
-      await expect(page.getByRole('alert')).toBeVisible();
+      await expect(page.locator('#business-form').getByRole('alert')).toBeVisible();
       await page.reload();
       await expect(subdomain).toHaveValue(slug);
       await expect(published).not.toBeChecked();
