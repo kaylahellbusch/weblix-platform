@@ -23,11 +23,11 @@ function Contact({ preview }: { preview: WebsitePreview }) {
 }
 
 /** Presentation only: all data and safe contact URIs come from the preview adapter. */
-export function GranitePreview({ preview }: { preview: WebsitePreview }) {
+export function GranitePreview({ preview, publicSite = false }: { preview: WebsitePreview; publicSite?: boolean }) {
   const { business, headline, introduction, services, serviceAreas, actions } = preview;
   const nav = <>{services && <a href="#services">Services</a>}{serviceAreas && <a href="#locations">Areas We Serve</a>}<a href="#contact">Contact</a></>;
-  return <article className={`granite-preview ${styles.preview} ${inter.className}`} aria-label="Website preview">
-    <div className={styles.notice}>Website preview · Read-only · Not published</div>
+  return <article className={`granite-preview ${styles.preview} ${inter.className}`} aria-label={publicSite ? "Business website" : "Website preview"}>
+    {!publicSite && <div className={styles.notice}>Website preview · Read-only · Not published</div>}
     <header className={styles.header}>
       {actions.phone && <div className={styles.mobilePhone}><Phone size={18} aria-hidden="true" /> Call Now: <a href={actions.phone}>{business.phone}</a></div>}
       <div className={styles.headerInner}>

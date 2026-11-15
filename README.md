@@ -27,7 +27,7 @@ Sign in at `/login`, add an example business from `/admin`, then open its **Cont
 
 For a concrete example, upload a file with one valid row, a copy of that row, and a row with an invalid email. Review shows **1 valid, 1 duplicate, and 1 invalid**. Cancel saves nothing; confirming saves one business. The [full walkthrough](docs/development.md#authenticated-business-workflow) includes the file and expected results.
 
-There isn't an account-free demo or signup flow yet. [Local setup](#local-development) creates test accounts; an existing installation requires an account in its Supabase project. The content editor saves copy; **Preview website** on business details renders it privately for the owner. Previews are not published.
+There isn't an account-free demo or signup flow yet. [Local setup](#local-development) creates test accounts; an existing installation requires an account in its Supabase project. The content editor saves copy; **Preview website** on business details renders it privately for the owner. Previews remain private. Owners can publish a business at its configured subdomain when public hosting is enabled.
 
 ## Architecture
 
@@ -129,3 +129,7 @@ See the [development guide](docs/development.md) for account details, environmen
 - [Vercel PR preview setup and use](docs/pr-previews.md) — previews require a ready-for-review PR targeting `main`.
 - [CSV format](docs/csv/business-format.md) and [confirmation/retry instructions](docs/csv/confirmation.md)
 - [Content model](apps/web/lib/website-content/README.md) and [editing/persistence behavior](docs/website-content/persistence.md)
+
+### Public business sites
+
+Set the server-only `ROOT_DOMAIN` to your root domain (for example, `useweblix.com`) and configure wildcard DNS in your hosting provider. With it unset, routing behaves as before. The apex, `www`, and `*.vercel.app` serve the normal app. Locally set `ROOT_DOMAIN=localhost` and visit `<subdomain>.localhost:3000`. Only published businesses appear, using the same Granite rendering as the owner preview without its preview bar. Public reads use a narrow anonymous database function; pages are rendered on each request so unpublishing takes effect on the next request. Apply the public website migration before enabling the domain.
