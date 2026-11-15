@@ -80,6 +80,10 @@ export interface Database {
     };
     Views: Record<string, never>;
     Functions: {
+      read_public_website: {
+        Args: { site_subdomain: string };
+        Returns: { name: string; industry: string; phone: string | null; email: string | null; website: string | null; city: string | null; state: string | null; content: Json }[];
+      };
       confirm_business_import: {
         Args: { request_key: string; file_digest: string; accepted_rows: Json; invalid_count: number; duplicate_count: number };
         Returns: number;
